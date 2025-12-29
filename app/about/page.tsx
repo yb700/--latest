@@ -10,7 +10,6 @@ export const metadata: Metadata = {
     title: 'About — ClearCut Law',
     description: 'Learn about Younas Ficel, the law graduate behind ClearCut Law, and discover why this site exists to make legal knowledge accessible to everyone.',
 }
-
 const specialties = [
     "Family Law & Domestic Relations",
     "Employment Rights & Workplace Issues",
