@@ -22,7 +22,7 @@ const areas = [
     },
     {
         title: "Road Traffic Law",
-        description: "Driving offences, speeding tickets, license points, and motoring prosecutions.",
+        description: "Driving offences and motoring prosecutions.",
         icon: Car,
         href: "/guidance?area=Road+Traffic",
         color: "text-green-600",
@@ -47,7 +47,7 @@ export function AreasOfInterest() {
                         Areas of Legal Expertise
                     </h2>
                     <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                        Get clear guidance and expert commentary across four key areas of UK law
+                        Get clear guidance and  commentary across four key areas of UK law
                     </p>
                 </div>
 

@@ -5,7 +5,7 @@ import { GuidanceList } from '@/components/guidance/guidance-list'
 import { EmptyState } from '@/components/empty-state'
 
 export const metadata: Metadata = {
-    title: 'Legal Guidance | ClearLegal',
+    title: 'Legal Guidance | ClearCut Law',
     description: 'Submit your legal questions and browse approved public guidance.',
 }
 

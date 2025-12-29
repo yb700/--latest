@@ -14,16 +14,16 @@ async function createTestPost() {
         console.log('Creating test post...')
 
         const testPost = {
-            title: 'Welcome to ClearLegal - Your First Blog Post',
-            slug: 'welcome-to-clearlegal',
-            excerpt: 'An introduction to ClearLegal and what we offer for legal guidance and commentary.',
-            content: `# Welcome to ClearLegal
+            title: 'Welcome to ClearCut Law - Your First Blog Post',
+            slug: 'welcome-to-ClearCut Law',
+            excerpt: 'An introduction to ClearCut Law and what we offer for legal guidance and commentary.',
+            content: `# Welcome to ClearCut Law
 
-This is your first blog post on ClearLegal. Here you can share legal insights, commentary, and guidance.
+This is your first blog post on ClearCut Law. Here you can share legal insights, commentary, and guidance.
 
-## What is ClearLegal?
+## What is ClearCut Law?
 
-ClearLegal is a platform dedicated to providing clear, accessible legal information and commentary for the UK legal community and the public.
+ClearCut Law is a platform dedicated to providing clear, accessible legal information and commentary for the UK legal community and the public.
 
 ## What You Can Expect
 
@@ -63,7 +63,7 @@ Stay tuned for more content coming soon!`,
         console.log('Post ID:', data.id)
         console.log('Slug:', data.slug)
         console.log('Title:', data.title)
-        console.log('\nYou can now visit: http://localhost:3001/blog/welcome-to-clearlegal')
+        console.log('\nYou can now visit: http://localhost:3001/blog/welcome-to-ClearCut Law')
 
     } catch (error) {
         console.error('Error:', error)

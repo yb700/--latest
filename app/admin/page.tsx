@@ -12,8 +12,8 @@ import {
 } from 'lucide-react'
 
 export const metadata: Metadata = {
-    title: 'Admin Dashboard | ClearLegal',
-    description: 'Admin dashboard for managing ClearLegal content.',
+    title: 'Admin Dashboard | ClearCut Law',
+    description: 'Admin dashboard for managing ClearCut Law content.',
 }
 
 export default async function AdminPage() {
@@ -52,7 +52,7 @@ export default async function AdminPage() {
         <div className="space-y-8">
             <div>
                 <h1 className="text-3xl font-bold text-brand">Dashboard</h1>
-                <p className="text-gray-600">Welcome to the ClearLegal admin dashboard.</p>
+                <p className="text-gray-600">Welcome to the ClearCut Law admin dashboard.</p>
             </div>
 
             {/* Quick Actions */}

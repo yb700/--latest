@@ -7,8 +7,8 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowRight, BookOpen, MessageCircle, Scale, GraduationCap } from "lucide-react"
 
 export const metadata: Metadata = {
-    title: 'About — ClearLegal',
-    description: 'Learn about Younas Ficle, the law graduate behind ClearLegal, and discover why this site exists to make legal knowledge accessible to everyone.',
+    title: 'About — ClearCut Law',
+    description: 'Learn about Younas Ficel, the law graduate behind ClearCut Law, and discover why this site exists to make legal knowledge accessible to everyone.',
 }
 
 const specialties = [
@@ -35,7 +35,7 @@ export default function AboutPage() {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div>
                                 <h1 className="text-4xl sm:text-5xl font-bold text-brand mb-6">
-                                    About ClearLegal
+                                    About ClearCut Law
                                 </h1>
                                 <p className="text-xl text-slate-600 mb-6 leading-relaxed">
                                     Making UK legal knowledge accessible, understandable, and actionable for everyone.
@@ -45,10 +45,6 @@ export default function AboutPage() {
                                     <Badge variant="secondary" className="px-3 py-1">
                                         <Scale className="h-4 w-4 mr-1" />
                                         UK Law Graduate
-                                    </Badge>
-                                    <Badge variant="secondary" className="px-3 py-1">
-                                        <GraduationCap className="h-4 w-4 mr-1" />
-                                        Legal Expert
                                     </Badge>
                                     <Badge variant="secondary" className="px-3 py-1">
                                         <BookOpen className="h-4 w-4 mr-1" />
@@ -62,7 +58,7 @@ export default function AboutPage() {
                                     <div className="w-32 h-32 bg-brand rounded-full flex items-center justify-center mx-auto mb-6">
                                         <span className="text-white font-bold text-4xl">YF</span>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-brand mb-2">Younas Ficle</h3>
+                                    <h3 className="text-2xl font-bold text-brand mb-2">Younas Ficel</h3>
                                     <p className="text-brand-600 font-medium">Law Graduate & Founder</p>
                                 </div>
                             </div>
@@ -80,7 +76,7 @@ export default function AboutPage() {
                                 <h2 className="text-3xl font-bold text-brand mb-6">Who I Am</h2>
                                 <div className="space-y-4 text-slate-700 leading-relaxed">
                                     <p>
-                                        Hi, I'm Younas Ficle, a passionate UK law graduate with a mission to demystify
+                                        Hi, I'm Younas Ficel, a passionate UK law graduate with a mission to demystify
                                         the legal system for everyday people. After completing my law degree, I realized
                                         that legal knowledge shouldn't be locked away in dusty textbooks or behind
                                         expensive consultation fees.
@@ -91,7 +87,7 @@ export default function AboutPage() {
                                         by the complexity of the law and unsure where to turn for reliable information.
                                     </p>
                                     <p>
-                                        That's why I created ClearLegal: to bridge the gap between complex legal
+                                        That's why I created ClearCut Law: to bridge the gap between complex legal
                                         concepts and practical understanding, making the law accessible to everyone
                                         who needs it.
                                     </p>

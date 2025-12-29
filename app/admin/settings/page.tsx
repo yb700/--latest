@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { ArrowLeft, Settings, Save } from 'lucide-react'
 
 export const metadata: Metadata = {
-    title: 'Site Settings | Admin | ClearLegal',
+    title: 'Site Settings | Admin | ClearCut Law',
     description: 'Manage site configuration and settings.',
 }
 
@@ -41,7 +41,7 @@ export default function SiteSettingsPage() {
                             <Label htmlFor="site-name">Site Name</Label>
                             <Input
                                 id="site-name"
-                                defaultValue="ClearLegal"
+                                defaultValue="ClearCut Law"
                                 className="w-full"
                             />
                         </div>
@@ -61,7 +61,7 @@ export default function SiteSettingsPage() {
                             <Input
                                 id="contact-email"
                                 type="email"
-                                defaultValue="contact@clearlegal.com"
+                                defaultValue="contact@ClearCut Law.com"
                                 className="w-full"
                             />
                         </div>

@@ -1,5 +1,5 @@
 export type Database = {
-    clearlegal: {
+    ClearCut Law: {
         Tables: {
             profiles: {
                 Row: {
@@ -358,9 +358,9 @@ export type Database = {
 }
 
 // Utility types
-export type Tables<T extends keyof Database['clearlegal']['Tables']> = Database['clearlegal']['Tables'][T]['Row']
-export type TablesInsert<T extends keyof Database['clearlegal']['Tables']> = Database['clearlegal']['Tables'][T]['Insert']
-export type TablesUpdate<T extends keyof Database['clearlegal']['Tables']> = Database['clearlegal']['Tables'][T]['Update']
+export type Tables<T extends keyof Database['ClearCut Law']['Tables']> = Database['ClearCut Law']['Tables'][T]['Row']
+export type TablesInsert<T extends keyof Database['ClearCut Law']['Tables']> = Database['ClearCut Law']['Tables'][T]['Insert']
+export type TablesUpdate<T extends keyof Database['ClearCut Law']['Tables']> = Database['ClearCut Law']['Tables'][T]['Update']
 
 // Common types
 export type Profile = Tables<'profiles'>
@@ -374,7 +374,7 @@ export type NewsletterSubscriber = Tables<'newsletter_subscribers'>
 export type Page = Tables<'pages'>
 export type SiteSetting = Tables<'site_settings'>
 export type NavLink = Tables<'nav_links'>
-export type PublicGuidance = Database['clearlegal']['Views']['public_guidance']['Row']
+export type PublicGuidance = Database['ClearCut Law']['Views']['public_guidance']['Row']
 
 // Extended types for UI
 export type PostWithRelations = Post & {

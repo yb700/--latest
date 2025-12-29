@@ -68,9 +68,6 @@ export function PostCard({ post }: PostCardProps) {
                     <time dateTime={post.created_at}>
                         {formatDate(post.created_at)}
                     </time>
-                    {post.read_time && (
-                        <span>{post.read_time} min read</span>
-                    )}
                 </div>
             </CardContent>
         </Card>

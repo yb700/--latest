@@ -86,7 +86,7 @@ export default function LoginPage() {
                         <div className="h-8 w-8 rounded-lg bg-brand flex items-center justify-center">
                             <span className="text-white font-bold text-sm">CL</span>
                         </div>
-                        <span className="font-bold text-xl text-brand">ClearLegal</span>
+                        <span className="font-bold text-xl text-brand">ClearCut Law</span>
                     </Link>
                     <CardTitle>Sign in to your account</CardTitle>
                     <CardDescription>

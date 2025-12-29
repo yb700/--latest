@@ -7,7 +7,7 @@ import { CategoryFilter } from '@/components/blog/category-filter'
 import { EmptyState } from '@/components/empty-state'
 
 export const metadata: Metadata = {
-    title: 'Blog | ClearLegal',
+    title: 'Blog | ClearCut Law',
     description: 'Legal insights, analysis, and commentary on current legal issues.',
 }
 

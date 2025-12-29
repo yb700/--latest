@@ -33,7 +33,7 @@ export function QuickLinks() {
                                 <li>• Latest legal developments and changes</li>
                                 <li>• Case law analysis and commentary</li>
                                 <li>• Practical guides and how-to articles</li>
-                                <li>• Professional insights and opinions</li>
+                                <li>• Insights and opinions</li>
                             </ul>
                             <Link href="/blog">
                                 <Button className="w-full group/button">

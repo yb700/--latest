@@ -38,7 +38,7 @@ export function AdminShell({ children }: AdminShellProps) {
                                 <div className="w-8 h-8 bg-brand rounded-lg flex items-center justify-center">
                                     <span className="text-white font-bold text-sm">CL</span>
                                 </div>
-                                <span className="text-xl font-bold text-brand">ClearLegal Admin</span>
+                                <span className="text-xl font-bold text-brand">ClearCut Law Admin</span>
                             </Link>
                         </div>
                         <div className="flex items-center space-x-4">

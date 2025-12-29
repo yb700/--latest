@@ -2,8 +2,8 @@ import { Metadata } from 'next'
 import { ContactForm } from '@/components/contact-form'
 
 export const metadata: Metadata = {
-    title: 'Contact | ClearLegal',
-    description: 'Get in touch with ClearLegal for legal guidance and support.',
+    title: 'Contact | ClearCut Law',
+    description: 'Get in touch with ClearCut Law for legal guidance and support.',
 }
 
 export default function ContactPage() {
@@ -40,7 +40,7 @@ export default function ContactPage() {
                             <div className="space-y-3">
                                 <div>
                                     <h4 className="font-medium text-gray-900">Email</h4>
-                                    <p className="text-sm text-gray-600">contact@clearlegal.com</p>
+                                    <p className="text-sm text-gray-600">contact@ClearCut Law.com</p>
                                 </div>
                                 <div>
                                     <h4 className="font-medium text-gray-900">Response Time</h4>

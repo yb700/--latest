@@ -9,22 +9,22 @@ import { getProfile } from '@/lib/auth-server'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ClearLegal — Legal commentary & guidance',
-  description: 'Clear, accessible legal commentary and guidance for the UK legal system. Expert insights on Family, Employment, Road Traffic, and Commercial law.',
+  title: 'ClearCut Law — Legal commentary & guidance',
+  description: 'Clear, accessible legal commentary and guidance for the UK legal system.  insights on Family, Employment, Road Traffic, and Commercial law.',
   keywords: ['UK law', 'legal advice', 'family law', 'employment law', 'road traffic law', 'commercial law'],
-  authors: [{ name: 'Younas Ficle' }],
-  creator: 'Younas Ficle',
+  authors: [{ name: 'Younas Ficel' }],
+  creator: 'Younas Ficel',
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: 'https://clearlegal.co.uk',
-    title: 'ClearLegal — Legal commentary & guidance',
+    url: 'https://ClearCut Law.co.uk',
+    title: 'ClearCut Law — Legal commentary & guidance',
     description: 'Clear, accessible legal commentary and guidance for the UK legal system.',
-    siteName: 'ClearLegal',
+    siteName: 'ClearCut Law',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ClearLegal — Legal commentary & guidance',
+    title: 'ClearCut Law — Legal commentary & guidance',
     description: 'Clear, accessible legal commentary and guidance for the UK legal system.',
   },
   robots: {

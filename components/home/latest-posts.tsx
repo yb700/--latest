@@ -108,7 +108,7 @@ export async function LatestPosts() {
                                 <div className="flex items-center justify-between">
                                     <div className="flex items-center text-sm text-slate-500">
                                         <User className="h-4 w-4 mr-1" />
-                                        {post.author?.full_name || 'Younas Ficle'}
+                                        {post.author?.full_name || 'Younas Ficel'}
                                     </div>
                                     <time className="text-sm text-slate-500">
                                         {formatDate(post.published_at || post.created_at)}

@@ -15,7 +15,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .from('public_guidance')
         .select('slug, updated_at')
 
-    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://clearlegal.com'
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ClearCut Law.com'
 
     const staticPages = [
         {

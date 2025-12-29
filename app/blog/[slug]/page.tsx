@@ -40,12 +40,12 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
     if (!post) {
         return {
-            title: 'Post Not Found | ClearLegal',
+            title: 'Post Not Found | ClearCut Law',
         }
     }
 
     return {
-        title: `${post.title} | ClearLegal`,
+        title: `${post.title} | ClearCut Law`,
         description: post.excerpt || post.content.substring(0, 160),
         openGraph: {
             title: post.title,
@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
             type: 'article',
             publishedTime: post.created_at,
             modifiedTime: post.updated_at,
-            authors: ['ClearLegal'],
+            authors: ['ClearCut Law'],
         },
     }
 }

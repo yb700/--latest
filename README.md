@@ -1,4 +1,4 @@
-# ClearLegal - UK Legal Commentary & Guidance Platform
+# ClearCut Law - UK Legal Commentary & Guidance Platform
 
 A production-ready Next.js 14 application for a UK law graduate's portfolio and public education site, built with modern web technologies and best practices.
 
@@ -41,7 +41,7 @@ A production-ready Next.js 14 application for a UK law graduate's portfolio and 
 
 ```bash
 git clone <repository-url>
-cd clearlegal
+cd ClearCut Law
 ```
 
 ### 2. Install Dependencies
@@ -62,7 +62,7 @@ SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
 # Site Configuration
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
-NEXT_PUBLIC_SITE_NAME=ClearLegal
+NEXT_PUBLIC_SITE_NAME=ClearCut Law
 
 # Optional: Rate Limiting (Upstash Redis)
 UPSTASH_REDIS_REST_URL=your_redis_url
@@ -99,7 +99,7 @@ Visit [http://localhost:3000](http://localhost:3000) to see your application.
 ## 📁 Project Structure
 
 ```
-clearlegal/
+ClearCut Law/
 ├── app/                          # Next.js App Router pages
 │   ├── (auth)/                   # Authentication routes
 │   ├── admin/                    # Admin dashboard (protected)
@@ -310,7 +310,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For support and questions:
 
-- **Email**: contact@clearlegal.com
+- **Email**: contact@ClearCut Law.com
 - **Documentation**: Check the inline code comments
 - **Issues**: Create an issue in the repository
 

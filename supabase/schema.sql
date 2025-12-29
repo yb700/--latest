@@ -1,4 +1,4 @@
--- ClearLegal Database Schema
+-- ClearCut Law Database Schema
 -- Run this in your Supabase SQL editor
 
 -- Enable necessary extensions
@@ -415,10 +415,10 @@ CREATE TRIGGER on_auth_user_created
 
 -- Insert initial site settings
 INSERT INTO site_settings (key, value, description) VALUES
-('site_name', 'ClearLegal', 'The name of the website'),
+('site_name', 'ClearCut Law', 'The name of the website'),
 ('site_description', 'UK Legal Commentary & Guidance Platform', 'Site description for SEO'),
 ('disclaimer', 'This website provides general legal information only and does not constitute legal advice. For specific legal guidance, please consult with a qualified legal professional.', 'Legal disclaimer text'),
-('contact_email', 'contact@clearlegal.com', 'Primary contact email address');
+('contact_email', 'contact@ClearCut Law.com', 'Primary contact email address');
 
 -- Insert default navigation links
 INSERT INTO nav_links (title, url, order_index) VALUES

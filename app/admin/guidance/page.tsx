@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { ArrowLeft, MessageSquare, Clock, CheckCircle, XCircle } from 'lucide-react'
 
 export const metadata: Metadata = {
-    title: 'Guidance Management | Admin | ClearLegal',
+    title: 'Guidance Management | Admin | ClearCut Law',
     description: 'Manage legal guidance questions and answers.',
 }
 

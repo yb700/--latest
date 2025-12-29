@@ -10,12 +10,12 @@ export async function GET() {
     .order('created_at', { ascending: false })
     .limit(20)
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://clearlegal.com'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ClearCut Law.com'
 
   const rss = `<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>ClearLegal Blog</title>
+    <title>ClearCut Law Blog</title>
     <description>Legal insights, analysis, and commentary on current legal issues.</description>
     <link>${baseUrl}</link>
     <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml" />

@@ -26,11 +26,11 @@ export async function SiteFooter() {
                             <div className="h-8 w-8 rounded-lg bg-brand flex items-center justify-center">
                                 <span className="text-white font-bold text-sm">CL</span>
                             </div>
-                            <span className="font-bold text-xl text-brand">ClearLegal</span>
+                            <span className="font-bold text-xl text-brand">ClearCut Law</span>
                         </Link>
                         <p className="text-slate-600 mb-4 max-w-md">
                             Clear, accessible legal commentary and guidance for the UK legal system.
-                            Created by Younas Ficle, a passionate law graduate.
+                            Created by Younas Ficel, a passionate law graduate.
                         </p>
                         <p className="text-xs text-slate-500 leading-relaxed">
                             {disclaimer}
@@ -95,7 +95,7 @@ export async function SiteFooter() {
                 {/* Bottom Bar */}
                 <div className="border-t border-slate-200 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
                     <div className="text-sm text-slate-600">
-                        © {currentYear} ClearLegal. All rights reserved.
+                        © {currentYear} ClearCut Law. All rights reserved.
                     </div>
                     <div className="flex space-x-6 mt-4 sm:mt-0">
                         <Link href="/privacy" className="text-sm text-slate-600 hover:text-brand transition-colors">

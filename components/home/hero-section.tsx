@@ -15,7 +15,7 @@ export function HeroSection() {
 
                     {/* Subheading */}
                     <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-                        Navigate the UK legal system with confidence. Get expert commentary,
+                        Navigate the UK legal system with confidence. Get  commentary,
                         practical guidance, and clear explanations on Family, Employment,
                         Road Traffic, and Commercial law.
                     </p>
@@ -23,7 +23,7 @@ export function HeroSection() {
                     {/* Author Introduction */}
                     <div className="bg-white rounded-2xl p-6 shadow-sm border mb-8 max-w-2xl mx-auto">
                         <p className="text-slate-700 mb-2">
-                            <strong className="text-brand">Welcome!</strong> I'm Younas Ficle,
+                            <strong className="text-brand">Welcome!</strong> I'm Younas Ficel,
                             a passionate UK law graduate dedicated to making legal knowledge accessible to everyone.
                         </p>
                         <p className="text-sm text-slate-600">
@@ -56,7 +56,7 @@ export function HeroSection() {
                             <div className="text-sm text-slate-600">Questions Answered</div>
                         </div>
                         <div className="text-center">
-                            <div className="text-2xl font-bold text-brand">50+</div>
+                            <div className="text-2xl font-bold text-brand">20+</div>
                             <div className="text-sm text-slate-600">Blog Articles</div>
                         </div>
                         <div className="text-center">

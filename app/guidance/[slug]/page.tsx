@@ -29,12 +29,12 @@ export async function generateMetadata({ params }: GuidancePageProps): Promise<M
 
     if (!guidance) {
         return {
-            title: 'Guidance Not Found | ClearLegal',
+            title: 'Guidance Not Found | ClearCut Law',
         }
     }
 
     return {
-        title: `${guidance.question} | ClearLegal`,
+        title: `${guidance.question} | ClearCut Law`,
         description: guidance.answer.substring(0, 160),
     }
 }

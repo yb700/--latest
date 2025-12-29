@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { ArrowLeft, Mail, User, Calendar } from 'lucide-react'
 
 export const metadata: Metadata = {
-    title: 'Contact Messages | Admin | ClearLegal',
+    title: 'Contact Messages | Admin | ClearCut Law',
     description: 'View and manage contact form submissions.',
 }
 
