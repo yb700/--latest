@@ -4,7 +4,7 @@ import { requireStaff } from '@/lib/auth-server'
 
 // GET a single post by ID
 export async function GET(
-    request: NextRequest,
+    _request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {
@@ -56,25 +56,22 @@ export async function PUT(
             .replace(/\s+/g, '-')
             .trim()
 
-        const updateData: Record<string, unknown> = {
-            title,
-            slug,
-            excerpt,
-            content,
-            status,
-            read_time: Math.ceil(content.split(' ').length / 200),
-        }
-
-        // Handle published_at based on status
-        if (status === 'published') {
-            updateData.published_at = published_at || new Date().toISOString()
-        } else {
-            updateData.published_at = null
-        }
+        // Determine published_at based on status
+        const finalPublishedAt = status === 'published' 
+            ? (published_at || new Date().toISOString()) 
+            : null
 
         const { data: post, error } = await supabase
             .from('posts')
-            .update(updateData)
+            .update({
+                title,
+                slug,
+                excerpt,
+                content_md: content,
+                status,
+                reading_time: Math.ceil(content.split(' ').length / 200),
+                published_at: finalPublishedAt
+            })
             .eq('id', id)
             .select()
             .single()
@@ -103,7 +100,7 @@ export async function PUT(
 
 // DELETE a post
 export async function DELETE(
-    request: NextRequest,
+    _request: NextRequest,
     { params }: { params: Promise<{ id: string }> }
 ) {
     try {

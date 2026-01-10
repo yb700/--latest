@@ -13,7 +13,7 @@ interface Post {
     title: string
     slug: string
     excerpt: string | null
-    status: 'draft' | 'published' | 'archived'
+    status: 'draft' | 'published' | 'review'
     published_at: string | null
     created_at: string
     author: { full_name: string | null } | null
@@ -97,8 +97,8 @@ export default function PostsManagementPage() {
                 return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Published</Badge>
             case 'draft':
                 return <Badge variant="secondary">Draft</Badge>
-            case 'archived':
-                return <Badge variant="outline">Archived</Badge>
+            case 'review':
+                return <Badge variant="outline">Review</Badge>
             default:
                 return <Badge variant="secondary">{status}</Badge>
         }

@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         const supabase = createClient()
         const body = await request.json()
 
-        const { title, excerpt, content, status = 'draft', category, published_at } = body
+        const { title, excerpt, content, status = 'draft', published_at } = body
 
         // Generate slug from title
         const slug = title
@@ -56,10 +56,10 @@ export async function POST(request: NextRequest) {
                 title,
                 slug,
                 excerpt,
-                content,
+                content_md: content,
                 status,
                 author_id: profile.id,
-                read_time: Math.ceil(content.split(' ').length / 200), // Rough estimate
+                reading_time: Math.ceil(content.split(' ').length / 200), // Rough estimate
                 published_at: status === 'published' 
                     ? (published_at || new Date().toISOString()) 
                     : null

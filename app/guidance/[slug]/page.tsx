@@ -5,7 +5,7 @@ import { MarkdownRenderer } from '@/components/markdown-renderer'
 import { formatDate } from '@/lib/utils'
 
 interface GuidancePageProps {
-    params: { slug: string }
+    params: Promise<{ slug: string }>
 }
 
 async function getGuidance(slug: string) {
@@ -14,7 +14,7 @@ async function getGuidance(slug: string) {
     const { data: guidance, error } = await supabase
         .from('public_guidance')
         .select('*')
-        .eq('slug', slug)
+        .eq('answer_slug', slug)
         .single()
 
     if (error || !guidance) {
@@ -25,7 +25,8 @@ async function getGuidance(slug: string) {
 }
 
 export async function generateMetadata({ params }: GuidancePageProps): Promise<Metadata> {
-    const guidance = await getGuidance(params.slug)
+    const { slug } = await params
+    const guidance = await getGuidance(slug)
 
     if (!guidance) {
         return {
@@ -34,13 +35,14 @@ export async function generateMetadata({ params }: GuidancePageProps): Promise<M
     }
 
     return {
-        title: `${guidance.question} | ClearCut Law`,
-        description: guidance.answer.substring(0, 160),
+        title: `${guidance.question_title} | ClearCut Law`,
+        description: guidance.answer_md.substring(0, 160),
     }
 }
 
 export default async function GuidancePage({ params }: GuidancePageProps) {
-    const guidance = await getGuidance(params.slug)
+    const { slug } = await params
+    const guidance = await getGuidance(slug)
 
     if (!guidance) {
         notFound()
@@ -50,17 +52,17 @@ export default async function GuidancePage({ params }: GuidancePageProps) {
         <article className="container mx-auto px-4 py-8 max-w-4xl">
             <header className="mb-8">
                 <h1 className="text-3xl font-bold text-brand mb-4">
-                    {guidance.question}
+                    {guidance.question_title}
                 </h1>
                 <div className="text-sm text-gray-500">
-                    <time dateTime={guidance.created_at}>
-                        {formatDate(guidance.created_at)}
+                    <time dateTime={guidance.published_at || ''}>
+                        {guidance.published_at ? formatDate(guidance.published_at) : ''}
                     </time>
                 </div>
             </header>
 
             <div className="prose prose-lg max-w-none">
-                <MarkdownRenderer content={guidance.answer} />
+                <MarkdownRenderer content={guidance.answer_md} />
             </div>
 
             <footer className="mt-12 pt-8 border-t border-gray-200">

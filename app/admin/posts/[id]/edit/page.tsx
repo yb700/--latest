@@ -19,7 +19,7 @@ const postSchema = z.object({
     title: z.string().min(1, 'Title is required').max(200, 'Title too long'),
     excerpt: z.string().min(1, 'Excerpt is required').max(500, 'Excerpt too long'),
     content: z.string().min(1, 'Content is required'),
-    status: z.enum(['draft', 'published', 'archived']),
+    status: z.enum(['draft', 'published', 'review']),
     published_at: z.string().optional()
 })
 
@@ -66,7 +66,7 @@ export default function EditPostPage() {
                 form.reset({
                     title: post.title || '',
                     excerpt: post.excerpt || '',
-                    content: post.content || '',
+                    content: post.content_md || '',
                     status: post.status || 'draft',
                     published_at: formattedDate
                 })
@@ -83,8 +83,11 @@ export default function EditPostPage() {
             }
         }
 
-        fetchPost()
-    }, [postId, form, router, toast])
+        if (postId) {
+            fetchPost()
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [postId])
 
     const onSubmit = async (data: PostFormData) => {
         setIsSubmitting(true)
@@ -250,7 +253,7 @@ export default function EditPostPage() {
                                 <Label htmlFor="status">Status</Label>
                                 <Select
                                     value={form.watch('status')}
-                                    onValueChange={(value) => form.setValue('status', value as 'draft' | 'published' | 'archived')}
+                                    onValueChange={(value) => form.setValue('status', value as 'draft' | 'published' | 'review')}
                                 >
                                     <SelectTrigger>
                                         <SelectValue placeholder="Select status" />
@@ -258,7 +261,7 @@ export default function EditPostPage() {
                                     <SelectContent>
                                         <SelectItem value="draft">Draft</SelectItem>
                                         <SelectItem value="published">Published</SelectItem>
-                                        <SelectItem value="archived">Archived</SelectItem>
+                                        <SelectItem value="review">Review</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>

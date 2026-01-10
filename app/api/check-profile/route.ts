@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextResponse } from 'next/server'
+import type { Profile } from '@/lib/supabase/types'
 
 export async function GET() {
     try {
@@ -22,6 +23,8 @@ export async function GET() {
             .select('*')
             .eq('id', user.id)
             .single()
+        
+        const typedProfile = profile as Profile | null
 
         return NextResponse.json({
             success: true,
@@ -29,10 +32,10 @@ export async function GET() {
                 id: user.id,
                 email: user.email
             },
-            profile,
+            profile: typedProfile,
             profileError,
-            isAdmin: profile?.role === 'admin',
-            isEditor: profile?.role === 'editor'
+            isAdmin: typedProfile?.role === 'admin',
+            isEditor: typedProfile?.role === 'editor'
         })
 
     } catch (error) {
