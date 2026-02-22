@@ -47,10 +47,10 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
     return {
         title: `${post.title} | ClearCut Law`,
-        description: post.excerpt || post.content_md.substring(0, 160),
+        description: post.excerpt || (post.content_md ?? post.content ?? '').substring(0, 160),
         openGraph: {
             title: post.title,
-            description: post.excerpt || post.content_md.substring(0, 160),
+            description: post.excerpt || (post.content_md ?? post.content ?? '').substring(0, 160),
             type: 'article',
             publishedTime: post.created_at,
             modifiedTime: post.updated_at,
@@ -101,8 +101,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     <time dateTime={post.created_at}>
                         {formatDate(post.created_at)}
                     </time>
-                    {post.reading_time && (
-                        <span>{post.reading_time} min read</span>
+                    {(post.reading_time ?? post.read_time) && (
+                        <span>{post.reading_time ?? post.read_time} min read</span>
                     )}
                 </div>
 
@@ -112,7 +112,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </header>
 
             <div className="prose prose-lg max-w-none">
-                <MarkdownRenderer content={post.content_md} />
+                <MarkdownRenderer content={post.content_md ?? post.content ?? ''} />
             </div>
 
             <footer className="mt-12 pt-8 border-t border-gray-200">

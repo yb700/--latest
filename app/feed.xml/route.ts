@@ -24,7 +24,7 @@ export async function GET() {
     ${(posts || []).map((post) => `
     <item>
       <title><![CDATA[${post.title}]]></title>
-      <description><![CDATA[${post.excerpt || post.content_md.substring(0, 200)}...]]></description>
+      <description><![CDATA[${post.excerpt || (post.content_md ?? post.content ?? '').substring(0, 200)}...]]></description>
       <link>${baseUrl}/blog/${post.slug}</link>
       <guid>${baseUrl}/blog/${post.slug}</guid>
       <pubDate>${new Date(post.created_at).toUTCString()}</pubDate>

@@ -46,11 +46,11 @@ CREATE TABLE posts (
     title TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
     excerpt TEXT,
-    content TEXT NOT NULL,
+    content_md TEXT NOT NULL,
     status post_status DEFAULT 'draft',
     author_id UUID REFERENCES profiles(id) ON DELETE SET NULL,
     hero_image_url TEXT,
-    read_time INTEGER,
+    reading_time INTEGER,
     published_at TIMESTAMP WITH TIME ZONE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()

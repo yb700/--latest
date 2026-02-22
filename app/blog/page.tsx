@@ -16,14 +16,14 @@ async function getPosts(searchParams: { [key: string]: string | string[] | undef
 
     let query = supabase
         .from('posts')
-        .select('*')
+        .select('*', { count: 'exact' })
         .eq('status', 'published')
         .order('created_at', { ascending: false })
 
-    // Search
+    // Search (content_md after migration; content for backwards compatibility)
     const search = searchParams.search
     if (search && typeof search === 'string') {
-        query = query.or(`title.ilike.%${search}%,content.ilike.%${search}%`)
+        query = query.or(`title.ilike.%${search}%,content_md.ilike.%${search}%`)
     }
 
     // Pagination
@@ -34,7 +34,20 @@ async function getPosts(searchParams: { [key: string]: string | string[] | undef
 
     query = query.range(from, to)
 
-    const { data: posts, error, count } = await query
+    let result = await query
+
+    // Fallback: if content_md column doesn't exist (pre-migration), retry with content
+    if (result.error && search && typeof search === 'string' && result.error.message?.includes('content_md')) {
+        result = await supabase
+            .from('posts')
+            .select('*', { count: 'exact' })
+            .eq('status', 'published')
+            .order('created_at', { ascending: false })
+            .or(`title.ilike.%${search}%,content.ilike.%${search}%`)
+            .range(from, to)
+    }
+
+    const { data: posts, error, count } = result
 
     if (error) {
         console.error('Error fetching posts:', error)
@@ -71,7 +84,7 @@ export default async function BlogPage({
     ])
 
     const currentPage = searchParams.page ? parseInt(searchParams.page as string) : 1
-    const totalPages = Math.ceil(count / 12)
+    const totalPages = Math.max(1, Math.ceil((count || 0) / 12))
     const search = searchParams.search as string || ''
     const category = searchParams.category as string || ''
 

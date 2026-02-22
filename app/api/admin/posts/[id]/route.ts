@@ -57,9 +57,11 @@ export async function PUT(
             .trim()
 
         // Determine published_at based on status
-        const finalPublishedAt = status === 'published' 
-            ? (published_at || new Date().toISOString()) 
-            : null
+        // For published: use provided date or current time
+        // For draft/review: preserve provided date for future scheduling
+        const finalPublishedAt = status === 'published'
+            ? (published_at || new Date().toISOString())
+            : (published_at || null)
 
         const { data: post, error } = await supabase
             .from('posts')

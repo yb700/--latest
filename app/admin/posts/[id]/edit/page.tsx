@@ -56,17 +56,18 @@ export default function EditPostPage() {
                 const data = await response.json()
                 const post = data.post
 
-                // Format the date for the datetime-local input
+                // Format the date for the datetime-local input (use local time, not UTC)
                 let formattedDate = ''
                 if (post.published_at) {
                     const date = new Date(post.published_at)
-                    formattedDate = date.toISOString().slice(0, 16)
+                    const pad = (n: number) => String(n).padStart(2, '0')
+                    formattedDate = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`
                 }
 
                 form.reset({
                     title: post.title || '',
                     excerpt: post.excerpt || '',
-                    content: post.content_md || '',
+                    content: post.content_md ?? post.content ?? '',
                     status: post.status || 'draft',
                     published_at: formattedDate
                 })

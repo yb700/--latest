@@ -51,7 +51,7 @@ async function seed() {
                     title: 'Understanding Contract Formation in UK Law',
                     slug: 'understanding-contract-formation-uk-law',
                     excerpt: 'A comprehensive guide to how contracts are formed under English law, including offer, acceptance, and consideration.',
-                    content: `# Understanding Contract Formation in UK Law
+                    content_md: `# Understanding Contract Formation in UK Law
 
 Contract formation is a fundamental concept in English law. For a contract to be legally binding, three essential elements must be present:
 
@@ -91,13 +91,13 @@ Understanding these elements is crucial for:
 
 *This article is for informational purposes only and does not constitute legal advice.*`,
                     status: 'published',
-                    read_time: 5,
+                    reading_time: 5,
                 },
                 {
                     title: 'Employee Rights: Working Time Regulations',
                     slug: 'employee-rights-working-time-regulations',
                     excerpt: 'An overview of the Working Time Regulations 1998 and how they protect employee rights in the UK.',
-                    content: `# Employee Rights: Working Time Regulations
+                    content_md: `# Employee Rights: Working Time Regulations
 
 The Working Time Regulations 1998 implement the European Working Time Directive in the UK, providing important protections for workers.
 
@@ -134,7 +134,7 @@ The regulations have been updated to reflect:
 
 *This guidance is for informational purposes only.*`,
                     status: 'published',
-                    read_time: 4,
+                    reading_time: 4,
                 },
             ])
             .select()

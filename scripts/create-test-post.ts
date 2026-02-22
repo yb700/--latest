@@ -17,7 +17,7 @@ async function createTestPost() {
             title: 'Welcome to ClearCut Law - Your First Blog Post',
             slug: 'welcome-to-ClearCut Law',
             excerpt: 'An introduction to ClearCut Law and what we offer for legal guidance and commentary.',
-            content: `# Welcome to ClearCut Law
+            content_md: `# Welcome to ClearCut Law
 
 This is your first blog post on ClearCut Law. Here you can share legal insights, commentary, and guidance.
 
@@ -44,7 +44,7 @@ This post demonstrates the markdown rendering capabilities of the platform. You 
 Stay tuned for more content coming soon!`,
             status: 'published',
             author_id: '5cc6758f-11b7-4001-817f-49ead6838760', // Your user ID
-            read_time: 3,
+            reading_time: 3,
             published_at: new Date().toISOString()
         }
 
