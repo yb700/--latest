@@ -50,11 +50,7 @@ export function HeroSection() {
                     </div>
 
                     {/* Trust Indicators */}
-                    <div className="mt-12 grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl mx-auto">
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-brand">500+</div>
-                            <div className="text-sm text-slate-600">Questions Answered</div>
-                        </div>
+                    <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
                         <div className="text-center">
                             <div className="text-2xl font-bold text-brand">20+</div>
                             <div className="text-sm text-slate-600">Blog Articles</div>
@@ -76,4 +72,3 @@ export function HeroSection() {
         </section>
     )
 }
-

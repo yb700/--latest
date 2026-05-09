@@ -3,7 +3,6 @@ import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
 import { TagPills } from '@/components/blog/tag-pills'
-import { formatDate } from '@/lib/utils'
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>
@@ -97,14 +96,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     </p>
                 )}
 
-                <div className="flex items-center justify-between text-sm text-gray-500 mb-6">
-                    <time dateTime={post.created_at}>
-                        {formatDate(post.created_at)}
-                    </time>
-                    {(post.reading_time ?? post.read_time) && (
+                {(post.reading_time ?? post.read_time) && (
+                    <div className="text-sm text-gray-500 mb-6">
                         <span>{post.reading_time ?? post.read_time} min read</span>
-                    )}
-                </div>
+                    </div>
+                )}
 
                 {tags.length > 0 && (
                     <TagPills tags={tags} />
@@ -126,4 +122,3 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </article>
     )
 }
-

@@ -14,8 +14,6 @@ interface Post {
     slug: string
     excerpt: string | null
     status: 'draft' | 'published' | 'review'
-    published_at: string | null
-    created_at: string
     author: { full_name: string | null } | null
 }
 
@@ -80,15 +78,6 @@ export default function PostsManagementPage() {
         } finally {
             setDeletingId(null)
         }
-    }
-
-    const formatDate = (dateString: string | null) => {
-        if (!dateString) return 'Not published'
-        return new Date(dateString).toLocaleDateString('en-GB', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-        })
     }
 
     const getStatusBadge = (status: string) => {
@@ -171,12 +160,6 @@ export default function PostsManagementPage() {
                                         <div className="flex items-center gap-4 text-xs text-gray-400">
                                             <span>
                                                 By {post.author?.full_name || 'Unknown'}
-                                            </span>
-                                            <span>•</span>
-                                            <span>
-                                                {post.status === 'published'
-                                                    ? `Published ${formatDate(post.published_at)}`
-                                                    : `Created ${formatDate(post.created_at)}`}
                                             </span>
                                         </div>
                                     </div>

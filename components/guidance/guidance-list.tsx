@@ -1,13 +1,11 @@
 import Link from 'next/link'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { formatDate } from '@/lib/utils'
 
 interface Guidance {
     id: string
     question: string
     answer: string
     slug: string
-    created_at: string
 }
 
 interface GuidanceListProps {
@@ -25,11 +23,6 @@ export function GuidanceList({ guidance }: GuidanceListProps) {
                                 {item.question}
                             </h3>
                         </Link>
-                        <div className="text-sm text-gray-500">
-                            <time dateTime={item.created_at}>
-                                {formatDate(item.created_at)}
-                            </time>
-                        </div>
                     </CardHeader>
                     <CardContent className="pt-0">
                         <p className="text-gray-600 line-clamp-3">
@@ -47,5 +40,4 @@ export function GuidanceList({ guidance }: GuidanceListProps) {
         </div>
     )
 }
-
 

@@ -19,8 +19,7 @@ const postSchema = z.object({
     title: z.string().min(1, 'Title is required').max(200, 'Title too long'),
     excerpt: z.string().min(1, 'Excerpt is required').max(500, 'Excerpt too long'),
     content: z.string().min(1, 'Content is required'),
-    status: z.enum(['draft', 'published', 'review']),
-    published_at: z.string().optional()
+    status: z.enum(['draft', 'published', 'review'])
 })
 
 type PostFormData = z.infer<typeof postSchema>
@@ -41,8 +40,7 @@ export default function EditPostPage() {
             title: '',
             excerpt: '',
             content: '',
-            status: 'draft',
-            published_at: ''
+            status: 'draft'
         }
     })
 
@@ -56,20 +54,11 @@ export default function EditPostPage() {
                 const data = await response.json()
                 const post = data.post
 
-                // Format the date for the datetime-local input (use local time, not UTC)
-                let formattedDate = ''
-                if (post.published_at) {
-                    const date = new Date(post.published_at)
-                    const pad = (n: number) => String(n).padStart(2, '0')
-                    formattedDate = `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}`
-                }
-
                 form.reset({
                     title: post.title || '',
                     excerpt: post.excerpt || '',
                     content: post.content_md ?? post.content ?? '',
-                    status: post.status || 'draft',
-                    published_at: formattedDate
+                    status: post.status || 'draft'
                 })
             } catch (error) {
                 console.error('Error fetching post:', error)
@@ -98,10 +87,7 @@ export default function EditPostPage() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    ...data,
-                    published_at: data.published_at ? new Date(data.published_at).toISOString() : null
-                }),
+                body: JSON.stringify(data),
             })
 
             const result = await response.json()
@@ -249,36 +235,21 @@ export default function EditPostPage() {
                             </p>
                         </div>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <Label htmlFor="status">Status</Label>
-                                <Select
-                                    value={form.watch('status')}
-                                    onValueChange={(value) => form.setValue('status', value as 'draft' | 'published' | 'review')}
-                                >
-                                    <SelectTrigger>
-                                        <SelectValue placeholder="Select status" />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectItem value="draft">Draft</SelectItem>
-                                        <SelectItem value="published">Published</SelectItem>
-                                        <SelectItem value="review">Review</SelectItem>
-                                    </SelectContent>
-                                </Select>
-                            </div>
-
-                            <div className="space-y-2">
-                                <Label htmlFor="published_at">Publish Date</Label>
-                                <Input
-                                    id="published_at"
-                                    type="datetime-local"
-                                    className="w-full"
-                                    {...form.register('published_at')}
-                                />
-                                <p className="text-sm text-gray-500">
-                                    Leave empty to use current time when publishing.
-                                </p>
-                            </div>
+                        <div className="space-y-2">
+                            <Label htmlFor="status">Status</Label>
+                            <Select
+                                value={form.watch('status')}
+                                onValueChange={(value) => form.setValue('status', value as 'draft' | 'published' | 'review')}
+                            >
+                                <SelectTrigger>
+                                    <SelectValue placeholder="Select status" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="draft">Draft</SelectItem>
+                                    <SelectItem value="published">Published</SelectItem>
+                                    <SelectItem value="review">Review</SelectItem>
+                                </SelectContent>
+                            </Select>
                         </div>
 
                         <div className="flex justify-end space-x-4 pt-4 border-t">
@@ -296,4 +267,3 @@ export default function EditPostPage() {
         </div>
     )
 }
-

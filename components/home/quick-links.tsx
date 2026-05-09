@@ -52,13 +52,12 @@ export function QuickLinks() {
                             </div>
                             <CardTitle className="text-2xl">Legal Guidance</CardTitle>
                             <CardDescription className="text-lg">
-                                Submit your legal questions and browse answers from previous inquiries
+                                Submit your legal questions for review
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <ul className="text-slate-600 space-y-2 mb-6">
                                 <li>• Submit your own legal questions</li>
-                                <li>• Browse answered questions by area</li>
                                 <li>• Get clear, practical guidance</li>
                                 <li>• Free and accessible to everyone</li>
                             </ul>
@@ -92,4 +91,3 @@ export function QuickLinks() {
         </section>
     )
 }
-

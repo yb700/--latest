@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { formatDate } from '@/lib/utils'
 
 interface Post {
     id: string
@@ -64,14 +63,8 @@ export function PostCard({ post }: PostCardProps) {
                         {post.excerpt}
                     </p>
                 )}
-                <div className="flex items-center justify-between text-sm text-gray-500">
-                    <time dateTime={post.created_at}>
-                        {formatDate(post.created_at)}
-                    </time>
-                </div>
             </CardContent>
         </Card>
     )
 }
-
 
