@@ -4,7 +4,6 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { createClient } from "@/lib/supabase/server"
-import { formatDate } from "@/lib/utils"
 import { ArrowRight, Clock, User } from "lucide-react"
 
 export async function LatestPosts() {
@@ -110,9 +109,6 @@ export async function LatestPosts() {
                                         <User className="h-4 w-4 mr-1" />
                                         {post.author?.full_name || 'Younas Ficel'}
                                     </div>
-                                    <time className="text-sm text-slate-500">
-                                        {formatDate(post.published_at || post.created_at)}
-                                    </time>
                                 </div>
 
                                 <Link href={`/blog/${post.slug}`} className="block mt-4">

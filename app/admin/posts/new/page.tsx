@@ -20,8 +20,7 @@ const postSchema = z.object({
     excerpt: z.string().min(1, 'Excerpt is required').max(500, 'Excerpt too long'),
     content: z.string().min(1, 'Content is required'),
     status: z.enum(['draft', 'published']),
-    category: z.string().optional(),
-    published_at: z.string().optional()
+    category: z.string().optional()
 })
 
 type PostFormData = z.infer<typeof postSchema>
@@ -35,8 +34,7 @@ export default function NewPostPage() {
         resolver: zodResolver(postSchema),
         defaultValues: {
             status: 'draft',
-            category: '',
-            published_at: ''
+            category: ''
         }
     })
 
@@ -49,8 +47,7 @@ export default function NewPostPage() {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    ...data,
-                    published_at: data.published_at ? new Date(data.published_at).toISOString() : null
+                    ...data
                 }),
             })
 
@@ -171,19 +168,6 @@ export default function NewPostPage() {
                                     </SelectContent>
                                 </Select>
                             </div>
-                        </div>
-
-                        <div className="space-y-2">
-                            <Label htmlFor="published_at">Publish Date (optional)</Label>
-                            <Input
-                                id="published_at"
-                                type="datetime-local"
-                                className="w-full max-w-xs"
-                                {...form.register('published_at')}
-                            />
-                            <p className="text-sm text-gray-500">
-                                Leave empty to use current time when publishing.
-                            </p>
                         </div>
 
                         <div className="flex justify-end space-x-4 pt-4 border-t">

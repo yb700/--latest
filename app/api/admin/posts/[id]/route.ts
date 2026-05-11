@@ -47,7 +47,7 @@ export async function PUT(
         const { id } = await params
         const body = await request.json()
 
-        const { title, excerpt, content, status, published_at } = body
+        const { title, excerpt, content, status } = body
 
         // Generate new slug if title changed
         const slug = title
@@ -56,12 +56,15 @@ export async function PUT(
             .replace(/\s+/g, '-')
             .trim()
 
-        // Determine published_at based on status
-        // For published: use provided date or current time
-        // For draft/review: preserve provided date for future scheduling
+        const { data: existingPost } = await supabase
+            .from('posts')
+            .select('published_at')
+            .eq('id', id)
+            .single()
+
         const finalPublishedAt = status === 'published'
-            ? (published_at || new Date().toISOString())
-            : (published_at || null)
+            ? (existingPost?.published_at || new Date().toISOString())
+            : null
 
         const { data: post, error } = await supabase
             .from('posts')
@@ -135,4 +138,3 @@ export async function DELETE(
         )
     }
 }
-

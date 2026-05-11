@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
-import { formatDate } from '@/lib/utils'
 
 interface GuidancePageProps {
     params: Promise<{ slug: string }>
@@ -54,11 +53,6 @@ export default async function GuidancePage({ params }: GuidancePageProps) {
                 <h1 className="text-3xl font-bold text-brand mb-4">
                     {guidance.question_title}
                 </h1>
-                <div className="text-sm text-gray-500">
-                    <time dateTime={guidance.published_at || ''}>
-                        {guidance.published_at ? formatDate(guidance.published_at) : ''}
-                    </time>
-                </div>
             </header>
 
             <div className="prose prose-lg max-w-none">
@@ -76,4 +70,3 @@ export default async function GuidancePage({ params }: GuidancePageProps) {
         </article>
     )
 }
-
