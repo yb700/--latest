@@ -61,6 +61,19 @@ export async function middleware(request: NextRequest) {
         console.error('Auth error in middleware:', error)
     }
 
+    // If a PKCE code landed on the Site URL (or any non-callback path),
+    // forward it so exchangeCodeForSession can run.
+    const authCode = request.nextUrl.searchParams.get('code')
+    if (authCode && request.nextUrl.pathname !== '/auth/callback') {
+        const callbackUrl = request.nextUrl.clone()
+        callbackUrl.pathname = '/auth/callback'
+        const redirectResponse = NextResponse.redirect(callbackUrl)
+        response.cookies.getAll().forEach((cookie) => {
+            redirectResponse.cookies.set(cookie)
+        })
+        return redirectResponse
+    }
+
     // Check if user is trying to access admin routes
     if (request.nextUrl.pathname.startsWith('/admin')) {
         try {
