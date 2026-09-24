@@ -8,7 +8,7 @@ import { EmptyState } from '@/components/empty-state'
 
 export const metadata: Metadata = {
     title: 'Blog | ClearCut Law',
-    description: 'Legal insights, analysis, and commentary on current legal issues.',
+    description: 'Commentary on the deals, decisions and developments shaping commercial law.',
 }
 
 async function getPosts(searchParams: { [key: string]: string | string[] | undefined }) {
@@ -93,7 +93,7 @@ export default async function BlogPage({
             <div className="mb-8">
                 <h1 className="text-4xl font-bold text-brand mb-4">Blog</h1>
                 <p className="text-gray-600 text-lg">
-                    Legal insights, analysis, and commentary on current legal issues.
+                    Commentary on the deals, decisions and developments shaping commercial law.
                 </p>
             </div>
 
