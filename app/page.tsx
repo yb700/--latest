@@ -6,7 +6,7 @@ import { Metadata } from "next"
 
 export const metadata: Metadata = {
   title: 'ClearCut Law — Clear Legal Guidance for Everyone',
-  description: 'Navigate the UK legal system with confidence. Get  commentary, practical guidance, and clear explanations on Family, Employment, Road Traffic, and Commercial law.',
+  description: 'Navigate the UK legal system with confidence. Get  commentary, practical guidance, and clear explanations on Mergers and Acquisitions, Banking and Finance, Sports Deals and Regulation, and Competition and Regulation.',
 }
 
 export default function HomePage() {

@@ -10,8 +10,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'ClearCut Law — Legal commentary & guidance',
-  description: 'Clear, accessible legal commentary and guidance for the UK legal system.  insights on Family, Employment, Road Traffic, and Commercial law.',
-  keywords: ['UK law', 'legal advice', 'family law', 'employment law', 'road traffic law', 'commercial law'],
+  description: 'Clear, accessible legal commentary and guidance for the UK legal system.  insights on Mergers and Acquisitions, Banking and Finance, Sports Deals and Regulation, and Competition and Regulation.',
+  keywords: ['UK law', 'legal advice', 'mergers and acquisitions', 'banking and finance', 'sports deals and regulation', 'competition and regulation'],
   authors: [{ name: 'Younas Ficel' }],
   creator: 'Younas Ficel',
   openGraph: {

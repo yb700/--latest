@@ -16,8 +16,8 @@ export function HeroSection() {
                     {/* Subheading */}
                     <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
                         Navigate the UK legal system with confidence. Get  commentary,
-                        practical guidance, and clear explanations on Family, Employment,
-                        Road Traffic, and Commercial law.
+                        practical guidance, and clear explanations on Mergers and Acquisitions,
+                        Banking and Finance, Sports Deals and Regulation, and Competition and Regulation.
                     </p>
 
                     {/* Author Introduction */}
