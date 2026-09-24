@@ -5,6 +5,9 @@ import { PostList } from '@/components/blog/post-list'
 import { SearchInput } from '@/components/search-input'
 import { CategoryFilter } from '@/components/blog/category-filter'
 import { EmptyState } from '@/components/empty-state'
+import { BLOG_CATEGORY_SLUGS, isBlogCategorySlug } from '@/lib/blog-categories'
+
+const POSTS_PER_PAGE = 12
 
 export const metadata: Metadata = {
     title: 'Blog | ClearCut Law',
@@ -14,37 +17,40 @@ export const metadata: Metadata = {
 async function getPosts(searchParams: { [key: string]: string | string[] | undefined }) {
     const supabase = createClient()
 
-    let query = supabase
-        .from('posts')
-        .select('*', { count: 'exact' })
-        .eq('status', 'published')
-        .order('created_at', { ascending: false })
+    const search = typeof searchParams.search === 'string' ? searchParams.search : ''
+    const categoryParam = typeof searchParams.category === 'string' ? searchParams.category : ''
+    const category = isBlogCategorySlug(categoryParam) ? categoryParam : ''
 
-    // Search (content_md after migration; content for backwards compatibility)
-    const search = searchParams.search
-    if (search && typeof search === 'string') {
-        query = query.or(`title.ilike.%${search}%,content_md.ilike.%${search}%`)
-    }
-
-    // Pagination
     const page = searchParams.page ? parseInt(searchParams.page as string) : 1
-    const limit = 12
-    const from = (page - 1) * limit
-    const to = from + limit - 1
+    const from = (Math.max(page, 1) - 1) * POSTS_PER_PAGE
+    const to = from + POSTS_PER_PAGE - 1
 
-    query = query.range(from, to)
+    const buildQuery = (contentColumn: 'content_md' | 'content') => {
+        let query = category
+            ? supabase
+                .from('posts')
+                .select('*, post_categories!inner(categories!inner(slug))', { count: 'exact' })
+                .eq('post_categories.categories.slug', category)
+            : supabase
+                .from('posts')
+                .select('*', { count: 'exact' })
 
-    let result = await query
-
-    // Fallback: if content_md column doesn't exist (pre-migration), retry with content
-    if (result.error && search && typeof search === 'string' && result.error.message?.includes('content_md')) {
-        result = await supabase
-            .from('posts')
-            .select('*', { count: 'exact' })
+        query = query
             .eq('status', 'published')
             .order('created_at', { ascending: false })
-            .or(`title.ilike.%${search}%,content.ilike.%${search}%`)
-            .range(from, to)
+
+        if (search) {
+            query = query.or(`title.ilike.%${search}%,${contentColumn}.ilike.%${search}%`)
+        }
+
+        return query.range(from, to)
+    }
+
+    let result = await buildQuery('content_md')
+
+    // Fallback: if content_md column doesn't exist (pre-migration), retry with content
+    if (result.error && search && result.error.message?.includes('content_md')) {
+        result = await buildQuery('content')
     }
 
     const { data: posts, error, count } = result
@@ -62,15 +68,20 @@ async function getCategories() {
 
     const { data: categories, error } = await supabase
         .from('categories')
-        .select('*')
-        .order('name')
+        .select('id, name, slug')
+        .in('slug', [...BLOG_CATEGORY_SLUGS])
 
     if (error) {
         console.error('Error fetching categories:', error)
         return []
     }
 
-    return categories || []
+    const bySlug = new Map((categories || []).map((category) => [category.slug, category]))
+
+    return BLOG_CATEGORY_SLUGS.flatMap((slug) => {
+        const category = bySlug.get(slug)
+        return category ? [category] : []
+    })
 }
 
 export default async function BlogPage({
@@ -84,9 +95,10 @@ export default async function BlogPage({
     ])
 
     const currentPage = searchParams.page ? parseInt(searchParams.page as string) : 1
-    const totalPages = Math.max(1, Math.ceil((count || 0) / 12))
-    const search = searchParams.search as string || ''
-    const category = searchParams.category as string || ''
+    const totalPages = Math.max(1, Math.ceil((count || 0) / POSTS_PER_PAGE))
+    const search = typeof searchParams.search === 'string' ? searchParams.search : ''
+    const categoryParam = typeof searchParams.category === 'string' ? searchParams.category : ''
+    const category = isBlogCategorySlug(categoryParam) ? categoryParam : ''
 
     return (
         <div className="container mx-auto px-4 py-8">

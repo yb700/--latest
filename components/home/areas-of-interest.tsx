@@ -2,13 +2,14 @@ import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Handshake, Landmark, Goal, Scale, ArrowRight } from "lucide-react"
+import { blogCategoryPath } from "@/lib/blog-categories"
 
 const areas = [
     {
         title: "Mergers and Acquisitions",
         description: "Deal structures, due diligence, takeover rules, merger control and the latest UK transactions.",
         icon: Handshake,
-        href: "/guidance?area=Family",
+        href: blogCategoryPath("mergers-and-acquisitions"),
         color: "text-rose-600",
         bgColor: "bg-rose-50",
     },
@@ -16,7 +17,7 @@ const areas = [
         title: "Banking and Finance",
         description: "Lending, capital markets, financial regulation and the deals shaping UK finance.",
         icon: Landmark,
-        href: "/guidance?area=Employment",
+        href: blogCategoryPath("banking-and-finance"),
         color: "text-blue-600",
         bgColor: "bg-blue-50",
     },
@@ -24,7 +25,7 @@ const areas = [
         title: "Sports Deals and Regulation",
         description: "Club takeovers, ownership rules, broadcasting rights and sports governance.",
         icon: Goal,
-        href: "/guidance?area=Road+Traffic",
+        href: blogCategoryPath("sports-deals-and-regulation"),
         color: "text-green-600",
         bgColor: "bg-green-50",
     },
@@ -32,7 +33,7 @@ const areas = [
         title: "Competition and Regulation",
         description: "CMA and CAT decisions, class actions, market investigations and regulatory enforcement.",
         icon: Scale,
-        href: "/guidance?area=Commercial",
+        href: blogCategoryPath("competition-and-regulation"),
         color: "text-purple-600",
         bgColor: "bg-purple-50",
     },
