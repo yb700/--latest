@@ -8,7 +8,7 @@ import { ArrowRight, BookOpen, MessageCircle, Scale, GraduationCap } from "lucid
 
 export const metadata: Metadata = {
     title: 'About — ClearCut Law',
-    description: 'Learn about Younas Ficel, the law graduate behind ClearCut Law, and discover why this site exists to make legal knowledge accessible to everyone.',
+    description: 'Clear, jargon-free commentary on the deals, decisions and regulation shaping commercial law. Written by Younas Ficel for law students, graduates and anyone who wants to understand what\'s happening in business and why it matters.',
 }
 const specialties = [
     "Family Law & Domestic Relations",
@@ -18,10 +18,12 @@ const specialties = [
 ]
 
 const qualifications = [
-    "LLB (Hons) Law Degree",
-    "Legal Research & Analysis",
-    "Case Law Interpretation",
-    "Legal Writing & Communication"
+    "LLB (Hons) Law, 2:1, Royal Holloway, University of London",
+    "Working towards the SQE",
+    "Legal research and analysis",
+    "Deal and case analysis",
+    "Commercial awareness",
+    "Clear legal writing"
 ]
 
 export default function AboutPage() {
@@ -37,8 +39,8 @@ export default function AboutPage() {
                                     About ClearCut Law
                                 </h1>
                                 <p className="text-xl text-slate-600 mb-6 leading-relaxed">
-                                    Making UK legal knowledge accessible, understandable, and actionable for everyone.
-                                    No jargon, no complexity—just clear guidance when you need it most.
+                                    Clear, jargon-free commentary on the deals, decisions and regulation shaping commercial law.
+                                    Written for law students, graduates and anyone who wants to understand what's happening in business and why it matters
                                 </p>
                                 <div className="flex flex-wrap gap-3 mb-8">
                                     <Badge variant="secondary" className="px-3 py-1">
@@ -75,20 +77,13 @@ export default function AboutPage() {
                                 <h2 className="text-3xl font-bold text-brand mb-6">Who I Am</h2>
                                 <div className="space-y-4 text-slate-700 leading-relaxed">
                                     <p>
-                                        Hi, I'm Younas Ficel, a passionate UK law graduate with a mission to demystify
-                                        the legal system for everyday people. After completing my law degree, I realized
-                                        that legal knowledge shouldn't be locked away in dusty textbooks or behind
-                                        expensive consultation fees.
+                                        I'm Younas Ficel, a law graduate from Royal Holloway, University of London. I'm working towards the SQE with the aim of qualifying as a commercial solicitor.
                                     </p>
                                     <p>
-                                        Legal issues affect all of us—from workplace disputes to family matters,
-                                        from traffic violations to business contracts. Yet many people feel intimidated
-                                        by the complexity of the law and unsure where to turn for reliable information.
+                                        I started ClearCut Law to write about the parts of the law I find most interesting: mergers and acquisitions, banking and finance, competition and regulation and the business side of sport. Each post breaks down a real deal or decision, explaining what happened and why it matters.
                                     </p>
                                     <p>
-                                        That's why I created ClearCut Law: to bridge the gap between complex legal
-                                        concepts and practical understanding, making the law accessible to everyone
-                                        who needs it.
+                                        The goal is simple: clear commentary without the jargon, for law students, graduates and anyone curious about how law shapes business.
                                     </p>
                                 </div>
                             </div>
@@ -97,20 +92,16 @@ export default function AboutPage() {
                                 <h2 className="text-3xl font-bold text-brand mb-6">Why This Site Exists</h2>
                                 <div className="space-y-4 text-slate-700 leading-relaxed">
                                     <p>
-                                        <strong>Education:</strong> Legal knowledge empowers people to understand
-                                        their rights and make informed decisions.
+                                        <strong>Clarity:</strong> Big deals and rulings are often reported in jargon. Each post explains what happened in plain English.
                                     </p>
                                     <p>
-                                        <strong>Accessibility:</strong> Everyone deserves access to clear,
-                                        understandable legal information, regardless of their background or budget.
+                                        <strong>Context:</strong> It isn't enough to know what happened. Each post looks at why a deal or decision matters for businesses, regulators and the wider market.
                                     </p>
                                     <p>
-                                        <strong>Prevention:</strong> Understanding the law can help prevent
-                                        problems before they escalate into costly legal disputes.
+                                        <strong>Commercial awareness:</strong> Commercial awareness is one of the main things firms look for. Following real deals is one of the best ways for students and graduates to build it.
                                     </p>
                                     <p>
-                                        <strong>Confidence:</strong> When you understand your legal position,
-                                        you can navigate challenges with greater confidence and clarity.
+                                        <strong>Accessibility:</strong> Good commercial law commentary shouldn't sit behind paywalls or subscriptions.
                                     </p>
                                 </div>
                             </div>
@@ -150,10 +141,10 @@ export default function AboutPage() {
                                 <CardHeader>
                                     <CardTitle className="flex items-center">
                                         <GraduationCap className="h-6 w-6 mr-2 text-brand" />
-                                        Background & Skills
+                                        Background and Skills
                                     </CardTitle>
                                     <CardDescription>
-                                        My educational background and key competencies
+                                        My education and key skills
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -182,19 +173,13 @@ export default function AboutPage() {
                             </CardHeader>
                             <CardContent className="text-amber-700">
                                 <p className="mb-4">
-                                    <strong>This website provides general legal information only and is not a substitute
-                                        for professional legal advice.</strong> The content on this site should not be relied
-                                    upon as legal advice for any specific situation.
+                                    This website provides general commentary for educational purposes only. It is not legal advice and should not be relied on for any specific situation.
                                 </p>
                                 <p className="mb-4">
-                                    Every legal situation is unique, and the law can be complex and subject to change.
-                                    For specific legal advice relating to your particular circumstances, please consult
-                                    a qualified solicitor or legal professional.
+                                    I am a law graduate, not a practising solicitor. The views expressed are my own and do not represent any firm or organisation.
                                 </p>
                                 <p>
-                                    I am a law graduate, not a practicing solicitor. The guidance provided here is
-                                    educational in nature and designed to help you understand general legal principles
-                                    and concepts.
+                                    Posts are accurate at the date of publication, but the law and the deals discussed may have changed since. For advice on your own circumstances, consult a qualified solicitor.
                                 </p>
                             </CardContent>
                         </Card>
