@@ -5,32 +5,32 @@ import { Heart, Briefcase, Car, Building, ArrowRight } from "lucide-react"
 
 const areas = [
     {
-        title: "Family Law",
-        description: "Divorce, child custody, domestic violence, adoption, and family dispute resolution.",
+        title: "Mergers and Acquisitions",
+        description: "Deal structures, due diligence, takeover rules, merger control and the latest UK transactions.",
         icon: Heart,
         href: "/guidance?area=Family",
         color: "text-rose-600",
         bgColor: "bg-rose-50",
     },
     {
-        title: "Employment Law",
-        description: "Workplace rights, discrimination, unfair dismissal, contracts, and tribunal claims.",
+        title: "Banking and Finance",
+        description: "Lending, capital markets, financial regulation and the deals shaping UK finance.",
         icon: Briefcase,
         href: "/guidance?area=Employment",
         color: "text-blue-600",
         bgColor: "bg-blue-50",
     },
     {
-        title: "Road Traffic Law",
-        description: "Driving offences and motoring prosecutions.",
+        title: "Sports Deals and Regulation",
+        description: "Club takeovers, ownership rules, broadcasting rights and sports governance.",
         icon: Car,
         href: "/guidance?area=Road+Traffic",
         color: "text-green-600",
         bgColor: "bg-green-50",
     },
     {
-        title: "Commercial Law",
-        description: "Business contracts, company law, commercial disputes, and regulatory compliance.",
+        title: "Competition and Regulation",
+        description: "CMA and CAT decisions, class actions, market investigations and regulatory enforcement.",
         icon: Building,
         href: "/guidance?area=Commercial",
         color: "text-purple-600",
@@ -44,10 +44,10 @@ export function AreasOfInterest() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl sm:text-4xl font-bold text-brand mb-4">
-                        Areas of Legal Expertise
+                        Areas of Legal Knowledge
                     </h2>
                     <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                        Get clear guidance and  commentary across four key areas of UK law
+                        Clear commentary on the deals, decisions and regulation shaping four key areas of commercial law
                     </p>
                 </div>
 

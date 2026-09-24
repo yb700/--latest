@@ -25,15 +25,15 @@ export function QuickLinks() {
                             </div>
                             <CardTitle className="text-2xl">Legal Blog</CardTitle>
                             <CardDescription className="text-lg">
-                                In-depth articles, case studies, and commentary on current legal developments
+                                Commentary on the deals, decisions and developments shaping commercial law.
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
                             <ul className="text-slate-600 space-y-2 mb-6">
-                                <li>• Latest legal developments and changes</li>
-                                <li>• Case law analysis and commentary</li>
-                                <li>• Practical guides and how-to articles</li>
-                                <li>• Insights and opinions</li>
+                                <li>• Breakdowns of major M&A and finance deals</li>
+                                <li>• Competition and regulatory decisions explained</li>
+                                <li>• Sports deals, takeovers and football regulation</li>
+                                <li>• What it means for businesses and future lawyers</li>
                             </ul>
                             <Link href="/blog">
                                 <Button className="w-full group/button">

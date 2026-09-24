@@ -11,10 +11,10 @@ export const metadata: Metadata = {
     description: 'Clear, jargon-free commentary on the deals, decisions and regulation shaping commercial law. Written by Younas Ficel for law students, graduates and anyone who wants to understand what\'s happening in business and why it matters.',
 }
 const specialties = [
-    "Family Law & Domestic Relations",
-    "Employment Rights & Workplace Issues",
-    "Road Traffic Offences & Motoring Law",
-    "Commercial Law & Business Disputes"
+    "Mergers and Acquisitions",
+    "Banking and Finance",
+    "Sports Deals and Regulation",
+    "Competition and Regulation"
 ]
 
 const qualifications = [

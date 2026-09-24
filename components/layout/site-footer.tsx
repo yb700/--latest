@@ -70,22 +70,22 @@ export async function SiteFooter() {
                         <ul className="space-y-2">
                             <li>
                                 <Link href="/guidance?area=Family" className="text-slate-600 hover:text-brand transition-colors">
-                                    Family Law
+                                    Mergers and Acquisitions
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/guidance?area=Employment" className="text-slate-600 hover:text-brand transition-colors">
-                                    Employment Law
+                                    Banking and Finance
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/guidance?area=Road+Traffic" className="text-slate-600 hover:text-brand transition-colors">
-                                    Road Traffic Law
+                                    Sports Deals and Regulation
                                 </Link>
                             </li>
                             <li>
                                 <Link href="/guidance?area=Commercial" className="text-slate-600 hover:text-brand transition-colors">
-                                    Commercial Law
+                                    Competition and Regulation
                                 </Link>
                             </li>
                         </ul>
