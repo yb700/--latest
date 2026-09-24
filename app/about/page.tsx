@@ -81,8 +81,8 @@ export default function AboutPage() {
                                         expensive consultation fees.
                                     </p>
                                     <p>
-                                        Legal issues affect all of us—from workplace disputes to family matters,
-                                        from traffic violations to business contracts. Yet many people feel intimidated
+                                        Legal issues affect all of us—from mergers and acquisitions to banking and finance,
+                                        from sports deals to competition and regulation. Yet many people feel intimidated
                                         by the complexity of the law and unsure where to turn for reliable information.
                                     </p>
                                     <p>
