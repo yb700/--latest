@@ -47,7 +47,7 @@ export function AreasOfInterest() {
                         Areas of Legal Knowledge
                     </h2>
                     <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                        Get clear guidance and  commentary across four key areas of UK law
+                        Clear commentary on the deals, decisions and regulation shaping four key areas of commercial law
                     </p>
                 </div>
 
