@@ -5,7 +5,7 @@ import { Heart, Briefcase, Car, Building, ArrowRight } from "lucide-react"
 
 const areas = [
     {
-        title: "Family Law",
+        title: "Mergers and Acquisitions",
         description: "Divorce, child custody, domestic violence, adoption, and family dispute resolution.",
         icon: Heart,
         href: "/guidance?area=Family",
@@ -13,7 +13,7 @@ const areas = [
         bgColor: "bg-rose-50",
     },
     {
-        title: "Employment Law",
+        title: "Banking and Finance",
         description: "Workplace rights, discrimination, unfair dismissal, contracts, and tribunal claims.",
         icon: Briefcase,
         href: "/guidance?area=Employment",
@@ -21,7 +21,7 @@ const areas = [
         bgColor: "bg-blue-50",
     },
     {
-        title: "Road Traffic Law",
+        title: "Sports Deals and Regulation",
         description: "Driving offences and motoring prosecutions.",
         icon: Car,
         href: "/guidance?area=Road+Traffic",
@@ -29,7 +29,7 @@ const areas = [
         bgColor: "bg-green-50",
     },
     {
-        title: "Commercial Law",
+        title: "Competition and Regulation",
         description: "Business contracts, company law, commercial disputes, and regulatory compliance.",
         icon: Building,
         href: "/guidance?area=Commercial",
@@ -44,7 +44,7 @@ export function AreasOfInterest() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <h2 className="text-3xl sm:text-4xl font-bold text-brand mb-4">
-                        Areas of Legal Expertise
+                        Areas of Legal Knowledge
                     </h2>
                     <p className="text-xl text-slate-600 max-w-2xl mx-auto">
                         Get clear guidance and  commentary across four key areas of UK law
