@@ -6,7 +6,7 @@ import { Heart, Briefcase, Car, Building, ArrowRight } from "lucide-react"
 const areas = [
     {
         title: "Mergers and Acquisitions",
-        description: "Divorce, child custody, domestic violence, adoption, and family dispute resolution.",
+        description: "Deal structures, due diligence, takeover rules, merger control and the latest UK transactions.",
         icon: Heart,
         href: "/guidance?area=Family",
         color: "text-rose-600",
@@ -14,7 +14,7 @@ const areas = [
     },
     {
         title: "Banking and Finance",
-        description: "Workplace rights, discrimination, unfair dismissal, contracts, and tribunal claims.",
+        description: "Lending, capital markets, financial regulation and the deals shaping UK finance.",
         icon: Briefcase,
         href: "/guidance?area=Employment",
         color: "text-blue-600",
@@ -22,7 +22,7 @@ const areas = [
     },
     {
         title: "Sports Deals and Regulation",
-        description: "Driving offences and motoring prosecutions.",
+        description: "Club takeovers, ownership rules, broadcasting rights and sports governance.",
         icon: Car,
         href: "/guidance?area=Road+Traffic",
         color: "text-green-600",
@@ -30,7 +30,7 @@ const areas = [
     },
     {
         title: "Competition and Regulation",
-        description: "Business contracts, company law, commercial disputes, and regulatory compliance.",
+        description: "CMA and CAT decisions, class actions, market investigations and regulatory enforcement.",
         icon: Building,
         href: "/guidance?area=Commercial",
         color: "text-purple-600",
