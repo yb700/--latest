@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { createClient } from "@/lib/supabase/server"
-import { ArrowRight, Clock, User } from "lucide-react"
+import { ArrowRight, User } from "lucide-react"
 
 export async function LatestPosts() {
     const supabase = createClient()
@@ -78,17 +78,13 @@ export async function LatestPosts() {
                             )}
 
                             <CardHeader className="pb-3">
-                                <div className="flex items-center justify-between mb-2">
-                                    {post.post_categories?.[0]?.category && (
+                                {post.post_categories?.[0]?.category && (
+                                    <div className="mb-2">
                                         <Badge variant="secondary" className="text-xs">
                                             {post.post_categories[0].category.name}
                                         </Badge>
-                                    )}
-                                    <div className="flex items-center text-xs text-slate-500">
-                                        <Clock className="h-3 w-3 mr-1" />
-                                        {post.reading_time || 5} min read
                                     </div>
-                                </div>
+                                )}
 
                                 <CardTitle className="text-xl line-clamp-2 group-hover:text-brand transition-colors">
                                     <Link href={`/blog/${post.slug}`}>

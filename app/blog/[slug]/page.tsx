@@ -96,12 +96,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     </p>
                 )}
 
-                {(post.reading_time ?? post.read_time) && (
-                    <div className="text-sm text-gray-500 mb-6">
-                        <span>{post.reading_time ?? post.read_time} min read</span>
-                    </div>
-                )}
-
                 {tags.length > 0 && (
                     <TagPills tags={tags} />
                 )}
