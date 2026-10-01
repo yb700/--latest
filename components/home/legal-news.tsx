@@ -5,9 +5,10 @@ import { getPublishedNewsItems } from '@/lib/news'
 import { ArrowRight } from 'lucide-react'
 
 export async function LegalNews() {
-    const items = await getPublishedNewsItems({ limit: 3 })
+    const items = await getPublishedNewsItems({ limit: 4 })
+    const rest = items.slice(1)
 
-    if (items.length === 0) {
+    if (rest.length === 0) {
         return null
     }
 
@@ -24,7 +25,7 @@ export async function LegalNews() {
                 </div>
 
                 <ul className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {items.map((item) => (
+                    {rest.map((item) => (
                         <li key={item.id} className="h-full">
                             <NewsCard item={item} headingLevel="h3" />
                         </li>

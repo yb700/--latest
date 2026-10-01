@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { EmptyState } from '@/components/empty-state'
+import { LeadNewsCard } from '@/components/news/lead-news-card'
 import { NewsCard } from '@/components/news/news-card'
 import { NewsCategoryFilters } from '@/components/news/category-filters'
 import { getPublishedNewsItems } from '@/lib/news'
@@ -29,6 +30,7 @@ export default async function NewsPage({
     const categoryParam = typeof searchParams.category === 'string' ? searchParams.category : ''
     const category = isNewsCategorySlug(categoryParam) ? categoryParam : null
     const items = await getPublishedNewsItems(category ? { category } : undefined)
+    const [lead, ...rest] = items
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -53,13 +55,18 @@ export default async function NewsPage({
                     }
                 />
             ) : (
-                <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                    {items.map((item) => (
-                        <li key={item.id} className="h-full">
-                            <NewsCard item={item} />
-                        </li>
-                    ))}
-                </ul>
+                <div className="space-y-12">
+                    {lead && <LeadNewsCard item={lead} />}
+                    {rest.length > 0 && (
+                        <ul className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                            {rest.map((item) => (
+                                <li key={item.id} className="h-full">
+                                    <NewsCard item={item} />
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             )}
         </div>
     )
