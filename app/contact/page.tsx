@@ -13,8 +13,8 @@ export default function ContactPage() {
                 <div className="text-center mb-12">
                     <h1 className="text-4xl font-bold text-brand mb-4">Contact Us</h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Have a legal question or need guidance? We're here to help.
-                        Send us a message and we'll get back to you as soon as possible.
+                        Have a legal question or need guidance? We&apos;re here to help.
+                        Send us a message and we&apos;ll get back to you as soon as possible.
                     </p>
                 </div>
 
