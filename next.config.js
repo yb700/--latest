@@ -25,6 +25,11 @@ const nextConfig = {
                 destination: '/news',
                 permanent: true,
             },
+            {
+                source: '/contact',
+                destination: '/',
+                permanent: false,
+            },
         ]
     },
     async headers() {

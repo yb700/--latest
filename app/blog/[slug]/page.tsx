@@ -109,7 +109,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 <div className="text-sm text-gray-500">
                     <p>
                         This article is for informational purposes only and does not constitute legal advice.
-                        For specific legal guidance, please consult with a qualified legal professional.
+                        For advice on a specific matter, please consult a qualified legal professional.
                     </p>
                 </div>
             </footer>

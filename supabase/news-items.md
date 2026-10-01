@@ -4,6 +4,8 @@ The migration `supabase/migrations/20261001154533_create_news_items.sql` **has n
 
 Do not run it on the live Supabase project until Younas says so. It only creates `public.news_items`. It does not change the blog tables and it does not drop the old guidance tables.
 
+Until that migration is applied, the site shows one preview story from `lib/preview-news.ts`. That row is not inserted into Supabase. It has no image. `source_url` is the Premier League homepage because the field requires a link.
+
 There is no admin form yet. After the migration has been applied, add an item by inserting a row. Set `is_published` to `true` for it to appear on the site. Any database write still needs Younas's permission first.
 
 Category values:

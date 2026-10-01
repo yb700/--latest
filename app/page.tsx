@@ -6,8 +6,8 @@ import { LatestPosts } from "@/components/home/latest-posts"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: 'ClearCut Law — Clear Legal Guidance for Everyone',
-  description: 'Navigate the UK legal system with confidence. Get  commentary, practical guidance, and clear explanations on Mergers and Acquisitions, Banking and Finance, Sports Deals and Regulation, and Competition and Regulation.',
+  title: 'ClearCut Law: Commercial law, in plain English',
+  description: 'Commentary on the deals and decisions that shape business.',
 }
 
 export default function HomePage() {

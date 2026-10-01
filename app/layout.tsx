@@ -9,8 +9,8 @@ import { getProfile } from '@/lib/auth-server'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'ClearCut Law — Legal commentary & guidance',
-  description: 'Clear, accessible legal commentary and guidance for the UK legal system.  insights on Mergers and Acquisitions, Banking and Finance, Sports Deals and Regulation, and Competition and Regulation.',
+  title: 'ClearCut Law: Commercial law, in plain English',
+  description: 'Commentary on the deals and decisions that shape business.',
   keywords: ['UK law', 'legal advice', 'mergers and acquisitions', 'banking and finance', 'sports deals and regulation', 'competition and regulation'],
   authors: [{ name: 'Younas Ficel' }],
   creator: 'Younas Ficel',
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_GB',
     url: 'https://ClearCut Law.co.uk',
-    title: 'ClearCut Law — Legal commentary & guidance',
-    description: 'Clear, accessible legal commentary and guidance for the UK legal system.',
+    title: 'ClearCut Law: Commercial law, in plain English',
+    description: 'Commentary on the deals and decisions that shape business.',
     siteName: 'ClearCut Law',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ClearCut Law — Legal commentary & guidance',
-    description: 'Clear, accessible legal commentary and guidance for the UK legal system.',
+    title: 'ClearCut Law: Commercial law, in plain English',
+    description: 'Commentary on the deals and decisions that shape business.',
   },
   robots: {
     index: true,

@@ -1,35 +1,29 @@
-import { createClient } from '@/lib/supabase/server'
 import { NewsCategorySlug } from '@/lib/news-categories'
+import { PREVIEW_NEWS_ITEMS } from '@/lib/preview-news'
 import { NewsItem } from '@/lib/supabase/types'
 
+/**
+ * Published Legal News for the site.
+ * The news_items table still exists only as an unapplied migration, so this
+ * returns the local preview rows and does not query Supabase.
+ */
 export async function getPublishedNewsItems(options?: {
     category?: NewsCategorySlug
     limit?: number
 }): Promise<NewsItem[]> {
-    const supabase = createClient()
-
-    let query = supabase
-        .from('news_items')
-        .select('*')
-        .eq('is_published', true)
-        .order('published_at', { ascending: false })
+    let items = PREVIEW_NEWS_ITEMS.filter((item) => item.is_published)
 
     if (options?.category) {
-        query = query.eq('category', options.category)
+        items = items.filter((item) => item.category === options.category)
     }
+
+    items.sort((a, b) => b.published_at.localeCompare(a.published_at))
 
     if (options?.limit) {
-        query = query.limit(options.limit)
+        items = items.slice(0, options.limit)
     }
 
-    const { data, error } = await query
-
-    if (error) {
-        console.error('Error fetching news items:', error.message)
-        return []
-    }
-
-    return data ?? []
+    return items
 }
 
 /** Only http(s) URLs are turned into links or image sources. */
