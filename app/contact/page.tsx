@@ -15,7 +15,7 @@ export default function ContactPage() {
                     <h1 className="text-4xl font-bold text-brand mb-4">Contact</h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                         Send a message about the site or a piece of commentary.
-                        This is a commentary site, not a law firm. The posts are not legal advice.
+                        The posts are not legal advice.
                     </p>
                 </div>
 
