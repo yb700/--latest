@@ -1,22 +1,37 @@
 import { HeroSection } from "@/components/home/hero-section"
 import { AreasOfInterest } from "@/components/home/areas-of-interest"
 import { LegalNews } from "@/components/home/legal-news"
-import { QuickLinks } from "@/components/home/quick-links"
 import { LatestPosts } from "@/components/home/latest-posts"
 import { Metadata } from "next"
 
+const description =
+  'Plain English commentary on UK deals, finance, competition and sport, written by a law graduate. This is a commentary site, not a law firm.'
+
 export const metadata: Metadata = {
-  title: 'ClearCut Law — Clear Legal Guidance for Everyone',
-  description: 'Navigate the UK legal system with confidence. Get  commentary, practical guidance, and clear explanations on Mergers and Acquisitions, Banking and Finance, Sports Deals and Regulation, and Competition and Regulation.',
+  title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
+  description,
+  openGraph: {
+    title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
+    description,
+  },
+  twitter: {
+    title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
+    description,
+  },
 }
 
-export default function HomePage() {
+export default function HomePage({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined }
+}) {
+  const preview = searchParams.preview === 'fixtures'
+
   return (
     <>
       <HeroSection />
+      <LegalNews preview={preview} />
       <AreasOfInterest />
-      <LegalNews />
-      <QuickLinks />
       <LatestPosts />
     </>
   )

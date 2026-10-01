@@ -5,27 +5,32 @@ import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { Toaster } from '@/components/ui/toaster'
 import { getProfile } from '@/lib/auth-server'
+import { CANONICAL_PRODUCTION_ORIGIN } from '@/lib/site-url'
 
 const inter = Inter({ subsets: ['latin'] })
 
+const description =
+  'Plain English commentary on UK deals, finance, competition and sport, written by a law graduate. This is a commentary site, not a law firm.'
+
 export const metadata: Metadata = {
-  title: 'ClearCut Law — Legal commentary & guidance',
-  description: 'Clear, accessible legal commentary and guidance for the UK legal system.  insights on Mergers and Acquisitions, Banking and Finance, Sports Deals and Regulation, and Competition and Regulation.',
-  keywords: ['UK law', 'legal advice', 'mergers and acquisitions', 'banking and finance', 'sports deals and regulation', 'competition and regulation'],
+  metadataBase: new URL(CANONICAL_PRODUCTION_ORIGIN),
+  title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
+  description,
+  keywords: ['UK deals', 'legal commentary', 'mergers and acquisitions', 'banking and finance', 'competition and regulation', 'sports deals'],
   authors: [{ name: 'Younas Ficel' }],
   creator: 'Younas Ficel',
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: 'https://ClearCut Law.co.uk',
-    title: 'ClearCut Law — Legal commentary & guidance',
-    description: 'Clear, accessible legal commentary and guidance for the UK legal system.',
+    url: CANONICAL_PRODUCTION_ORIGIN,
+    title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
+    description,
     siteName: 'ClearCut Law',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ClearCut Law — Legal commentary & guidance',
-    description: 'Clear, accessible legal commentary and guidance for the UK legal system.',
+    title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
+    description,
   },
   robots: {
     index: true,

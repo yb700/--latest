@@ -18,6 +18,8 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
     const showRelated = Boolean(relatedHref && relatedTitle)
     const published = formatNewsCardDate(item.published_at)
 
+    const pinnedMeta = layout === 'block'
+
     return (
         <article
             className={cn(
@@ -26,13 +28,24 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
             )}
         >
             <div className="flex h-full min-h-0 flex-col gap-1.5 p-3 md:gap-2 md:p-4">
-                <p className="text-[11px] font-medium uppercase tracking-wide text-gray-500">
-                    <span>{newsCategoryShortLabel(item.category)}</span>
+                <p
+                    className={cn(
+                        'text-[11px] font-medium uppercase tracking-wide text-gray-500',
+                        pinnedMeta && 'flex flex-nowrap items-baseline justify-between gap-3'
+                    )}
+                >
+                    <span className={cn(pinnedMeta && 'shrink-0')}>{newsCategoryShortLabel(item.category)}</span>
                     {published && (
-                        <>
-                            <span aria-hidden="true"> · </span>
-                            <time dateTime={item.published_at}>{published}</time>
-                        </>
+                        pinnedMeta ? (
+                            <time dateTime={item.published_at} className="shrink-0 whitespace-nowrap">
+                                {published}
+                            </time>
+                        ) : (
+                            <>
+                                <span aria-hidden="true"> · </span>
+                                <time dateTime={item.published_at}>{published}</time>
+                            </>
+                        )
                     )}
                 </p>
 
