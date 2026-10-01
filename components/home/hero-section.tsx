@@ -10,7 +10,7 @@ export function HeroSection() {
                         UK deals, finance, competition and sport, explained in plain English.
                     </h1>
                     <p className="mt-4 text-lg leading-relaxed text-slate-600">
-                        Weekly news and commentary for law students and graduates following the commercial world.
+                        From takeovers and bank deals to competition rulings and club ownership, ClearCut Law explains what happened, why it matters and the law behind it. New stories every week.
                     </p>
                     <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                         <Link href="/news" className="sm:w-auto">
