@@ -108,8 +108,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <footer className="mt-12 pt-8 border-t border-gray-200">
                 <div className="text-sm text-gray-500">
                     <p>
-                        This article is for informational purposes only and does not constitute legal advice.
-                        For specific legal guidance, please consult with a qualified legal professional.
+                        This article is commentary, not legal advice. ClearCut Law is a commentary site, not a law firm.
                     </p>
                 </div>
             </footer>

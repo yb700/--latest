@@ -1,5 +1,4 @@
 import { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -7,14 +6,14 @@ import { Badge } from "@/components/ui/badge"
 import { ArrowRight, BookOpen, Newspaper, Scale, GraduationCap } from "lucide-react"
 
 export const metadata: Metadata = {
-    title: 'About — ClearCut Law',
-    description: 'Clear, jargon-free commentary on the deals, decisions and regulation shaping commercial law. Written by Younas Ficel for law students, graduates and anyone who wants to understand what\'s happening in business and why it matters.',
+    title: 'About | ClearCut Law',
+    description: 'Younas Ficel is a law graduate aiming to qualify as a commercial solicitor. ClearCut Law is a commentary site, not a law firm. The posts are commentary and not legal advice.',
 }
 const specialties = [
     "Mergers and Acquisitions",
     "Banking and Finance",
-    "Sports Deals and Regulation",
-    "Competition and Regulation"
+    "Competition and Regulation",
+    "Sports Deals and Regulation"
 ]
 
 const qualifications = [
@@ -39,8 +38,9 @@ export default function AboutPage() {
                                     About ClearCut Law
                                 </h1>
                                 <p className="text-xl text-slate-600 mb-6 leading-relaxed">
-                                    Clear, jargon-free commentary on the deals, decisions and regulation shaping commercial law.
-                                    Written for law students, graduates and anyone who wants to understand what&apos;s happening in business and why it matters
+                                    Younas Ficel is a law graduate aiming to qualify as a commercial solicitor.
+                                    He writes plain English commentary on UK deals, finance, competition and sport.
+                                    This is a commentary site, not a law firm. The posts are commentary and not legal advice.
                                 </p>
                                 <div className="flex flex-wrap gap-3 mb-8">
                                     <Badge variant="secondary" className="px-3 py-1">
@@ -49,7 +49,7 @@ export default function AboutPage() {
                                     </Badge>
                                     <Badge variant="secondary" className="px-3 py-1">
                                         <BookOpen className="h-4 w-4 mr-1" />
-                                        Legal Educator
+                                        Commentary, not advice
                                     </Badge>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@ export default function AboutPage() {
                                         <span className="text-white font-bold text-4xl">YF</span>
                                     </div>
                                     <h3 className="text-2xl font-bold text-brand mb-2">Younas Ficel</h3>
-                                    <p className="text-brand-600 font-medium">Law Graduate & Founder</p>
+                                    <p className="text-brand-600 font-medium">Law graduate</p>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@ export default function AboutPage() {
                                 <h2 className="text-3xl font-bold text-brand mb-6">Who I Am</h2>
                                 <div className="space-y-4 text-slate-700 leading-relaxed">
                                     <p>
-                                        I&apos;m Younas Ficel, a law graduate from Royal Holloway, University of London. I&apos;m working towards the SQE with the aim of qualifying as a commercial solicitor.
+                                        I&apos;m Younas Ficel, a law graduate aiming to qualify as a commercial solicitor. I studied for an LLB at Royal Holloway, University of London and I am working towards the SQE.
                                     </p>
                                     <p>
                                         I started ClearCut Law to write about the parts of the law I find most interesting: mergers and acquisitions, banking and finance, competition and regulation and the business side of sport. Each post breaks down a real deal or decision, explaining what happened and why it matters.
@@ -173,10 +173,10 @@ export default function AboutPage() {
                             </CardHeader>
                             <CardContent className="text-amber-700">
                                 <p className="mb-4">
-                                    This website provides general commentary for educational purposes only. It is not legal advice and should not be relied on for any specific situation.
+                                    ClearCut Law is a commentary site, not a law firm. The posts are commentary and not legal advice. They should not be relied on for any specific situation.
                                 </p>
                                 <p className="mb-4">
-                                    I am a law graduate, not a practising solicitor. The views expressed are my own and do not represent any firm or organisation.
+                                    I am a law graduate, not a practising solicitor. The views expressed are my own.
                                 </p>
                                 <p>
                                     Posts are accurate at the date of publication, but the law and the deals discussed may have changed since. For advice on your own circumstances, consult a qualified solicitor.
@@ -192,10 +192,10 @@ export default function AboutPage() {
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-3xl sm:text-4xl font-bold mb-6">
-                            Ready to Get Started?
+                            Read the commentary
                         </h2>
                         <p className="text-xl text-brand-100 mb-8 max-w-2xl mx-auto">
-                            Read the latest articles, or catch up with Legal News.
+                            Start with the blog, or catch up with Legal News.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link href="/blog">

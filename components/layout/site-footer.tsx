@@ -1,27 +1,13 @@
 import Link from "next/link"
-import { createClient } from "@/lib/supabase/server"
 import { NEWS_CATEGORIES, newsCategoryPath } from "@/lib/news-categories"
 
-export async function SiteFooter() {
-    const supabase = createClient()
-
-    // Get disclaimer from site settings
-    const { data: disclaimerSetting } = await supabase
-        .from('site_settings')
-        .select('value')
-        .eq('key', 'disclaimer')
-        .single()
-
-    const disclaimer = disclaimerSetting?.value ||
-        "This website provides general legal information only and is not a substitute for professional legal advice. The content on this site should not be relied upon as legal advice. For specific legal advice relating to your situation, please consult a qualified solicitor."
-
+export function SiteFooter() {
     const currentYear = new Date().getFullYear()
 
     return (
         <footer className="bg-slate-50 border-t">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    {/* Brand and Description */}
                     <div className="md:col-span-2">
                         <Link href="/" className="flex items-center space-x-2 mb-4">
                             <div className="h-8 w-8 rounded-lg bg-brand flex items-center justify-center">
@@ -30,15 +16,14 @@ export async function SiteFooter() {
                             <span className="font-bold text-xl text-brand">ClearCut Law</span>
                         </Link>
                         <p className="text-slate-600 mb-4 max-w-md">
-                            Clear, accessible legal commentary and guidance for the UK legal system.
-                            Created by Younas Ficel, a passionate law graduate.
+                            Plain English commentary on UK deals, finance, competition and sport.
+                            Written by Younas Ficel, a law graduate.
                         </p>
                         <p className="text-xs text-slate-500 leading-relaxed">
-                            {disclaimer}
+                            This is a commentary site, not a law firm. The posts are commentary and not legal advice.
                         </p>
                     </div>
 
-                    {/* Quick Links */}
                     <div>
                         <h3 className="font-semibold text-brand mb-4">Quick Links</h3>
                         <ul className="space-y-2">
@@ -65,7 +50,6 @@ export async function SiteFooter() {
                         </ul>
                     </div>
 
-                    {/* Legal Areas */}
                     <div>
                         <h3 className="font-semibold text-brand mb-4">Legal Areas</h3>
                         <ul className="space-y-2">
@@ -80,7 +64,6 @@ export async function SiteFooter() {
                     </div>
                 </div>
 
-                {/* Bottom Bar */}
                 <div className="border-t border-slate-200 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
                     <div className="text-sm text-slate-600">
                         © {currentYear} ClearCut Law. All rights reserved.
@@ -98,5 +81,3 @@ export async function SiteFooter() {
         </footer>
     )
 }
-
-

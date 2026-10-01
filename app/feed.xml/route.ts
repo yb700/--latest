@@ -16,7 +16,7 @@ export async function GET() {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>ClearCut Law Blog</title>
-    <description>Legal insights, analysis, and commentary on current legal issues.</description>
+    <description>Plain English commentary on UK deals, finance, competition and sport.</description>
     <link>${baseUrl}</link>
     <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml" />
     <language>en-GB</language>

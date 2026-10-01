@@ -3,7 +3,7 @@ import { ContactForm } from '@/components/contact-form'
 
 export const metadata: Metadata = {
     title: 'Contact | ClearCut Law',
-    description: 'Get in touch with ClearCut Law for legal guidance and support.',
+    description: 'Contact ClearCut Law about the commentary. This is a commentary site, not a law firm.',
 }
 
 export default function ContactPage() {
@@ -11,10 +11,10 @@ export default function ContactPage() {
         <div className="container mx-auto px-4 py-12">
             <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-12">
-                    <h1 className="text-4xl font-bold text-brand mb-4">Contact Us</h1>
+                    <h1 className="text-4xl font-bold text-brand mb-4">Contact</h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                        Have a legal question or need guidance? We&apos;re here to help.
-                        Send us a message and we&apos;ll get back to you as soon as possible.
+                        Send a message about the site or a piece of commentary.
+                        This is a commentary site, not a law firm. The posts are not legal advice.
                     </p>
                 </div>
 
@@ -27,8 +27,8 @@ export default function ContactPage() {
                         <div className="bg-gray-50 rounded-2xl p-6">
                             <h3 className="text-lg font-semibold text-brand mb-4">Important Notice</h3>
                             <p className="text-sm text-gray-600 mb-4">
-                                This website provides general legal information only and does not constitute legal advice.
-                                For specific legal guidance, please consult with a qualified legal professional.
+                                ClearCut Law publishes commentary. It does not give legal advice.
+                                For advice on your own circumstances, speak to a qualified solicitor.
                             </p>
                             <p className="text-sm text-gray-600">
                                 We aim to respond to all inquiries within 24-48 hours during business days.

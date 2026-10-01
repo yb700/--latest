@@ -7,42 +7,57 @@ import { createClient } from "@/lib/supabase/server"
 import { ArrowRight, User } from "lucide-react"
 
 export async function LatestPosts() {
-    const supabase = createClient()
+    // Published posts only. A draft can take the lead spot here after it is published.
+    let posts: Array<{
+        id: string
+        title: string
+        slug: string
+        excerpt: string | null
+        hero_image_url: string | null
+        author: { full_name: string | null } | null
+        post_categories: Array<{ category: { name: string; slug: string } | null }> | null
+    }> | null = null
 
-    // Get latest 3 published posts with author and categories
-    const { data: posts } = await supabase
-        .from('posts')
-        .select(`
+    try {
+        const supabase = createClient()
+        const { data } = await supabase
+            .from('posts')
+            .select(`
       *,
       author:profiles(full_name),
       post_categories(
         category:categories(name, slug)
       )
     `)
-        .eq('status', 'published')
-        .order('published_at', { ascending: false })
-        .limit(3)
+            .eq('status', 'published')
+            .order('published_at', { ascending: false })
+            .limit(3)
+
+        posts = data
+    } catch (error) {
+        console.error('Error fetching latest posts:', error)
+    }
 
     if (!posts || posts.length === 0) {
         return (
-            <section className="py-20 bg-white">
+            <section className="bg-white py-16">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="text-center mb-16">
-                        <h2 className="text-3xl sm:text-4xl font-bold text-brand mb-4">
-                            Latest Blog Posts
+                    <div className="mb-10 max-w-2xl">
+                        <h2 className="mb-3 text-3xl font-bold text-brand sm:text-4xl">
+                            Latest blog posts
                         </h2>
-                        <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                            Stay informed with our latest legal insights and commentary
+                        <p className="text-lg text-slate-600">
+                            Recent commentary on deals, finance, competition and sport.
                         </p>
                     </div>
 
-                    <div className="text-center">
-                        <p className="text-slate-600 mb-6">
-                            No blog posts available yet. Check back soon for legal insights and commentary.
+                    <div>
+                        <p className="mb-6 text-slate-600">
+                            No posts are published yet.
                         </p>
                         <Link href="/blog">
                             <Button variant="outline">
-                                View All Posts
+                                See the blog
                             </Button>
                         </Link>
                     </div>
@@ -52,14 +67,14 @@ export async function LatestPosts() {
     }
 
     return (
-        <section className="py-20 bg-white">
+        <section className="bg-white py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-brand mb-4">
-                        Latest Blog Posts
+                <div className="mb-10 max-w-2xl">
+                    <h2 className="mb-3 text-3xl font-bold text-brand sm:text-4xl">
+                        Latest blog posts
                     </h2>
-                    <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-                        Stay informed with our latest legal insights and commentary
+                    <p className="text-lg text-slate-600">
+                        Recent commentary on deals, finance, competition and sport.
                     </p>
                 </div>
 
@@ -109,7 +124,7 @@ export async function LatestPosts() {
 
                                 <Link href={`/blog/${post.slug}`} className="block mt-4">
                                     <Button variant="ghost" size="sm" className="w-full group/button">
-                                        Read More
+                                        Read the full story
                                         <ArrowRight className="ml-2 h-4 w-4 group-hover/button:translate-x-1 transition-transform" />
                                     </Button>
                                 </Link>
@@ -118,10 +133,10 @@ export async function LatestPosts() {
                     ))}
                 </div>
 
-                <div className="text-center">
+                <div>
                     <Link href="/blog">
                         <Button size="lg">
-                            View All Posts
+                            See all blog posts
                             <ArrowRight className="ml-2 h-5 w-5" />
                         </Button>
                     </Link>

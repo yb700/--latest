@@ -72,7 +72,7 @@ export function ContactForm() {
             <CardHeader>
                 <CardTitle className="text-2xl font-bold text-brand">Get in Touch</CardTitle>
                 <p className="text-gray-600">
-                    Have a question or want to discuss a legal matter? Send us a message and we&apos;ll get back to you.
+                    Questions about the commentary? Send a message.
                 </p>
             </CardHeader>
             <CardContent>
