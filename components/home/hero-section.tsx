@@ -1,26 +1,35 @@
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, BookOpen } from "lucide-react"
 
 export function HeroSection() {
     return (
         <section className="relative bg-gradient-to-b from-slate-50 to-white py-20 sm:py-32">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-4xl mx-auto text-center">
-                    {/* Main Heading */}
                     <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-brand mb-6 leading-tight">
-                        Clear Legal Guidance for{" "}
-                        <span className="text-brand-600">Everyone</span>
+                        Commercial law, in plain English
                     </h1>
 
-                    {/* Subheading */}
-                    <p className="text-xl text-slate-600 mb-8 max-w-2xl mx-auto leading-relaxed">
-                        Navigate the UK legal system with confidence. Get  commentary,
-                        practical guidance, and clear explanations on Mergers and Acquisitions,
-                        Banking and Finance, Sports Deals and Regulation, and Competition and Regulation.
+                    <p className="text-xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed">
+                        Commentary on mergers and acquisitions, banking and finance, sports deals and regulation, and competition and regulation, plus the blog and Legal News.
                     </p>
+                </div>
 
-                    {/* Author Introduction */}
+                <div className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+                    <Link
+                        href="/blog"
+                        className="flex min-h-28 items-center justify-center rounded-2xl bg-brand px-6 py-8 text-center text-2xl font-semibold text-white transition-colors hover:bg-brand-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 sm:min-h-32 sm:text-3xl"
+                    >
+                        Blog
+                    </Link>
+                    <Link
+                        href="/news"
+                        className="flex min-h-28 items-center justify-center rounded-2xl border-2 border-brand bg-white px-6 py-8 text-center text-2xl font-semibold text-brand transition-colors hover:bg-brand hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 sm:min-h-32 sm:text-3xl"
+                    >
+                        Legal News
+                    </Link>
+                </div>
+
+                <div className="max-w-4xl mx-auto text-center">
                     <div className="bg-white rounded-2xl p-6 shadow-sm border mb-8 max-w-2xl mx-auto">
                         <p className="text-slate-700 mb-2">
                             <strong className="text-brand">Welcome!</strong> I&apos;m Younas Ficel,
@@ -32,18 +41,6 @@ export function HeroSection() {
                         </p>
                     </div>
 
-                    {/* Call to Action Buttons */}
-                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                        <Link href="/blog">
-                            <Button size="lg" className="w-full sm:w-auto">
-                                <BookOpen className="mr-2 h-5 w-5" />
-                                Explore the Blog
-                                <ArrowRight className="ml-2 h-5 w-5" />
-                            </Button>
-                        </Link>
-                    </div>
-
-                    {/* Trust Indicators */}
                     <div className="mt-12 flex justify-center">
                         <div className="text-center">
                             <div className="text-2xl font-bold text-brand">20+</div>
@@ -53,7 +50,6 @@ export function HeroSection() {
                 </div>
             </div>
 
-            {/* Background decoration */}
             <div className="absolute inset-0 -z-10 overflow-hidden">
                 <div className="absolute left-[calc(50%-4rem)] top-10 -z-10 transform-gpu blur-3xl sm:left-[calc(50%-18rem)] lg:left-48 lg:top-[calc(50%-30rem)] xl:left-[calc(50%-24rem)]">
                     <div className="aspect-[1108/632] w-[69.25rem] bg-gradient-to-r from-brand-100 to-brand-200 opacity-20"></div>
