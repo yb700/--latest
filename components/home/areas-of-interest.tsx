@@ -54,17 +54,8 @@ const areas: {
 
 export function AreasOfInterest() {
     return (
-        <section className="bg-slate-50 py-16">
+        <section className="bg-slate-50 pb-16" aria-label="Areas">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-12 max-w-2xl">
-                    <h2 className="mb-4 text-3xl font-bold text-brand sm:text-4xl">
-                        The four areas
-                    </h2>
-                    <p className="text-lg text-slate-600">
-                        Open the news or the blog posts for each area.
-                    </p>
-                </div>
-
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                     {areas.map((area) => {
                         const Icon = area.icon

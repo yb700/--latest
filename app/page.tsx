@@ -30,8 +30,8 @@ export default function HomePage({
   return (
     <>
       <HeroSection />
-      <LegalNews preview={preview} />
       <AreasOfInterest />
+      <LegalNews preview={preview} />
       <LatestPosts />
     </>
   )
