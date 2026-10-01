@@ -6,11 +6,11 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { Toaster } from '@/components/ui/toaster'
 import { getProfile } from '@/lib/auth-server'
 import { CANONICAL_PRODUCTION_ORIGIN } from '@/lib/site-url'
+import { SITE_SHARE_DESCRIPTION } from '@/lib/site-copy'
 
 const inter = Inter({ subsets: ['latin'] })
 
-const description =
-  'Plain English commentary on UK deals, finance, competition and sport, written by a law graduate. This is a commentary site, not a law firm.'
+const description = SITE_SHARE_DESCRIPTION
 
 export const metadata: Metadata = {
   metadataBase: new URL(CANONICAL_PRODUCTION_ORIGIN),

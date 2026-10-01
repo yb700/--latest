@@ -3,9 +3,9 @@ import { AreasOfInterest } from "@/components/home/areas-of-interest"
 import { LegalNews } from "@/components/home/legal-news"
 import { LatestPosts } from "@/components/home/latest-posts"
 import { Metadata } from "next"
+import { SITE_SHARE_DESCRIPTION } from "@/lib/site-copy"
 
-const description =
-  'Plain English commentary on UK deals, finance, competition and sport, written by a law graduate. This is a commentary site, not a law firm.'
+const description = SITE_SHARE_DESCRIPTION
 
 export const metadata: Metadata = {
   title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
