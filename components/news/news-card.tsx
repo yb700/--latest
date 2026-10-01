@@ -13,13 +13,12 @@ const STORY_IMAGES: Record<string, string> = {
 const BT_TOWER_SRC = '/news/bt-tower-dusk.jpg'
 
 /**
- * bt-tower-dusk.jpg is already a tight portrait close-up (1200×1696).
- * Covering it into the shared 16:9 frame keeps only the top of the mast and
- * cuts off the shaft and the BT sign. This frame matches the file, so the
- * card shows the whole photo and does not crop or enlarge it.
- * Homepage and /news share this card. The other photos stay 16:9.
+ * The BT crop is 1200×1200. Homepage and /news share this card, and the
+ * frame stays 16:9 with the Bank of England and Manchester City photos.
+ * A square is taller than that frame. Fitting the whole file inside it
+ * keeps the mast and the BT sign in view. Covering it would cut them.
  */
-const BT_TOWER_FRAME = 'aspect-[1200/1696]'
+const BT_TOWER_FIT = 'object-contain object-center'
 
 const AREA_PILL: Record<string, string> = {
     'mergers-acquisitions': 'bg-rose-600 text-white',
@@ -57,12 +56,7 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                 layout === 'feed' && 'news-card-feed'
             )}
         >
-            <div
-                className={cn(
-                    'relative w-full overflow-hidden bg-brand',
-                    isBtTower ? BT_TOWER_FRAME : 'aspect-video'
-                )}
-            >
+            <div className="relative aspect-video w-full overflow-hidden bg-brand">
                 {imageSrc ? (
                     // The Man City file is a local public asset. Other photos may be publisher URLs.
                     // eslint-disable-next-line @next/next/no-img-element
@@ -71,7 +65,7 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                         alt=""
                         className={cn(
                             'absolute inset-0 h-full w-full',
-                            isBtTower ? 'object-contain object-center' : 'object-cover'
+                            isBtTower ? BT_TOWER_FIT : 'object-cover'
                         )}
                     />
                 ) : (
