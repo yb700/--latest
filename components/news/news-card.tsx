@@ -3,9 +3,12 @@ import { newsCategoryLabel, newsCategoryShortLabel } from '@/lib/news-categories
 import { blogPostPath, formatNewsCardDate, safeHttpUrl, type NewsListItem } from '@/lib/news'
 import { cn } from '@/lib/utils'
 
-/** The Etihad photo belongs only to this live story. */
-const MAN_CITY_HEADLINE = 'Manchester City found guilty of Premier League financial breaches'
-const MAN_CITY_IMAGE = '/news/manchester-city-etihad.jpg'
+/** Local photos are tied to one headline each. They are not shared between stories. */
+const STORY_IMAGES: Record<string, string> = {
+    'BT opens government talks over possible TalkTalk bid': '/news/bt-tower-dusk.jpg',
+    'Bank of England warns financial stability risks have risen': '/news/bank-of-england.webp',
+    'Manchester City found guilty of Premier League financial breaches': '/news/manchester-city-etihad.jpg',
+}
 
 const AREA_PILL: Record<string, string> = {
     'mergers-acquisitions': 'bg-rose-600 text-white',
@@ -22,8 +25,7 @@ interface NewsCardProps {
 }
 
 function cardImageSrc(item: NewsListItem): string | null {
-    if (item.headline.trim() === MAN_CITY_HEADLINE) return MAN_CITY_IMAGE
-    return safeHttpUrl(item.image_url)
+    return STORY_IMAGES[item.headline.trim()] ?? safeHttpUrl(item.image_url)
 }
 
 export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCardProps) {
