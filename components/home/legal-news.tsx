@@ -46,7 +46,7 @@ export async function LegalNews({ preview = false }: LegalNewsProps) {
                     )}
                 </div>
 
-                <ul className="mb-10 grid list-none grid-cols-1 items-stretch gap-4 lg:grid-cols-3">
+                <ul className="mb-10 grid list-none grid-cols-1 items-start gap-4 lg:grid-cols-3">
                     {items.map((item) => (
                         <li key={item.id} className="flex min-w-0">
                             <NewsCard item={item} headingLevel="h3" />
