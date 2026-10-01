@@ -425,7 +425,7 @@ INSERT INTO nav_links (title, url, order_index) VALUES
 ('Home', '/', 1),
 ('About', '/about', 2),
 ('Blog', '/blog', 3),
-('Guidance', '/guidance', 4),
+('Legal News', '/news', 4),
 ('Contact', '/contact', 5);
 
 -- Create storage bucket for public assets
@@ -461,5 +461,87 @@ CREATE POLICY "Staff can delete public assets" ON storage.objects
             WHERE id = auth.uid() AND role IN ('admin', 'editor')
         )
     );
+
+-- Legal News. For an existing database, apply
+-- supabase/migrations/20261001154533_create_news_items.sql instead of re-running this file.
+-- That migration has not been run on the live project.
+CREATE TABLE news_items (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    headline TEXT NOT NULL,
+    summary TEXT NOT NULL,
+    why_it_matters TEXT,
+    source_name TEXT NOT NULL,
+    source_url TEXT NOT NULL,
+    category TEXT NOT NULL CHECK (category IN (
+        'mergers-acquisitions',
+        'banking-finance',
+        'sports-deals-regulation',
+        'competition-regulation'
+    )),
+    image_url TEXT,
+    related_post_slug TEXT,
+    published_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    is_published BOOLEAN NOT NULL DEFAULT false,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX news_items_published_at_idx ON news_items (published_at DESC) WHERE is_published = true;
+CREATE INDEX news_items_category_published_at_idx ON news_items (category, published_at DESC) WHERE is_published = true;
+
+ALTER TABLE news_items ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "public can read published news" ON news_items
+    FOR SELECT TO anon, authenticated
+    USING (is_published = true);
+
+CREATE POLICY "Staff can view all news items" ON news_items
+    FOR SELECT TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM profiles
+            WHERE id = (SELECT auth.uid()) AND role IN ('admin', 'editor')
+        )
+    );
+
+CREATE POLICY "Staff can insert news items" ON news_items
+    FOR INSERT TO authenticated
+    WITH CHECK (
+        EXISTS (
+            SELECT 1 FROM profiles
+            WHERE id = (SELECT auth.uid()) AND role IN ('admin', 'editor')
+        )
+    );
+
+CREATE POLICY "Staff can update news items" ON news_items
+    FOR UPDATE TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM profiles
+            WHERE id = (SELECT auth.uid()) AND role IN ('admin', 'editor')
+        )
+    )
+    WITH CHECK (
+        EXISTS (
+            SELECT 1 FROM profiles
+            WHERE id = (SELECT auth.uid()) AND role IN ('admin', 'editor')
+        )
+    );
+
+CREATE POLICY "Staff can delete news items" ON news_items
+    FOR DELETE TO authenticated
+    USING (
+        EXISTS (
+            SELECT 1 FROM profiles
+            WHERE id = (SELECT auth.uid()) AND role IN ('admin', 'editor')
+        )
+    );
+
+CREATE TRIGGER news_items_set_updated_at BEFORE UPDATE ON news_items
+    FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+
+GRANT SELECT ON news_items TO anon, authenticated;
+GRANT INSERT, UPDATE, DELETE ON news_items TO authenticated;
+GRANT ALL ON news_items TO service_role;
 
 

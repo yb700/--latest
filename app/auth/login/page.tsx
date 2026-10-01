@@ -49,7 +49,7 @@ export default function LoginPage() {
                         </div>
                         <CardTitle>Check your email</CardTitle>
                         <CardDescription>
-                            We've sent a magic link to <strong>{email}</strong>
+                            We&apos;ve sent a magic link to <strong>{email}</strong>
                         </CardDescription>
                     </CardHeader>
                     <CardContent>
@@ -90,7 +90,7 @@ export default function LoginPage() {
                     </Link>
                     <CardTitle>Sign in to your account</CardTitle>
                     <CardDescription>
-                        We'll send you a magic link to sign in without a password
+                        We&apos;ll send you a magic link to sign in without a password
                     </CardDescription>
                 </CardHeader>
                 <CardContent>

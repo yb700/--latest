@@ -13,6 +13,20 @@ const nextConfig = {
             },
         ],
     },
+    async redirects() {
+        return [
+            {
+                source: '/guidance',
+                destination: '/news',
+                permanent: true,
+            },
+            {
+                source: '/guidance/:path*',
+                destination: '/news',
+                permanent: true,
+            },
+        ]
+    },
     async headers() {
         return [
             {

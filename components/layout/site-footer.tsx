@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { createClient } from "@/lib/supabase/server"
+import { NEWS_CATEGORIES, newsCategoryPath } from "@/lib/news-categories"
 
 export async function SiteFooter() {
     const supabase = createClient()
@@ -52,8 +53,8 @@ export async function SiteFooter() {
                                 </Link>
                             </li>
                             <li>
-                                <Link href="/guidance" className="text-slate-600 hover:text-brand transition-colors">
-                                    Legal Guidance
+                                <Link href="/news" className="text-slate-600 hover:text-brand transition-colors">
+                                    Legal News
                                 </Link>
                             </li>
                             <li>
@@ -68,26 +69,13 @@ export async function SiteFooter() {
                     <div>
                         <h3 className="font-semibold text-brand mb-4">Legal Areas</h3>
                         <ul className="space-y-2">
-                            <li>
-                                <Link href="/guidance?area=Family" className="text-slate-600 hover:text-brand transition-colors">
-                                    Mergers and Acquisitions
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/guidance?area=Employment" className="text-slate-600 hover:text-brand transition-colors">
-                                    Banking and Finance
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/guidance?area=Road+Traffic" className="text-slate-600 hover:text-brand transition-colors">
-                                    Sports Deals and Regulation
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/guidance?area=Commercial" className="text-slate-600 hover:text-brand transition-colors">
-                                    Competition and Regulation
-                                </Link>
-                            </li>
+                            {NEWS_CATEGORIES.map((category) => (
+                                <li key={category.slug}>
+                                    <Link href={newsCategoryPath(category.slug)} className="text-slate-600 hover:text-brand transition-colors">
+                                        {category.label}
+                                    </Link>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>

@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import {
     FileText,
-    MessageSquare,
     Users,
     Settings,
     Plus,
@@ -24,13 +23,6 @@ export default async function AdminPage() {
             icon: Plus,
             href: '/admin/posts/new',
             color: 'text-blue-600',
-        },
-        {
-            title: 'Review Questions',
-            description: 'Review pending guidance questions',
-            icon: MessageSquare,
-            href: '/admin/guidance',
-            color: 'text-green-600',
         },
         {
             title: 'View Messages',
@@ -90,17 +82,6 @@ export default async function AdminPage() {
                         <CardContent>
                             <div className="text-2xl font-bold">0</div>
                             <p className="text-xs text-muted-foreground">No posts yet</p>
-                        </CardContent>
-                    </Card>
-
-                    <Card>
-                        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-sm font-medium">Guidance Questions</CardTitle>
-                            <MessageSquare className="h-4 w-4 text-muted-foreground" />
-                        </CardHeader>
-                        <CardContent>
-                            <div className="text-2xl font-bold">0</div>
-                            <p className="text-xs text-muted-foreground">No questions yet</p>
                         </CardContent>
                     </Card>
 
