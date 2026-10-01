@@ -98,6 +98,32 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+
+  html {
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Legal News feed. Header row is h-16 plus its 1px border. */
+:root {
+  --header-h: 4.0625rem;
+  --filters-h: 5.5rem;
+}
+
+html.news-feed-scroll {
+  scroll-snap-type: y proximity;
+  scroll-padding-top: calc(var(--header-h) + var(--filters-h));
+}
+
+.news-card-feed {
+  scroll-snap-align: start;
+}
+
+@media (max-width: 767px) {
+  .news-card-feed {
+    height: calc((100dvh - var(--header-h) - var(--filters-h) - 2rem) / 3);
+    min-height: 150px;
+  }
 }
 
 /* Font loading optimization */

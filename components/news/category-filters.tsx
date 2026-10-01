@@ -1,24 +1,32 @@
 import Link from 'next/link'
-import { buttonVariants } from '@/components/ui/button'
-import { NEWS_CATEGORIES, NewsCategorySlug } from '@/lib/news-categories'
+import { NEWS_CATEGORIES, NewsCategorySlug, newsCategoryLabel } from '@/lib/news-categories'
 import { cn } from '@/lib/utils'
 
 interface NewsCategoryFiltersProps {
     selected: NewsCategorySlug | null
+    preview?: boolean
 }
 
-export function NewsCategoryFilters({ selected }: NewsCategoryFiltersProps) {
+function newsFilterHref(slug: NewsCategorySlug | null, preview: boolean): string {
+    const params = new URLSearchParams()
+    if (slug) params.set('category', slug)
+    if (preview) params.set('preview', 'fixtures')
+    const query = params.toString()
+    return query ? `/news?${query}` : '/news'
+}
+
+export function NewsCategoryFilters({ selected, preview = false }: NewsCategoryFiltersProps) {
     const filters = [
-        { href: '/news', label: 'All', slug: null as NewsCategorySlug | null },
+        { href: newsFilterHref(null, preview), label: 'All', slug: null as NewsCategorySlug | null },
         ...NEWS_CATEGORIES.map((category) => ({
-            href: `/news?category=${category.slug}`,
-            label: category.label,
+            href: newsFilterHref(category.slug, preview),
+            label: category.shortLabel,
             slug: category.slug as NewsCategorySlug | null,
         })),
     ]
 
     return (
-        <nav aria-label="Filter Legal News by category" className="flex flex-wrap gap-2">
+        <nav aria-label="Filter Legal News by category" className="flex flex-nowrap gap-x-4 overflow-x-auto text-sm">
             {filters.map((filter) => {
                 const active = filter.slug === selected
 
@@ -27,11 +35,12 @@ export function NewsCategoryFilters({ selected }: NewsCategoryFiltersProps) {
                         key={filter.label}
                         href={filter.href}
                         aria-current={active ? 'page' : undefined}
+                        aria-label={filter.slug ? newsCategoryLabel(filter.slug) : 'All categories'}
                         className={cn(
-                            buttonVariants({
-                                variant: active ? 'default' : 'outline',
-                                size: 'sm',
-                            })
+                            'shrink-0 whitespace-nowrap rounded-sm py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2',
+                            active
+                                ? 'font-semibold text-brand underline underline-offset-4'
+                                : 'text-gray-500 hover:text-brand'
                         )}
                     >
                         {filter.label}
