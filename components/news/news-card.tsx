@@ -13,11 +13,13 @@ const STORY_IMAGES: Record<string, string> = {
 const BT_TOWER_SRC = '/news/bt-tower-dusk.jpg'
 
 /**
- * The BT file is a tall close-up. A 16:9 cover already shows the full width,
- * so pin it to the top: the mast and the BT sign stay in frame, and nothing
- * is enlarged past the card. Homepage and /news share this card.
+ * bt-tower-dusk.jpg is already a tight portrait close-up (1200×1696).
+ * Covering it into the shared 16:9 frame keeps only the top of the mast and
+ * cuts off the shaft and the BT sign. This frame matches the file, so the
+ * card shows the whole photo and does not crop or enlarge it.
+ * Homepage and /news share this card. The other photos stay 16:9.
  */
-const BT_TOWER_CROP = 'object-top'
+const BT_TOWER_FRAME = 'aspect-[1200/1696]'
 
 const AREA_PILL: Record<string, string> = {
     'mergers-acquisitions': 'bg-rose-600 text-white',
@@ -46,6 +48,7 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
     const published = formatNewsCardDate(item.published_at)
     const imageSrc = cardImageSrc(item)
     const areaLabel = newsCategoryLabel(item.category)
+    const isBtTower = imageSrc === BT_TOWER_SRC
 
     return (
         <article
@@ -54,7 +57,12 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                 layout === 'feed' && 'news-card-feed'
             )}
         >
-            <div className="relative aspect-video w-full overflow-hidden bg-brand">
+            <div
+                className={cn(
+                    'relative w-full overflow-hidden bg-brand',
+                    isBtTower ? BT_TOWER_FRAME : 'aspect-video'
+                )}
+            >
                 {imageSrc ? (
                     // The Man City file is a local public asset. Other photos may be publisher URLs.
                     // eslint-disable-next-line @next/next/no-img-element
@@ -62,8 +70,8 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                         src={imageSrc}
                         alt=""
                         className={cn(
-                            'absolute inset-0 h-full w-full object-cover',
-                            imageSrc === BT_TOWER_SRC && BT_TOWER_CROP
+                            'absolute inset-0 h-full w-full',
+                            isBtTower ? 'object-contain object-center' : 'object-cover'
                         )}
                     />
                 ) : (
