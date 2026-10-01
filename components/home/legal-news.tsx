@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { NewsCard } from '@/components/news/news-card'
-import { getPublishedNewsItems } from '@/lib/news'
+import { getPublishedNewsItems } from '@/lib/news-data'
 import { ArrowRight } from 'lucide-react'
 
 export async function LegalNews() {
@@ -23,9 +23,9 @@ export async function LegalNews() {
                     </p>
                 </div>
 
-                <ul className="mb-12 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <ul className="mx-auto mb-12 flex max-w-[720px] list-none flex-col gap-4">
                     {items.map((item) => (
-                        <li key={item.id} className="h-full">
+                        <li key={item.id}>
                             <NewsCard item={item} headingLevel="h3" />
                         </li>
                     ))}
