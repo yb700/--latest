@@ -35,7 +35,7 @@ export function formatUkDate(value: string): string {
     }).format(date)
 }
 
-/** Card date, for example 1 OCT 2026. */
+/** Card date, for example 1 Oct 2026. */
 export function formatNewsCardDate(value: string): string {
     const date = new Date(value)
     if (Number.isNaN(date.getTime())) return ''
@@ -50,7 +50,7 @@ export function formatNewsCardDate(value: string): string {
     const day = parts.find((part) => part.type === 'day')?.value ?? ''
     const year = parts.find((part) => part.type === 'year')?.value ?? ''
     const monthRaw = (parts.find((part) => part.type === 'month')?.value ?? '').replace(/\./g, '')
-    const month = monthRaw.toLowerCase() === 'sept' ? 'SEP' : monthRaw.toUpperCase()
+    const month = monthRaw.toLowerCase() === 'sept' ? 'Sep' : `${monthRaw.charAt(0).toUpperCase()}${monthRaw.slice(1).toLowerCase()}`
 
     return `${day} ${month} ${year}`
 }

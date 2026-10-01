@@ -83,13 +83,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                                     <LogOut className="h-4 w-4" />
                                 </Button>
                             </div>
-                        ) : (
-                            <Link href="/auth/login">
-                                <Button variant="outline" size="sm">
-                                    Sign In
-                                </Button>
-                            </Link>
-                        )}
+                        ) : null}
                     </div>
 
                     {/* Mobile menu button */}
@@ -149,17 +143,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                                         Sign Out
                                     </button>
                                 </div>
-                            ) : (
-                                <div className="border-t pt-3 mt-3">
-                                    <Link
-                                        href="/auth/login"
-                                        className="block px-3 py-2 text-base font-medium text-brand hover:bg-slate-50 rounded-xl"
-                                        onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                        Sign In
-                                    </Link>
-                                </div>
-                            )}
+                            ) : null}
                         </nav>
                     </div>
                 )}

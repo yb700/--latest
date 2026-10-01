@@ -1,13 +1,29 @@
 import Link from 'next/link'
-import { newsCategoryShortLabel } from '@/lib/news-categories'
+import { newsCategoryLabel, newsCategoryShortLabel } from '@/lib/news-categories'
 import { blogPostPath, formatNewsCardDate, safeHttpUrl, type NewsListItem } from '@/lib/news'
 import { cn } from '@/lib/utils'
+
+/** The Etihad photo belongs only to this live story. */
+const MAN_CITY_HEADLINE = 'Manchester City found guilty of Premier League financial breaches'
+const MAN_CITY_IMAGE = '/news/manchester-city-etihad.jpg'
+
+const AREA_PILL: Record<string, string> = {
+    'mergers-acquisitions': 'bg-rose-600 text-white',
+    'banking-finance': 'bg-blue-600 text-white',
+    'competition-regulation': 'bg-purple-600 text-white',
+    'sports-deals-regulation': 'bg-green-600 text-white',
+}
 
 interface NewsCardProps {
     item: NewsListItem
     headingLevel?: 'h2' | 'h3'
-    /** Feed cards snap and, on a phone, share the space under the header. */
+    /** Feed cards snap to the top of the news page. */
     layout?: 'feed' | 'block'
+}
+
+function cardImageSrc(item: NewsListItem): string | null {
+    if (item.headline.trim() === MAN_CITY_HEADLINE) return MAN_CITY_IMAGE
+    return safeHttpUrl(item.image_url)
 }
 
 export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCardProps) {
@@ -17,48 +33,62 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
     const relatedTitle = item.relatedPostTitle?.trim() ?? ''
     const showRelated = Boolean(relatedHref && relatedTitle)
     const published = formatNewsCardDate(item.published_at)
-
-    const pinnedMeta = layout === 'block'
+    const imageSrc = cardImageSrc(item)
+    const areaLabel = newsCategoryLabel(item.category)
 
     return (
         <article
             className={cn(
-                'flex h-full min-h-0 flex-col overflow-hidden rounded-xl border border-gray-200 border-l-[3px] border-l-brand bg-white',
+                'flex h-full w-full min-h-0 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg',
                 layout === 'feed' && 'news-card-feed'
             )}
         >
-            <div className="flex h-full min-h-0 flex-col gap-1.5 p-3 md:gap-2 md:p-4">
-                <p
-                    className={cn(
-                        'text-[11px] font-medium uppercase tracking-wide text-gray-500',
-                        pinnedMeta && 'flex flex-nowrap items-baseline justify-between gap-3'
-                    )}
-                >
-                    <span className={cn(pinnedMeta && 'shrink-0')}>{newsCategoryShortLabel(item.category)}</span>
-                    {published && (
-                        pinnedMeta ? (
-                            <time dateTime={item.published_at} className="shrink-0 whitespace-nowrap">
-                                {published}
-                            </time>
-                        ) : (
-                            <>
-                                <span aria-hidden="true"> · </span>
-                                <time dateTime={item.published_at}>{published}</time>
-                            </>
-                        )
-                    )}
-                </p>
+            <div className="relative aspect-video w-full overflow-hidden bg-brand">
+                {imageSrc ? (
+                    // The Man City file is a local public asset. Other photos may be publisher URLs.
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                        src={imageSrc}
+                        alt=""
+                        className="absolute inset-0 h-full w-full object-cover"
+                    />
+                ) : (
+                    <p className="absolute inset-0 flex items-center justify-center px-6 text-center text-lg font-semibold text-white">
+                        {areaLabel}
+                    </p>
+                )}
+                <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-brand text-xs font-bold text-white ring-2 ring-white">
+                    CL
+                </div>
+            </div>
 
-                <Heading className="line-clamp-2 min-w-0 text-base font-bold uppercase leading-snug text-brand">
+            <div className="flex h-full min-h-0 flex-col gap-2 p-4">
+                <div className="flex items-center justify-between gap-3">
+                    <span
+                        className={cn(
+                            'shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium',
+                            AREA_PILL[item.category] ?? 'bg-slate-600 text-white'
+                        )}
+                    >
+                        {newsCategoryShortLabel(item.category)}
+                    </span>
+                    {published && (
+                        <time dateTime={item.published_at} className="shrink-0 text-xs text-gray-500">
+                            {published}
+                        </time>
+                    )}
+                </div>
+
+                <Heading className="line-clamp-2 min-w-0 text-lg font-bold leading-snug text-brand">
                     {item.headline}
                 </Heading>
 
-                <p className="line-clamp-3 min-w-0 text-sm leading-snug text-gray-700 md:line-clamp-2">
+                <p className="line-clamp-2 min-w-0 text-sm leading-snug text-gray-500">
                     {item.summary}
                 </p>
 
-                <div className="mt-auto space-y-1 pt-1">
-                    <p className="truncate text-xs text-gray-500">
+                <div className="mt-auto flex items-center justify-between gap-3 border-t border-gray-200 pt-3">
+                    <p className="min-w-0 truncate text-xs text-gray-500">
                         {sourceUrl ? (
                             <a
                                 href={sourceUrl}
@@ -74,14 +104,12 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                     </p>
 
                     {showRelated && relatedHref && (
-                        <p className="line-clamp-2 text-sm font-bold leading-snug text-brand">
-                            <Link
-                                href={relatedHref}
-                                className="hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-                            >
-                                Related post: {relatedTitle} →
-                            </Link>
-                        </p>
+                        <Link
+                            href={relatedHref}
+                            className="shrink-0 text-sm font-semibold text-brand hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
+                        >
+                            Read more
+                        </Link>
                     )}
                 </div>
             </div>
