@@ -13,12 +13,12 @@ const STORY_IMAGES: Record<string, string> = {
 const BT_TOWER_SRC = '/news/bt-tower-dusk.jpg'
 
 /**
- * The BT file is a tall portrait and the tower stands left of centre.
- * A 16:9 cover already fills the card width, so object-position cannot
- * slide the tower sideways. Zoom from a left anchor so the tower sits
- * in the middle of the frame. Homepage and /news share this card.
+ * The BT file is a tall portrait, so a 16:9 cover only moves up or down.
+ * Keep the mast, the BT sign and the shaft in frame, and sit the photo
+ * low enough to include the skyline along the bottom. No zoom.
+ * Homepage and /news share this card.
  */
-const BT_TOWER_CROP = 'object-[left_top] origin-[13.5%_61.5%] scale-[1.93]'
+const BT_TOWER_CROP = 'object-[center_40%]'
 
 const AREA_PILL: Record<string, string> = {
     'mergers-acquisitions': 'bg-rose-600 text-white',
