@@ -10,6 +10,16 @@ const STORY_IMAGES: Record<string, string> = {
     'Manchester City found guilty of Premier League financial breaches': '/news/manchester-city-etihad.jpg',
 }
 
+const BT_TOWER_SRC = '/news/bt-tower-dusk.jpg'
+
+/**
+ * The BT file is a tall portrait, so a 16:9 cover only moves up or down.
+ * Keep the mast, the BT sign and the shaft in frame, and sit the photo
+ * low enough to include the skyline along the bottom. No zoom.
+ * Homepage and /news share this card.
+ */
+const BT_TOWER_CROP = 'object-[center_40%]'
+
 const AREA_PILL: Record<string, string> = {
     'mergers-acquisitions': 'bg-rose-600 text-white',
     'banking-finance': 'bg-blue-600 text-white',
@@ -52,7 +62,10 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                     <img
                         src={imageSrc}
                         alt=""
-                        className="absolute inset-0 h-full w-full object-cover"
+                        className={cn(
+                            'absolute inset-0 h-full w-full object-cover',
+                            imageSrc === BT_TOWER_SRC && BT_TOWER_CROP
+                        )}
                     />
                 ) : (
                     <p className="absolute inset-0 flex items-center justify-center px-6 text-center text-lg font-semibold text-white">
