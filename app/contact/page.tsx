@@ -1,5 +1,6 @@
 import { Metadata } from 'next'
 import { ContactForm } from '@/components/contact-form'
+import { CONTACT_EMAIL, contactMailtoHref } from '@/lib/contact'
 
 export const metadata: Metadata = {
     title: 'Contact | ClearCut Law',
@@ -14,7 +15,7 @@ export default function ContactPage() {
                     <h1 className="text-4xl font-bold text-brand mb-4">Contact</h1>
                     <p className="text-xl text-gray-600 max-w-2xl mx-auto">
                         Send a message about the site or a piece of commentary.
-                        This is a commentary site, not a law firm. The posts are not legal advice.
+                        The posts are not legal advice.
                     </p>
                 </div>
 
@@ -40,7 +41,12 @@ export default function ContactPage() {
                             <div className="space-y-3">
                                 <div>
                                     <h4 className="font-medium text-gray-900">Email</h4>
-                                    <p className="text-sm text-gray-600">contact@ClearCut Law.com</p>
+                                    <a
+                                        href={contactMailtoHref()}
+                                        className="text-sm text-brand underline break-all"
+                                    >
+                                        {CONTACT_EMAIL}
+                                    </a>
                                 </div>
                                 <div>
                                     <h4 className="font-medium text-gray-900">Response Time</h4>
