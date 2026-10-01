@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { NEWS_CATEGORIES, NewsCategorySlug, newsCategoryPath } from "@/lib/news-categories"
+import { blogCategoryPath, type BlogCategorySlug } from "@/lib/blog-categories"
+import { NEWS_CATEGORIES, type NewsCategorySlug } from "@/lib/news-categories"
 
 const footerAreaOrder: NewsCategorySlug[] = [
     "mergers-acquisitions",
@@ -7,6 +8,13 @@ const footerAreaOrder: NewsCategorySlug[] = [
     "competition-regulation",
     "sports-deals-regulation",
 ]
+
+const blogSlugForNews: Record<NewsCategorySlug, BlogCategorySlug> = {
+    "mergers-acquisitions": "mergers-and-acquisitions",
+    "banking-finance": "banking-and-finance",
+    "competition-regulation": "competition-and-regulation",
+    "sports-deals-regulation": "sports-deals-and-regulation",
+}
 
 export function SiteFooter() {
     const currentYear = new Date().getFullYear()
@@ -62,7 +70,7 @@ export function SiteFooter() {
                         <ul className="space-y-2">
                             {footerAreaOrder.map((slug) => NEWS_CATEGORIES.find((category) => category.slug === slug)!).map((category) => (
                                 <li key={category.slug}>
-                                    <Link href={newsCategoryPath(category.slug)} className="text-slate-600 hover:text-brand transition-colors">
+                                    <Link href={blogCategoryPath(blogSlugForNews[category.slug])} className="text-slate-600 hover:text-brand transition-colors">
                                         {category.label}
                                     </Link>
                                 </li>

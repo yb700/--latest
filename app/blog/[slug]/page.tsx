@@ -3,6 +3,7 @@ import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
 import { TagPills } from '@/components/blog/tag-pills'
+import { SITE_SHARE_DESCRIPTION } from '@/lib/site-copy'
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>
@@ -49,11 +50,16 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
         description: post.excerpt || (post.content_md ?? post.content ?? '').substring(0, 160),
         openGraph: {
             title: post.title,
-            description: post.excerpt || (post.content_md ?? post.content ?? '').substring(0, 160),
+            description: SITE_SHARE_DESCRIPTION,
             type: 'article',
             publishedTime: post.created_at,
             modifiedTime: post.updated_at,
             authors: ['ClearCut Law'],
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: post.title,
+            description: SITE_SHARE_DESCRIPTION,
         },
     }
 }
