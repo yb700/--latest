@@ -40,5 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# supabase
-/supabase
+# supabase local CLI state (schema and migrations stay in the repo)
+/supabase/.temp
+/supabase/.branches
+/supabase/.env

@@ -105,7 +105,7 @@ ClearCut Law/
 │   ├── admin/                    # Admin dashboard (protected)
 │   ├── api/                      # API routes
 │   ├── blog/                     # Blog pages
-│   ├── guidance/                 # Legal guidance pages
+│   ├── news/                     # Legal News page
 │   ├── globals.css              # Global styles
 │   ├── layout.tsx               # Root layout
 │   └── page.tsx                 # Homepage
@@ -114,7 +114,7 @@ ClearCut Law/
 │   ├── layout/                  # Layout components
 │   ├── home/                    # Homepage components
 │   ├── blog/                    # Blog components
-│   ├── guidance/                # Guidance components
+│   ├── news/                    # Legal News components
 │   └── admin/                   # Admin components
 ├── lib/                         # Utility libraries
 │   ├── supabase/               # Supabase client configuration
@@ -159,17 +159,39 @@ ClearCut Law/
 - Draft/Published status
 - SEO metadata
 
-### Legal Guidance
+### Legal News
 
-- Public Q&A submission form
-- Admin moderation workflow
-- Approved answers published publicly
-- Area-based categorization
+Short items about deals and decisions, kept separate from blog posts. The public site shows published rows on the homepage and at `/news`. There is no admin form yet. See [supabase/news-items.md](supabase/news-items.md).
+
+The database migration has **not** been run. Do not run it until Younas says so.
+
+```sql
+insert into public.news_items (
+    headline,
+    summary,
+    why_it_matters,
+    source_name,
+    source_url,
+    category,
+    image_url,
+    related_post_slug,
+    is_published
+) values (
+    'CMA clears the Example Group merger',
+    'The Competition and Markets Authority has cleared the deal after a phase 1 review.',
+    'Phase 1 clearance means the parties can complete without offering remedies.',
+    'GOV.UK',
+    'https://www.gov.uk/government/organisations/competition-and-markets-authority',
+    'competition-regulation',
+    null,
+    null,
+    true
+);
+```
 
 ### Admin Dashboard
 
 - **Posts**: CRUD operations for blog posts
-- **Guidance**: Moderate and answer questions
 - **Contact**: View contact form submissions
 - **Settings**: Site configuration
 
@@ -200,7 +222,6 @@ ClearCut Law/
 ### Public APIs
 
 - `POST /api/contact` - Contact form submission
-- `POST /api/guidance/submit` - Legal question submission
 - `POST /api/newsletter` - Newsletter subscription
 
 ### Admin APIs

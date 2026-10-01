@@ -333,6 +333,53 @@ export type Database = {
                     created_at?: string
                 }
             }
+            news_items: {
+                Row: {
+                    id: string
+                    headline: string
+                    summary: string
+                    why_it_matters: string | null
+                    source_name: string
+                    source_url: string
+                    category: 'mergers-acquisitions' | 'banking-finance' | 'sports-deals-regulation' | 'competition-regulation'
+                    image_url: string | null
+                    related_post_slug: string | null
+                    published_at: string
+                    is_published: boolean
+                    created_at: string
+                    updated_at: string
+                }
+                Insert: {
+                    id?: string
+                    headline: string
+                    summary: string
+                    why_it_matters?: string | null
+                    source_name: string
+                    source_url: string
+                    category: 'mergers-acquisitions' | 'banking-finance' | 'sports-deals-regulation' | 'competition-regulation'
+                    image_url?: string | null
+                    related_post_slug?: string | null
+                    published_at?: string
+                    is_published?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+                Update: {
+                    id?: string
+                    headline?: string
+                    summary?: string
+                    why_it_matters?: string | null
+                    source_name?: string
+                    source_url?: string
+                    category?: 'mergers-acquisitions' | 'banking-finance' | 'sports-deals-regulation' | 'competition-regulation'
+                    image_url?: string | null
+                    related_post_slug?: string | null
+                    published_at?: string
+                    is_published?: boolean
+                    created_at?: string
+                    updated_at?: string
+                }
+            }
         }
         Views: {
             public_guidance: {
@@ -374,6 +421,7 @@ export type NewsletterSubscriber = Tables<'newsletter_subscribers'>
 export type Page = Tables<'pages'>
 export type SiteSetting = Tables<'site_settings'>
 export type NavLink = Tables<'nav_links'>
+export type NewsItem = Tables<'news_items'>
 export type PublicGuidance = Database['public']['Views']['public_guidance']['Row']
 
 // Extended types for UI
