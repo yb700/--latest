@@ -13,12 +13,11 @@ const STORY_IMAGES: Record<string, string> = {
 const BT_TOWER_SRC = '/news/bt-tower-dusk.jpg'
 
 /**
- * The BT file is a tall portrait, so a 16:9 cover only moves up or down.
- * Keep the mast, the BT sign and the shaft in frame, and sit the photo
- * low enough to include the skyline along the bottom. No zoom.
- * Homepage and /news share this card.
+ * The BT file is a tall close-up. A 16:9 cover already shows the full width,
+ * so pin it to the top: the mast and the BT sign stay in frame, and nothing
+ * is enlarged past the card. Homepage and /news share this card.
  */
-const BT_TOWER_CROP = 'object-[center_40%]'
+const BT_TOWER_CROP = 'object-top'
 
 const AREA_PILL: Record<string, string> = {
     'mergers-acquisitions': 'bg-rose-600 text-white',
