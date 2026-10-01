@@ -1,5 +1,6 @@
 import { HeroSection } from "@/components/home/hero-section"
 import { AreasOfInterest } from "@/components/home/areas-of-interest"
+import { LegalNews } from "@/components/home/legal-news"
 import { QuickLinks } from "@/components/home/quick-links"
 import { LatestPosts } from "@/components/home/latest-posts"
 import { Metadata } from "next"
@@ -14,6 +15,7 @@ export default function HomePage() {
     <>
       <HeroSection />
       <AreasOfInterest />
+      <LegalNews />
       <QuickLinks />
       <LatestPosts />
     </>

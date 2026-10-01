@@ -10,11 +10,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         .select('slug, updated_at')
         .eq('status', 'published')
 
-    // Get all public guidance
-    const { data: guidance } = await supabase
-        .from('public_guidance')
-        .select('slug, updated_at')
-
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ClearCut Law.com'
 
     const staticPages = [
@@ -37,9 +32,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             priority: 0.9,
         },
         {
-            url: `${baseUrl}/guidance`,
+            url: `${baseUrl}/news`,
             lastModified: new Date(),
-            changeFrequency: 'weekly' as const,
+            changeFrequency: 'daily' as const,
             priority: 0.8,
         },
         {
@@ -57,13 +52,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.7,
     }))
 
-    const guidancePages = (guidance || []).map((item) => ({
-        url: `${baseUrl}/guidance/${item.slug}`,
-        lastModified: new Date(item.updated_at),
-        changeFrequency: 'monthly' as const,
-        priority: 0.6,
-    }))
-
-    return [...staticPages, ...postPages, ...guidancePages]
+    return [...staticPages, ...postPages]
 }
 

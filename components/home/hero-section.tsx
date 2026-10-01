@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, BookOpen, MessageCircle } from "lucide-react"
+import { ArrowRight, BookOpen } from "lucide-react"
 
 export function HeroSection() {
     return (
@@ -23,7 +23,7 @@ export function HeroSection() {
                     {/* Author Introduction */}
                     <div className="bg-white rounded-2xl p-6 shadow-sm border mb-8 max-w-2xl mx-auto">
                         <p className="text-slate-700 mb-2">
-                            <strong className="text-brand">Welcome!</strong> I'm Younas Ficel,
+                            <strong className="text-brand">Welcome!</strong> I&apos;m Younas Ficel,
                             a passionate UK law graduate dedicated to making legal knowledge accessible to everyone.
                         </p>
                         <p className="text-sm text-slate-600">
@@ -41,23 +41,13 @@ export function HeroSection() {
                                 <ArrowRight className="ml-2 h-5 w-5" />
                             </Button>
                         </Link>
-                        <Link href="/guidance">
-                            <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                                <MessageCircle className="mr-2 h-5 w-5" />
-                                Ask a Legal Question
-                            </Button>
-                        </Link>
                     </div>
 
                     {/* Trust Indicators */}
-                    <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                    <div className="mt-12 flex justify-center">
                         <div className="text-center">
                             <div className="text-2xl font-bold text-brand">20+</div>
                             <div className="text-sm text-slate-600">Blog Articles</div>
-                        </div>
-                        <div className="text-center">
-                            <div className="text-2xl font-bold text-brand">Free</div>
-                            <div className="text-sm text-slate-600">Legal Guidance</div>
                         </div>
                     </div>
                 </div>

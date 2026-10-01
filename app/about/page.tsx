@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, BookOpen, MessageCircle, Scale, GraduationCap } from "lucide-react"
+import { ArrowRight, BookOpen, Newspaper, Scale, GraduationCap } from "lucide-react"
 
 export const metadata: Metadata = {
     title: 'About — ClearCut Law',
@@ -40,7 +40,7 @@ export default function AboutPage() {
                                 </h1>
                                 <p className="text-xl text-slate-600 mb-6 leading-relaxed">
                                     Clear, jargon-free commentary on the deals, decisions and regulation shaping commercial law.
-                                    Written for law students, graduates and anyone who wants to understand what's happening in business and why it matters
+                                    Written for law students, graduates and anyone who wants to understand what&apos;s happening in business and why it matters
                                 </p>
                                 <div className="flex flex-wrap gap-3 mb-8">
                                     <Badge variant="secondary" className="px-3 py-1">
@@ -77,7 +77,7 @@ export default function AboutPage() {
                                 <h2 className="text-3xl font-bold text-brand mb-6">Who I Am</h2>
                                 <div className="space-y-4 text-slate-700 leading-relaxed">
                                     <p>
-                                        I'm Younas Ficel, a law graduate from Royal Holloway, University of London. I'm working towards the SQE with the aim of qualifying as a commercial solicitor.
+                                        I&apos;m Younas Ficel, a law graduate from Royal Holloway, University of London. I&apos;m working towards the SQE with the aim of qualifying as a commercial solicitor.
                                     </p>
                                     <p>
                                         I started ClearCut Law to write about the parts of the law I find most interesting: mergers and acquisitions, banking and finance, competition and regulation and the business side of sport. Each post breaks down a real deal or decision, explaining what happened and why it matters.
@@ -95,13 +95,13 @@ export default function AboutPage() {
                                         <strong>Clarity:</strong> Big deals and rulings are often reported in jargon. Each post explains what happened in plain English.
                                     </p>
                                     <p>
-                                        <strong>Context:</strong> It isn't enough to know what happened. Each post looks at why a deal or decision matters for businesses, regulators and the wider market.
+                                        <strong>Context:</strong> It isn&apos;t enough to know what happened. Each post looks at why a deal or decision matters for businesses, regulators and the wider market.
                                     </p>
                                     <p>
                                         <strong>Commercial awareness:</strong> Commercial awareness is one of the main things firms look for. Following real deals is one of the best ways for students and graduates to build it.
                                     </p>
                                     <p>
-                                        <strong>Accessibility:</strong> Good commercial law commentary shouldn't sit behind paywalls or subscriptions.
+                                        <strong>Accessibility:</strong> Good commercial law commentary shouldn&apos;t sit behind paywalls or subscriptions.
                                     </p>
                                 </div>
                             </div>
@@ -122,7 +122,7 @@ export default function AboutPage() {
                                         Areas of Focus
                                     </CardTitle>
                                     <CardDescription>
-                                        The legal areas I'm most passionate about and focus on for this site
+                                        The legal areas I&apos;m most passionate about and focus on for this site
                                     </CardDescription>
                                 </CardHeader>
                                 <CardContent>
@@ -195,7 +195,7 @@ export default function AboutPage() {
                             Ready to Get Started?
                         </h2>
                         <p className="text-xl text-brand-100 mb-8 max-w-2xl mx-auto">
-                            Explore our legal guidance, read our latest articles, or submit your own question
+                            Read the latest articles, or catch up with Legal News.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <Link href="/blog">
@@ -205,10 +205,10 @@ export default function AboutPage() {
                                     <ArrowRight className="ml-2 h-5 w-5" />
                                 </Button>
                             </Link>
-                            <Link href="/guidance">
+                            <Link href="/news">
                                 <Button variant="outline" size="lg" className="w-full sm:w-auto border-white text-white hover:bg-white hover:text-brand">
-                                    <MessageCircle className="mr-2 h-5 w-5" />
-                                    Ask a Question
+                                    <Newspaper className="mr-2 h-5 w-5" />
+                                    Legal News
                                 </Button>
                             </Link>
                         </div>

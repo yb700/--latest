@@ -7,16 +7,6 @@ export const contactMessageSchema = z.object({
     message: z.string().min(10, "Message must be at least 10 characters").max(2000),
 })
 
-export const guidanceQuestionSchema = z.object({
-    title: z.string().min(10, "Title must be at least 10 characters").max(200),
-    questionText: z.string().min(20, "Question must be at least 20 characters").max(2000),
-    area: z.enum(["Family", "Employment", "Road Traffic", "Commercial", "Other"]),
-    email: z.string().email("Please enter a valid email address").optional().or(z.literal("")),
-    consentGiven: z.boolean().refine(val => val === true, {
-        message: "You must give consent to proceed"
-    }),
-})
-
 export const newsletterSubscriptionSchema = z.object({
     email: z.string().email("Please enter a valid email address"),
 })
@@ -44,14 +34,6 @@ export const tagSchema = z.object({
     slug: z.string().min(1, "Slug is required").max(50),
 })
 
-export const guidanceAnswerSchema = z.object({
-    questionId: z.string().uuid(),
-    slug: z.string().min(1, "Slug is required").max(200),
-    answerMd: z.string().min(10, "Answer must be at least 10 characters"),
-    authorId: z.string().uuid(),
-    published: z.boolean(),
-})
-
 export const siteSettingSchema = z.object({
     key: z.string().min(1, "Key is required"),
     value: z.string(),
@@ -66,12 +48,10 @@ export const navLinkSchema = z.object({
 
 // Export types
 export type ContactMessage = z.infer<typeof contactMessageSchema>
-export type GuidanceQuestionInput = z.infer<typeof guidanceQuestionSchema>
 export type NewsletterSubscription = z.infer<typeof newsletterSubscriptionSchema>
 export type PostInput = z.infer<typeof postSchema>
 export type CategoryInput = z.infer<typeof categorySchema>
 export type TagInput = z.infer<typeof tagSchema>
-export type GuidanceAnswerInput = z.infer<typeof guidanceAnswerSchema>
 export type SiteSettingInput = z.infer<typeof siteSettingSchema>
 export type NavLinkInput = z.infer<typeof navLinkSchema>
 

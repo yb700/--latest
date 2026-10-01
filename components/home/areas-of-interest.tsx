@@ -78,17 +78,6 @@ export function AreasOfInterest() {
                         )
                     })}
                 </div>
-
-                <div className="text-center">
-                    <p className="text-slate-600 mb-6">
-                        Can't find what you're looking for? Submit your own legal question.
-                    </p>
-                    <Link href="/guidance">
-                        <Button variant="outline" size="lg">
-                            Ask a Question
-                        </Button>
-                    </Link>
-                </div>
             </div>
         </section>
     )

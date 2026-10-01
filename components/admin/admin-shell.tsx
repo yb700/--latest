@@ -7,7 +7,6 @@ import Link from 'next/link'
 import {
     LayoutDashboard,
     FileText,
-    MessageSquare,
     Settings,
     Users,
     LogOut
@@ -21,7 +20,6 @@ interface AdminShellProps {
 const navigation = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
     { name: 'Posts', href: '/admin/posts', icon: FileText },
-    { name: 'Guidance', href: '/admin/guidance', icon: MessageSquare },
     { name: 'Contact', href: '/admin/contact', icon: Users },
     { name: 'Settings', href: '/admin/settings', icon: Settings },
 ]
