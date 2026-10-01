@@ -119,12 +119,5 @@ html.news-feed-scroll {
   scroll-snap-align: start;
 }
 
-@media (max-width: 767px) {
-  .news-card-feed {
-    height: calc((100dvh - var(--header-h) - var(--filters-h) - 2rem) / 3);
-    min-height: 150px;
-  }
-}
-
 /* Font loading optimization */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
