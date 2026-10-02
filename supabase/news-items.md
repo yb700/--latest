@@ -41,6 +41,6 @@ insert into public.news_items (
 
 Leave `why_it_matters`, `image_url`, and `related_post_slug` as `null` when they do not apply. The feed does not show `why_it_matters` or images.
 
-`related_post_slug` is the slug of a blog post, for example `cma-clears-example-group`. The card shows "Related post: [post title]" only when that post exists and is published. If the post is missing or not published, the card shows no link.
+`related_post_slug` is not shown on the card. Clicking a card expands the summary in place, and clicking it again collapses it. The card does not open the source website or a blog post. The source line is plain text.
 
 Cards use short category labels: M&A, Finance, Sport, Competition. The filter links stay `/news?category=` plus the stored slug.
