@@ -1,6 +1,8 @@
-import Link from 'next/link'
+'use client'
+
+import { useState } from 'react'
 import { newsCategoryLabel, newsCategoryShortLabel } from '@/lib/news-categories'
-import { blogPostPath, formatNewsCardDate, safeHttpUrl, type NewsListItem } from '@/lib/news'
+import { formatNewsCardDate, safeHttpUrl, type NewsListItem } from '@/lib/news'
 import { cn } from '@/lib/utils'
 
 /** Local photos are tied to one headline each. They are not shared between stories. */
@@ -41,22 +43,32 @@ function cardImageSrc(item: NewsListItem): string | null {
 
 export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCardProps) {
     const Heading = headingLevel
-    const sourceUrl = safeHttpUrl(item.source_url)
-    const relatedHref = blogPostPath(item.related_post_slug)
-    const relatedTitle = item.relatedPostTitle?.trim() ?? ''
-    const showRelated = Boolean(relatedHref && relatedTitle)
+    const [expanded, setExpanded] = useState(false)
     const published = formatNewsCardDate(item.published_at)
     const imageSrc = cardImageSrc(item)
     const areaLabel = newsCategoryLabel(item.category)
     const isBtTower = imageSrc === BT_TOWER_SRC
+    const summaryId = `news-story-${item.id}`
 
     return (
         <article
             className={cn(
-                'flex h-full w-full min-h-0 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg',
+                'relative flex h-full w-full min-h-0 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg',
                 layout === 'feed' && 'news-card-feed'
             )}
         >
+            <button
+                type="button"
+                aria-expanded={expanded}
+                aria-controls={summaryId}
+                onClick={() => setExpanded((open) => !open)}
+                className="absolute inset-0 z-10 cursor-pointer rounded-xl bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand"
+            >
+                <span className="sr-only">
+                    {expanded ? 'Show less' : 'Show the full story'}: {item.headline}
+                </span>
+            </button>
+
             <div className="relative aspect-video w-full overflow-hidden bg-brand">
                 {imageSrc ? (
                     // The Man City file is a local public asset. Other photos may be publisher URLs.
@@ -100,34 +112,18 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                     {item.headline}
                 </Heading>
 
-                <p className="line-clamp-2 min-w-0 text-sm leading-snug text-gray-500">
+                <p
+                    id={summaryId}
+                    className={cn(
+                        'min-w-0 text-sm leading-snug text-gray-500',
+                        !expanded && 'line-clamp-2'
+                    )}
+                >
                     {item.summary}
                 </p>
 
                 <div className="mt-auto flex items-center justify-between gap-3 border-t border-gray-200 pt-3">
-                    <p className="min-w-0 truncate text-xs text-gray-500">
-                        {sourceUrl ? (
-                            <a
-                                href={sourceUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="underline underline-offset-2 hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-                            >
-                                Source: {item.source_name}
-                            </a>
-                        ) : (
-                            <>Source: {item.source_name}</>
-                        )}
-                    </p>
-
-                    {showRelated && relatedHref && (
-                        <Link
-                            href={relatedHref}
-                            className="shrink-0 text-sm font-semibold text-brand hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2"
-                        >
-                            Read more
-                        </Link>
-                    )}
+                    <p className="min-w-0 truncate text-xs text-gray-500">Source: {item.source_name}</p>
                 </div>
             </div>
         </article>
