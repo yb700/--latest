@@ -8,6 +8,7 @@ const STORY_IMAGES: Record<string, string> = {
     'BT opens government talks over possible TalkTalk bid': '/news/bt-tower-dusk.jpg',
     'Bank of England warns financial stability risks have risen': '/news/bank-of-england.webp',
     'Manchester City found guilty of Premier League financial breaches': '/news/manchester-city-etihad.jpg',
+    'UEFA Receives Real Madrid Dossier in Negreira Case': '/news/barcelona-negreira.jpg',
 }
 
 const BT_TOWER_SRC = '/news/bt-tower-dusk.jpg'
