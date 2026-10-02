@@ -18,6 +18,7 @@ import { useState } from 'react'
 const postSchema = z.object({
     title: z.string().min(1, 'Title is required').max(200, 'Title too long'),
     excerpt: z.string().min(1, 'Excerpt is required').max(500, 'Excerpt too long'),
+    shortPreview: z.string().trim().max(80, 'Use 80 characters or fewer.'),
     content: z.string().min(1, 'Content is required'),
     status: z.enum(['draft', 'published']),
     category: z.string().optional()
@@ -34,7 +35,8 @@ export default function NewPostPage() {
         resolver: zodResolver(postSchema),
         defaultValues: {
             status: 'draft',
-            category: ''
+            category: '',
+            shortPreview: ''
         }
     })
 
@@ -120,6 +122,23 @@ export default function NewPostPage() {
                             />
                             {form.formState.errors.excerpt && (
                                 <p className="text-sm text-red-600">{form.formState.errors.excerpt.message}</p>
+                            )}
+                        </div>
+
+                        <div className="space-y-2">
+                            <Label htmlFor="shortPreview">Short preview</Label>
+                            <Input
+                                id="shortPreview"
+                                placeholder="One sentence for the blog card"
+                                className="w-full"
+                                maxLength={80}
+                                {...form.register('shortPreview')}
+                            />
+                            <p className="text-sm text-gray-500">
+                                {(form.watch('shortPreview') || '').length}/80. Leave this blank to use the description, limited to two lines.
+                            </p>
+                            {form.formState.errors.shortPreview && (
+                                <p className="text-sm text-red-600">{form.formState.errors.shortPreview.message}</p>
                             )}
                         </div>
 

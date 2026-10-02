@@ -36,6 +36,7 @@ export type Database = {
                     title: string
                     slug: string
                     excerpt: string | null
+                    short_preview: string | null
                     content_md: string
                     hero_image_url: string | null
                     status: 'draft' | 'review' | 'published'
@@ -50,6 +51,7 @@ export type Database = {
                     title: string
                     slug: string
                     excerpt?: string | null
+                    short_preview?: string | null
                     content_md: string
                     hero_image_url?: string | null
                     status?: 'draft' | 'review' | 'published'
@@ -64,6 +66,7 @@ export type Database = {
                     title?: string
                     slug?: string
                     excerpt?: string | null
+                    short_preview?: string | null
                     content_md?: string
                     hero_image_url?: string | null
                     status?: 'draft' | 'review' | 'published'
@@ -396,7 +399,10 @@ export type Database = {
             }
         }
         Functions: {
-            [_ in never]: never
+            blog_rotation_post_id: {
+                Args: Record<string, never>
+                Returns: string | null
+            }
         }
         Enums: {
             [_ in never]: never

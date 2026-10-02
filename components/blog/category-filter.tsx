@@ -1,55 +1,43 @@
-'use client'
-
-import { useRouter, useSearchParams } from 'next/navigation'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import Link from 'next/link'
+import { BLOG_CATEGORY_PRESENTATION, BLOG_CATEGORY_SLUGS, type BlogCategorySlug } from '@/lib/blog-categories'
+import { blogFilterHref } from '@/lib/blog-listing'
 import { cn } from '@/lib/utils'
 
-interface Category {
-    id: string
-    name: string
-    slug: string
-}
-
 interface CategoryFilterProps {
-    categories: Category[]
-    selectedCategory: string
-    className?: string
+    selectedCategory: BlogCategorySlug | ''
+    search: string
 }
 
-export function CategoryFilter({ categories, selectedCategory, className }: CategoryFilterProps) {
-    const router = useRouter()
-    const searchParams = useSearchParams()
-
-    const handleCategoryChange = (categorySlug: string) => {
-        const params = new URLSearchParams(searchParams)
-
-        if (categorySlug === 'all') {
-            params.delete('category')
-        } else {
-            params.set('category', categorySlug)
-        }
-
-        // Reset to first page when filtering
-        params.delete('page')
-
-        router.push(`/blog?${params.toString()}`)
-    }
+export function CategoryFilter({ selectedCategory, search }: CategoryFilterProps) {
+    const filters: Array<{ label: string; slug: BlogCategorySlug | null }> = [
+        { label: 'All', slug: null },
+        ...BLOG_CATEGORY_SLUGS.map((slug) => ({
+            label: BLOG_CATEGORY_PRESENTATION[slug].label,
+            slug,
+        })),
+    ]
 
     return (
-        <Select value={selectedCategory || 'all'} onValueChange={handleCategoryChange}>
-            <SelectTrigger className={cn('w-full', className)}>
-                <SelectValue placeholder="Filter by category" />
-            </SelectTrigger>
-            <SelectContent>
-                <SelectItem value="all">All Categories</SelectItem>
-                {categories.map((category) => (
-                    <SelectItem key={category.id} value={category.slug}>
-                        {category.name}
-                    </SelectItem>
-                ))}
-            </SelectContent>
-        </Select>
+        <nav aria-label="Filter posts by category" className="flex flex-wrap gap-2">
+            {filters.map((filter) => {
+                const selected = filter.slug === null ? selectedCategory === '' : filter.slug === selectedCategory
+
+                return (
+                    <Link
+                        key={filter.label}
+                        href={blogFilterHref(filter.slug, search)}
+                        aria-current={selected ? 'page' : undefined}
+                        className={cn(
+                            'inline-flex min-h-[36px] items-center justify-center whitespace-nowrap rounded-md border px-3.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F1B33] focus-visible:ring-offset-2',
+                            selected
+                                ? 'border-[#0F1B33] bg-[#0F1B33] text-white'
+                                : 'border-[#D0D5DD] bg-white text-[#0F1B33] hover:bg-[#F5F6F8]'
+                        )}
+                    >
+                        {filter.label}
+                    </Link>
+                )
+            })}
+        </nav>
     )
 }
-
-

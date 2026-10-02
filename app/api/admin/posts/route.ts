@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { requireStaff } from '@/lib/auth-server'
+import { normalizeShortPreview, PINNED_FEATURED_POST_SETTING } from '@/lib/blog-listing'
 
 // GET all posts for admin
 export async function GET() {
@@ -8,10 +9,17 @@ export async function GET() {
         await requireStaff()
         const supabase = createClient()
 
-        const { data: posts, error } = await supabase
-            .from('posts')
-            .select('*, author:profiles(full_name)')
-            .order('created_at', { ascending: false })
+        const [{ data: posts, error }, pinResult] = await Promise.all([
+            supabase
+                .from('posts')
+                .select('*, author:profiles(full_name)')
+                .order('created_at', { ascending: false }),
+            supabase
+                .from('site_settings')
+                .select('value')
+                .eq('key', PINNED_FEATURED_POST_SETTING)
+                .maybeSingle(),
+        ])
 
         if (error) {
             console.error('Error fetching posts:', error)
@@ -21,7 +29,9 @@ export async function GET() {
             )
         }
 
-        return NextResponse.json({ posts })
+        const pinnedFeaturedPostId = pinResult.data?.value?.trim() || null
+
+        return NextResponse.json({ posts, pinnedFeaturedPostId })
     } catch (error) {
         console.error('Error fetching posts:', error)
         return NextResponse.json(
@@ -41,6 +51,15 @@ export async function POST(request: NextRequest) {
         const body = await request.json()
 
         const { title, excerpt, content, status = 'draft' } = body
+        let shortPreview: string | null = null
+
+        if ('shortPreview' in body || 'short_preview' in body) {
+            const parsed = normalizeShortPreview(body.shortPreview ?? body.short_preview)
+            if (!parsed.ok) {
+                return NextResponse.json({ error: parsed.error }, { status: 400 })
+            }
+            shortPreview = parsed.value
+        }
 
         // Generate slug from title
         const slug = title
@@ -56,6 +75,7 @@ export async function POST(request: NextRequest) {
                 title,
                 slug,
                 excerpt,
+                short_preview: shortPreview,
                 content_md: content,
                 status,
                 author_id: profile.id,
