@@ -177,7 +177,7 @@ export default async function BlogPage({
         }
     }
 
-    const showFeatured = Boolean(featured) && !search && (!category || featured?.categorySlug === category)
+    const showFeatured = page === 1 && Boolean(featured) && !search && (!category || featured?.categorySlug === category)
     const totalPages = Math.max(1, Math.ceil((count || 0) / POSTS_PER_PAGE))
 
     return (
