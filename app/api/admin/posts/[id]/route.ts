@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { NextRequest, NextResponse } from 'next/server'
 import { requireStaff } from '@/lib/auth-server'
+import { normalizeShortPreview, PINNED_FEATURED_POST_SETTING } from '@/lib/blog-listing'
 
 // GET a single post by ID
 export async function GET(
@@ -49,6 +50,15 @@ export async function PUT(
 
         const { title, excerpt, content, status } = body
 
+        let shortPreviewUpdate: { short_preview: string | null } | Record<string, never> = {}
+        if ('shortPreview' in body || 'short_preview' in body) {
+            const parsed = normalizeShortPreview(body.shortPreview ?? body.short_preview)
+            if (!parsed.ok) {
+                return NextResponse.json({ error: parsed.error }, { status: 400 })
+            }
+            shortPreviewUpdate = { short_preview: parsed.value }
+        }
+
         // Generate new slug if title changed
         const slug = title
             .toLowerCase()
@@ -72,6 +82,7 @@ export async function PUT(
                 title,
                 slug,
                 excerpt,
+                ...shortPreviewUpdate,
                 content_md: content,
                 status,
                 reading_time: Math.ceil(content.split(' ').length / 200),
@@ -87,6 +98,14 @@ export async function PUT(
                 { error: 'Failed to update post' },
                 { status: 500 }
             )
+        }
+
+        if (typeof status === 'string' && status !== 'published') {
+            await supabase
+                .from('site_settings')
+                .delete()
+                .eq('key', PINNED_FEATURED_POST_SETTING)
+                .eq('value', id)
         }
 
         return NextResponse.json({
@@ -117,6 +136,14 @@ export async function DELETE(
             .from('posts')
             .delete()
             .eq('id', id)
+
+        if (!error) {
+            await supabase
+                .from('site_settings')
+                .delete()
+                .eq('key', PINNED_FEATURED_POST_SETTING)
+                .eq('value', id)
+        }
 
         if (error) {
             console.error('Error deleting post:', error)

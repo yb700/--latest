@@ -46,6 +46,7 @@ CREATE TABLE posts (
     title TEXT NOT NULL,
     slug TEXT NOT NULL UNIQUE,
     excerpt TEXT,
+    short_preview TEXT,
     content_md TEXT NOT NULL,
     status post_status DEFAULT 'draft',
     author_id UUID REFERENCES profiles(id) ON DELETE SET NULL,

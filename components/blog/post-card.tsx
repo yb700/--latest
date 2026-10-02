@@ -1,70 +1,86 @@
 import Link from 'next/link'
-import { Card, CardContent, CardHeader } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { BLOG_CATEGORY_PRESENTATION } from '@/lib/blog-categories'
+import {
+    blogCardDateIso,
+    cardPreview,
+    formatBlogCardDate,
+    readingMinutesFromContent,
+    type BlogListPost,
+} from '@/lib/blog-listing'
+import { cn } from '@/lib/utils'
+import { FeaturedMedia } from './featured-media'
 
-interface Post {
-    id: string
-    title: string
-    slug: string
-    excerpt?: string
-    content: string
-    status: string
-    created_at: string
-    updated_at: string
-    read_time?: number
-    categories?: Array<{
-        category_id: string
-        categories: {
-            id: string
-            name: string
-            slug: string
-        }
-    }>
-    tags?: Array<{
-        tag_id: string
-        tags: {
-            id: string
-            name: string
-            slug: string
-        }
-    }>
-}
-
-interface PostCardProps {
-    post: Post
-}
-
-export function PostCard({ post }: PostCardProps) {
-    const categories = post.categories?.map((pc) => pc.categories) || []
+function CategoryTag({ post }: { post: BlogListPost }) {
+    if (!post.categorySlug) return null
+    const presentation = BLOG_CATEGORY_PRESENTATION[post.categorySlug]
 
     return (
-        <Card className="h-full hover:shadow-lg transition-shadow duration-200">
-            <CardHeader className="pb-3">
-                <div className="flex flex-wrap gap-2 mb-2">
-                    {categories.slice(0, 2).map((category) => (
-                        <Badge
-                            key={category.id}
-                            variant="secondary"
-                            className="text-xs bg-brand-50 text-brand"
-                        >
-                            {category.name}
-                        </Badge>
-                    ))}
-                </div>
-                <Link href={`/blog/${post.slug}`}>
-                    <h3 className="text-xl font-semibold text-brand hover:text-brand-700 transition-colors line-clamp-2">
-                        {post.title}
-                    </h3>
-                </Link>
-            </CardHeader>
-            <CardContent className="pt-0">
-                {post.excerpt && (
-                    <p className="text-gray-600 mb-4 line-clamp-3">
-                        {post.excerpt}
-                    </p>
-                )}
-            </CardContent>
-        </Card>
+        <span
+            className={cn(
+                'inline-flex w-fit items-center rounded px-2 py-0.5 text-[11px] font-semibold uppercase leading-4 tracking-wide',
+                presentation.tagClassName
+            )}
+        >
+            {presentation.label}
+        </span>
     )
 }
 
+function CardCopy({ post, featured = false }: { post: BlogListPost; featured?: boolean }) {
+    const preview = cardPreview(post)
+    const publishedIso = blogCardDateIso(post)
+    const minutes = readingMinutesFromContent(post.content)
+
+    return (
+        <div className="flex min-w-0 flex-col gap-1.5">
+            <CategoryTag post={post} />
+            <h2
+                className={cn(
+                    'font-bold leading-snug text-[#0F1B33]',
+                    featured ? 'text-xl sm:text-2xl' : 'text-base'
+                )}
+            >
+                {post.title}
+            </h2>
+            {preview ? (
+                <p
+                    className={cn(
+                        'text-sm leading-5 text-[#4A5468]',
+                        preview.limitToTwoLines && 'line-clamp-2'
+                    )}
+                >
+                    {preview.text}
+                </p>
+            ) : null}
+            <p className="text-xs leading-4 text-[#5B6577]">
+                <time dateTime={publishedIso}>{formatBlogCardDate(publishedIso)}</time>
+                {` · ${minutes} min read`}
+            </p>
+        </div>
+    )
+}
+
+const cardClassName =
+    'block h-full overflow-hidden rounded-xl border border-[#E3E6EB] bg-white transition-colors hover:border-[#C5CAD3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F1B33] focus-visible:ring-offset-2'
+
+export function BlogPostCard({ post }: { post: BlogListPost }) {
+    return (
+        <Link href={`/blog/${post.slug}`} className={cn(cardClassName, 'px-3.5 py-3')}>
+            <CardCopy post={post} />
+        </Link>
+    )
+}
+
+export function FeaturedBlogCard({ post }: { post: BlogListPost }) {
+    return (
+        <Link
+            href={`/blog/${post.slug}`}
+            className={cn(cardClassName, 'grid md:grid-cols-[17rem_minmax(0,1fr)]')}
+        >
+            <FeaturedMedia imageUrl={post.heroImageUrl} />
+            <div className="px-4 py-3 sm:px-5 sm:py-4">
+                <CardCopy post={post} featured />
+            </div>
+        </Link>
+    )
+}

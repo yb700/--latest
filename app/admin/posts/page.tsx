@@ -19,8 +19,10 @@ interface Post {
 
 export default function PostsManagementPage() {
     const [posts, setPosts] = useState<Post[]>([])
+    const [pinnedId, setPinnedId] = useState<string | null>(null)
     const [loading, setLoading] = useState(true)
     const [deletingId, setDeletingId] = useState<string | null>(null)
+    const [pinningId, setPinningId] = useState<string | null>(null)
     const { toast } = useToast()
 
     const fetchPosts = async () => {
@@ -30,6 +32,7 @@ export default function PostsManagementPage() {
             if (data.posts) {
                 setPosts(data.posts)
             }
+            setPinnedId(typeof data.pinnedFeaturedPostId === 'string' ? data.pinnedFeaturedPostId : null)
         } catch (error) {
             console.error('Error fetching posts:', error)
             toast({
@@ -68,6 +71,7 @@ export default function PostsManagementPage() {
 
             // Remove the post from the list
             setPosts(posts.filter(p => p.id !== id))
+            if (pinnedId === id) setPinnedId(null)
         } catch (error) {
             console.error('Error deleting post:', error)
             toast({
@@ -77,6 +81,58 @@ export default function PostsManagementPage() {
             })
         } finally {
             setDeletingId(null)
+        }
+    }
+
+    const handlePin = async (id: string) => {
+        setPinningId(id)
+        try {
+            const response = await fetch('/api/admin/featured-post', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ postId: id }),
+            })
+            const result = await response.json()
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to pin the post')
+            }
+            setPinnedId(id)
+            toast({
+                title: 'Pinned',
+                description: 'This post stays featured until you unpin it.',
+            })
+        } catch (error) {
+            toast({
+                title: 'Error',
+                description: error instanceof Error ? error.message : 'Failed to pin the post',
+                variant: 'destructive',
+            })
+        } finally {
+            setPinningId(null)
+        }
+    }
+
+    const handleUnpin = async (id: string) => {
+        setPinningId(id)
+        try {
+            const response = await fetch('/api/admin/featured-post', { method: 'DELETE' })
+            const result = await response.json()
+            if (!response.ok) {
+                throw new Error(result.error || 'Failed to unpin the post')
+            }
+            setPinnedId(null)
+            toast({
+                title: 'Unpinned',
+                description: 'The featured post follows the daily rotation again.',
+            })
+        } catch (error) {
+            toast({
+                title: 'Error',
+                description: error instanceof Error ? error.message : 'Failed to unpin the post',
+                variant: 'destructive',
+            })
+        } finally {
+            setPinningId(null)
         }
     }
 
@@ -106,6 +162,9 @@ export default function PostsManagementPage() {
                     <div>
                         <h1 className="text-3xl font-bold text-brand">Posts Management</h1>
                         <p className="text-gray-600">Manage your blog posts and content.</p>
+                        <p className="text-sm text-gray-500 mt-1">
+                            Pin one published post to keep it featured. Unpin it to return to the daily rotation.
+                        </p>
                     </div>
                 </div>
                 <Link href="/admin/posts/new">
@@ -151,6 +210,9 @@ export default function PostsManagementPage() {
                                                 {post.title}
                                             </h3>
                                             {getStatusBadge(post.status)}
+                                            {pinnedId === post.id && (
+                                                <Badge className="bg-[#0F1B33] text-white hover:bg-[#0F1B33]">Pinned</Badge>
+                                            )}
                                         </div>
                                         {post.excerpt && (
                                             <p className="text-sm text-gray-500 line-clamp-2 mb-2">
@@ -164,6 +226,22 @@ export default function PostsManagementPage() {
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2 shrink-0">
+                                        {post.status === 'published' && (
+                                            <Button
+                                                variant="outline"
+                                                size="sm"
+                                                onClick={() => pinnedId === post.id ? handleUnpin(post.id) : handlePin(post.id)}
+                                                disabled={pinningId === post.id}
+                                            >
+                                                {pinningId === post.id ? (
+                                                    <Loader2 className="h-4 w-4 animate-spin" />
+                                                ) : pinnedId === post.id ? (
+                                                    'Unpin'
+                                                ) : (
+                                                    'Pin'
+                                                )}
+                                            </Button>
+                                        )}
                                         {post.status === 'published' && (
                                             <Link href={`/blog/${post.slug}`} target="_blank">
                                                 <Button variant="ghost" size="sm" title="View post">
