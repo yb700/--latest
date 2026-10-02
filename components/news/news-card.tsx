@@ -14,11 +14,11 @@ const BT_TOWER_SRC = '/news/bt-tower-dusk.jpg'
 
 /**
  * The BT crop is 1200×1200. Homepage and /news share this card, and the
- * frame stays 16:9 with the Bank of England and Manchester City photos.
- * A square is taller than that frame. Fitting the whole file inside it
- * keeps the mast and the BT sign in view. Covering it would cut them.
+ * frame stays 16:9 with the other photos. Cover fills that frame edge to
+ * edge. The square is pinned to the top so the mast and the BT sign stay
+ * in the frame; the extra height is the only part left outside it.
  */
-const BT_TOWER_FIT = 'object-contain object-center'
+const BT_TOWER_FIT = 'object-cover object-top'
 
 const AREA_PILL: Record<string, string> = {
     'mergers-acquisitions': 'bg-rose-600 text-white',
