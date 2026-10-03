@@ -30,7 +30,10 @@ describe('post sources', () => {
 
     it('links a source title only when the article was found', () => {
         assert.ok(sourceUrlForTitle("CAT rules unanimously in favour of Dr Kent against Apple's App Store"))
-        assert.equal(sourceUrlForTitle('CAT finds Apple abused dominance: first UK collective proceedings win'), null)
+        assert.ok(sourceUrlForTitle('CAT finds Apple abused dominance: first UK collective proceedings win'))
+        assert.ok(sourceUrlForTitle('High Court Backs UK Watchdog in £200m Visa and Mastercard Fee Battle'))
+        assert.ok(sourceUrlForTitle('Nintendo Company Ltd & Anor v Playables Ltd & Anor [2010] EWHC 1932 (Ch)'))
+        assert.equal(sourceUrlForTitle('High Court confirms PSR power to cap card fees'), null)
     })
 })
 
