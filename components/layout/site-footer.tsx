@@ -5,6 +5,7 @@ const footerLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blog" },
+    { name: "Glossary", href: "/glossary" },
     { name: "Legal News", href: "/news" },
     { name: "Contact", href: "/contact" },
 ]
