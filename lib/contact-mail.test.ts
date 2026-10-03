@@ -27,14 +27,20 @@ describe('send contact email', () => {
         assert.deepEqual(captured.init.headers, {
             Accept: 'application/json',
             'Content-Type': 'application/json',
+            Origin: 'https://www.clearcutlaw.co.uk',
+            Referer: 'https://www.clearcutlaw.co.uk/contact',
+            'User-Agent': 'ClearCutLaw-website-contact/1.0',
         })
         const body = JSON.parse(String(captured.init.body))
         assert.deepEqual(body, {
+            name: 'Bedra Ouendjeli',
             message: sample.message,
             _subject: 'ClearCut Law website: Employment law',
-            _replyto: '"Bedra Ouendjeli" <ouendjelizaia@gmail.com>',
+            _replyto: 'ouendjelizaia@gmail.com',
             _honey: '',
         })
+        assert.equal('_autoresponse' in body, false)
+        assert.equal('_cc' in body, false)
     })
 
     it('reports a provider failure without claiming the email was sent', async () => {

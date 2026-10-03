@@ -10,14 +10,8 @@ function oneLine(value: string): string {
     return value.replace(/[\r\n]+/g, ' ').trim()
 }
 
-export function quoteDisplayName(name: string): string {
-    const clean = name
-        .replace(/[\r\n]+/g, ' ')
-        .replace(/[<>]/g, '')
-        .trim()
-        .replace(/\\/g, '\\\\')
-        .replace(/"/g, '\\"')
-    return `"${clean}"`
+function plainMailbox(email: string): string {
+    return email.replace(/[\r\n\s<>"]/g, '')
 }
 
 export type ContactEmailInput = {
@@ -29,18 +23,17 @@ export type ContactEmailInput = {
 
 export type ContactNotification = {
     to: string
+    name: string
     replyTo: string
     subject: string
     text: string
 }
 
 export function buildContactNotification(input: ContactEmailInput): ContactNotification {
-    const name = oneLine(input.name)
-    const email = input.email.replace(/[\r\n\s<>"]/g, '')
-
     return {
         to: CONTACT_EMAIL,
-        replyTo: `${quoteDisplayName(name)} <${email}>`,
+        name: oneLine(input.name),
+        replyTo: plainMailbox(input.email),
         subject: `${CONTACT_SENDER_NAME}: ${oneLine(input.subject)}`,
         text: input.message.trim(),
     }

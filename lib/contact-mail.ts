@@ -1,8 +1,12 @@
 import { CONTACT_EMAIL, buildContactNotification, type ContactEmailInput } from './contact'
+import { CANONICAL_PRODUCTION_ORIGIN } from './site-url'
 
-// FormSubmit emails this address with no API key. The first accepted submission
-// only sends an Activate Form link; later messages arrive after that link is opened.
+// FormSubmit emails this address with no API key. The form is activated for the
+// live contact page, so a server POST must present that page. Other referrers
+// are treated as a new form. Node's default user agent is challenged first.
 const FORMSUBMIT_AJAX_URL = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`
+const CONTACT_FORM_PAGE = `${CANONICAL_PRODUCTION_ORIGIN}/contact`
+const CONTACT_FORM_USER_AGENT = 'ClearCutLaw-website-contact/1.0'
 
 export type SendContactEmailResult =
     | { ok: true }
@@ -31,8 +35,12 @@ export async function sendContactEmail(
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
+                Origin: CANONICAL_PRODUCTION_ORIGIN,
+                Referer: CONTACT_FORM_PAGE,
+                'User-Agent': CONTACT_FORM_USER_AGENT,
             },
             body: JSON.stringify({
+                name: notification.name,
                 message: notification.text,
                 _subject: notification.subject,
                 _replyto: notification.replyTo,

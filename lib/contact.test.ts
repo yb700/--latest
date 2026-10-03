@@ -3,7 +3,6 @@ import { describe, it } from 'node:test'
 import {
     CONTACT_EMAIL,
     buildContactNotification,
-    quoteDisplayName,
 } from './contact'
 
 const sample = {
@@ -14,12 +13,14 @@ const sample = {
 }
 
 describe('contact notification', () => {
-    it('uses the typed name once, as the reply address', () => {
+    it('uses the typed name once and the plain email as the reply address', () => {
         const notification = buildContactNotification(sample)
 
         assert.equal(notification.to, CONTACT_EMAIL)
-        assert.equal(notification.replyTo, '"Bedra Ouendjeli" <ouendjelizaia@gmail.com>')
-        assert.equal(notification.replyTo.split('Bedra').length - 1, 1)
+        assert.equal(notification.name, 'Bedra Ouendjeli')
+        assert.equal(notification.replyTo, 'ouendjelizaia@gmail.com')
+        assert.equal(notification.replyTo.includes('Bedra'), false)
+        assert.equal(notification.replyTo.includes('<'), false)
     })
 
     it('puts the website and the typed subject in the subject line', () => {
@@ -43,12 +44,13 @@ describe('contact notification', () => {
         assert.equal(notification.subject, 'ClearCut Law website: Employment law')
     })
 
-    it('quotes a reply name that contains a quote', () => {
-        assert.equal(quoteDisplayName('Bedra "Bee" Ouendjeli'), '"Bedra \\"Bee\\" Ouendjeli"')
+    it('keeps a name with a quote on one line and does not wrap the reply address', () => {
         const notification = buildContactNotification({
             ...sample,
             name: 'Bedra "Bee"\nOuendjeli',
+            email: 'ouendjelizaia@gmail.com',
         })
-        assert.equal(notification.replyTo, '"Bedra \\"Bee\\" Ouendjeli" <ouendjelizaia@gmail.com>')
+        assert.equal(notification.name, 'Bedra "Bee" Ouendjeli')
+        assert.equal(notification.replyTo, 'ouendjelizaia@gmail.com')
     })
 })
