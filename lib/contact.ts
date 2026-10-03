@@ -29,19 +29,17 @@ export type ContactEmailInput = {
 
 export type ContactNotification = {
     to: string
-    from: string
     replyTo: string
     subject: string
     text: string
 }
 
-export function buildContactNotification(input: ContactEmailInput, fromEmail: string): ContactNotification {
+export function buildContactNotification(input: ContactEmailInput): ContactNotification {
     const name = oneLine(input.name)
     const email = input.email.replace(/[\r\n\s<>"]/g, '')
 
     return {
         to: CONTACT_EMAIL,
-        from: `${quoteDisplayName(CONTACT_SENDER_NAME)} <${fromEmail}>`,
         replyTo: `${quoteDisplayName(name)} <${email}>`,
         subject: `${CONTACT_SENDER_NAME}: ${oneLine(input.subject)}`,
         text: input.message.trim(),

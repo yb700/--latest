@@ -2,7 +2,6 @@ import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import {
     CONTACT_EMAIL,
-    CONTACT_SENDER_NAME,
     buildContactNotification,
     quoteDisplayName,
 } from './contact'
@@ -16,22 +15,20 @@ const sample = {
 
 describe('contact notification', () => {
     it('uses the typed name once, as the reply address', () => {
-        const notification = buildContactNotification(sample, 'hello@clearcutlaw.co.uk')
+        const notification = buildContactNotification(sample)
 
         assert.equal(notification.to, CONTACT_EMAIL)
-        assert.equal(notification.from, `"${CONTACT_SENDER_NAME}" <hello@clearcutlaw.co.uk>`)
         assert.equal(notification.replyTo, '"Bedra Ouendjeli" <ouendjelizaia@gmail.com>')
-        assert.equal(notification.from.includes('Bedra'), false)
         assert.equal(notification.replyTo.split('Bedra').length - 1, 1)
     })
 
     it('puts the website and the typed subject in the subject line', () => {
-        const notification = buildContactNotification(sample, 'hello@clearcutlaw.co.uk')
+        const notification = buildContactNotification(sample)
         assert.equal(notification.subject, 'ClearCut Law website: Employment law')
     })
 
     it('uses the message as the body and does not add another name', () => {
-        const notification = buildContactNotification(sample, 'hello@clearcutlaw.co.uk')
+        const notification = buildContactNotification(sample)
         assert.equal(notification.text, sample.message)
         assert.equal(notification.text.includes('Name:'), false)
         assert.equal(notification.text.includes('ouendjelizaia@gmail.com'), false)
@@ -42,7 +39,7 @@ describe('contact notification', () => {
         const notification = buildContactNotification({
             ...sample,
             subject: 'Employment\nlaw',
-        }, 'hello@clearcutlaw.co.uk')
+        })
         assert.equal(notification.subject, 'ClearCut Law website: Employment law')
     })
 
@@ -51,7 +48,7 @@ describe('contact notification', () => {
         const notification = buildContactNotification({
             ...sample,
             name: 'Bedra "Bee"\nOuendjeli',
-        }, 'hello@clearcutlaw.co.uk')
+        })
         assert.equal(notification.replyTo, '"Bedra \\"Bee\\" Ouendjeli" <ouendjelizaia@gmail.com>')
     })
 })

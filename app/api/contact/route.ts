@@ -54,13 +54,7 @@ export async function POST(request: NextRequest) {
 
         const sent = await sendContactEmail(validatedData)
         if (!sent.ok) {
-            if (sent.reason === 'not_configured') {
-                console.error(
-                    `Contact email was not sent. Missing ${sent.missing.join(' and ')}. The message was saved in contact_messages.`
-                )
-            } else {
-                console.error('Contact email was not sent. The message was saved in contact_messages.')
-            }
+            console.error('Contact email was not sent. The message was saved in contact_messages.')
             return NextResponse.json(
                 { error: FAILED_MESSAGE },
                 {
