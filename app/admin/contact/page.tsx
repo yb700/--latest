@@ -20,7 +20,7 @@ export default function ContactMessagesPage() {
                     </Button>
                 </Link>
                 <div>
-                    <h1 className="text-3xl font-bold text-brand">Contact Messages</h1>
+                    <h1 className="text-3xl font-semibold text-brand">Contact Messages</h1>
                     <p className="text-gray-600">View and manage contact form submissions.</p>
                 </div>
             </div>

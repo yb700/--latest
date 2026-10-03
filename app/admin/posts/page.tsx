@@ -139,7 +139,7 @@ export default function PostsManagementPage() {
     const getStatusBadge = (status: string) => {
         switch (status) {
             case 'published':
-                return <Badge className="bg-[#14213D] text-white hover:bg-[#14213D]">Published</Badge>
+                return <Badge className="bg-[#151515] text-white hover:bg-[#151515]">Published</Badge>
             case 'draft':
                 return <Badge variant="secondary">Draft</Badge>
             case 'review':
@@ -160,7 +160,7 @@ export default function PostsManagementPage() {
                         </Button>
                     </Link>
                     <div>
-                        <h1 className="text-3xl font-bold text-brand">Posts Management</h1>
+                        <h1 className="text-3xl font-semibold text-brand">Posts Management</h1>
                         <p className="text-gray-600">Manage your blog posts and content.</p>
                         <p className="text-sm text-gray-500 mt-1">
                             Pin one published post to keep it featured. Unpin it to return to the daily rotation.
@@ -211,7 +211,7 @@ export default function PostsManagementPage() {
                                             </h3>
                                             {getStatusBadge(post.status)}
                                             {pinnedId === post.id && (
-                                                <Badge className="bg-[#14213D] text-white hover:bg-[#14213D]">Pinned</Badge>
+                                                <Badge className="bg-[#151515] text-white hover:bg-[#151515]">Pinned</Badge>
                                             )}
                                         </div>
                                         {post.excerpt && (

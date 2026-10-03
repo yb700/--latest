@@ -24,7 +24,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
                 ]}
                 components={{
                     h1: ({ children, ...props }) => (
-                        <h1 className="text-3xl font-bold text-brand mb-6" {...props}>
+                        <h1 className="text-3xl font-semibold text-brand mb-6" {...props}>
                             {children}
                         </h1>
                     ),

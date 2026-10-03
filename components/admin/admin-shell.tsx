@@ -35,7 +35,7 @@ export function AdminShell({ children }: AdminShellProps) {
                         <div className="flex items-center">
                             <Link href="/admin" className="flex items-center space-x-2">
                                 <BrandMark />
-                                <span className="text-xl font-bold text-brand">ClearCut Law Admin</span>
+                                <span className="text-xl font-semibold text-brand">ClearCut Law Admin</span>
                             </Link>
                         </div>
                         <div className="flex items-center space-x-4">

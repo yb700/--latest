@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { newsCategoryLabel, newsCategoryShortLabel } from '@/lib/news-categories'
 import { formatNewsCardDate, safeHttpUrl, type NewsListItem } from '@/lib/news'
+import { ArrowRight } from 'lucide-react'
 import { BrandMark } from '@/components/layout/brand-logo'
 import { cn } from '@/lib/utils'
 
@@ -48,7 +49,7 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
     return (
         <article
             className={cn(
-                'relative flex h-full w-full min-h-0 flex-col overflow-hidden rounded-xl border border-[#E6E8EC] bg-white',
+                'relative flex h-full w-full min-h-0 flex-col',
                 layout === 'feed' && 'news-card-feed'
             )}
         >
@@ -57,14 +58,14 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                 aria-expanded={expanded}
                 aria-controls={summaryId}
                 onClick={() => setExpanded((open) => !open)}
-                className="absolute inset-0 z-10 cursor-pointer rounded-xl bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-brand"
+                className="absolute inset-0 z-10 cursor-pointer bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#151515]"
             >
                 <span className="sr-only">
                     {expanded ? 'Show less' : 'Show more'}: {item.headline}
                 </span>
             </button>
 
-            <div className="relative aspect-video w-full overflow-hidden bg-[#F7F8FA]">
+            <div className="relative aspect-video w-full overflow-hidden bg-[#E7E4DF]">
                 {imageSrc ? (
                     // The Man City file is a local public asset. Other photos may be publisher URLs.
                     // eslint-disable-next-line @next/next/no-img-element
@@ -77,7 +78,7 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                         )}
                     />
                 ) : (
-                    <p className="absolute inset-0 flex items-center justify-center px-6 text-center text-sm font-semibold uppercase tracking-wide text-[#5A6270]">
+                    <p className="absolute inset-0 flex items-center justify-center px-6 text-center text-sm font-semibold uppercase tracking-wide text-[#8A8780]">
                         {areaLabel}
                     </p>
                 )}
@@ -88,26 +89,26 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                 ) : null}
             </div>
 
-            <div className="flex h-full min-h-0 flex-col gap-2 p-4">
+            <div className="flex h-full min-h-0 flex-col gap-2 pt-4">
                 <div className="flex items-start justify-between gap-3">
-                    <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8A92A3]">
+                    <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8A8780]">
                         {newsCategoryShortLabel(item.category)}
                     </p>
                     {published ? (
-                        <time dateTime={item.published_at} className="shrink-0 text-xs text-[#8A92A3]">
+                        <time dateTime={item.published_at} className="shrink-0 text-[11px] font-semibold uppercase tracking-wide text-[#8A8780]">
                             {published}
                         </time>
                     ) : null}
                 </div>
 
-                <Heading className="line-clamp-2 min-w-0 text-lg font-bold leading-snug text-[#14213D]">
+                <Heading className="line-clamp-2 min-w-0 text-lg font-semibold leading-snug tracking-[-0.5px] text-[#151515]">
                     {item.headline}
                 </Heading>
 
                 <p
                     id={summaryId}
                     className={cn(
-                        'min-w-0 text-sm leading-snug text-[#5A6270]',
+                        'min-w-0 text-sm leading-snug text-[#5E5E5E]',
                         !expanded && 'line-clamp-2'
                     )}
                 >
@@ -119,12 +120,16 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                         href={sourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="relative z-20 mt-auto w-fit text-sm font-semibold text-[#14213D] hover:underline"
+                        className="relative z-20 mt-2 flex w-full items-center justify-between text-sm font-semibold text-[#151515]"
                     >
                         Read on {item.source_name}
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </a>
                 ) : (
-                    <p className="mt-auto text-sm font-semibold text-[#14213D]">Read on {item.source_name}</p>
+                    <p className="mt-2 flex w-full items-center justify-between text-sm font-semibold text-[#151515]">
+                        Read on {item.source_name}
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </p>
                 )}
             </div>
         </article>

@@ -1,9 +1,9 @@
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { BlogPostCard } from "@/components/blog/post-card"
+import { PostList } from "@/components/blog/post-list"
 import { createClient } from "@/lib/supabase/server"
 import { toBlogListPost, type BlogListPost, type BlogPostSource } from "@/lib/blog-listing"
-import { ArrowRight } from "lucide-react"
 
 export async function LatestPosts() {
     // Published posts only. A draft can take the lead spot here after it is published.
@@ -24,39 +24,36 @@ export async function LatestPosts() {
     }
 
     return (
-        <section className="border-t border-slate-200 bg-white py-16">
+        <section className="bg-[#FAF9F7] py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-10 max-w-2xl">
-                    <h2 className="mb-3 text-3xl font-bold text-brand sm:text-4xl">
+                <div className="mb-8 max-w-[720px]">
+                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">
+                        The blog
+                    </p>
+                    <h2 className="text-3xl font-semibold tracking-[-0.5px] text-[#151515] sm:text-4xl">
                         Latest blog posts
                     </h2>
-                    <p className="text-lg text-slate-600">
+                    <p className="mt-3 text-lg text-[#5E5E5E]">
                         Recent commentary on deals, finance, competition and sport.
                     </p>
                 </div>
 
                 {posts.length === 0 ? (
-                    <div>
-                        <p className="mb-6 text-slate-600">
-                            No posts are published yet.
-                        </p>
-                    </div>
+                    <p className="mb-8 text-[#5E5E5E]">
+                        No posts are published yet.
+                    </p>
                 ) : (
-                    <div className="mb-12 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-                        {posts.map((post) => (
-                            <BlogPostCard key={post.id} post={post} />
-                        ))}
+                    <div className="mb-8 max-w-[720px]">
+                        <PostList posts={posts} />
                     </div>
                 )}
 
-                <div>
-                    <Link href="/blog">
-                        <Button size="lg">
-                            See all posts
-                            <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                    </Link>
-                </div>
+                <Link href="/blog" className="block max-w-[720px]">
+                    <Button size="lg" className="w-full justify-between">
+                        See all posts
+                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
+                    </Button>
+                </Link>
             </div>
         </section>
     )

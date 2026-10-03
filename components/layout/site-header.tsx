@@ -29,7 +29,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
     }
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-border bg-white">
+        <header className="sticky top-0 z-50 w-full border-b border-[#E7E4DF] bg-[#FAF9F7]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between">
                     {/* Logo */}
@@ -45,7 +45,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                             <Link
                                 key={item.name}
                                 href={item.href}
-                                className="text-slate-700 hover:text-brand transition-colors font-medium"
+                                className="font-medium text-[#151515] transition-colors hover:underline"
                             >
                                 {item.name}
                             </Link>
@@ -85,32 +85,31 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                     </div>
 
                     <div className="flex items-center">
-                        {/* Mobile menu button */}
-                        <div className="md:hidden">
-                            <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            >
-                                {mobileMenuOpen ? (
-                                    <X className="h-6 w-6" />
-                                ) : (
-                                    <Menu className="h-6 w-6" />
-                                )}
-                            </Button>
-                        </div>
+                        <button
+                            type="button"
+                            className="inline-flex items-center justify-center bg-transparent text-[#151515] md:hidden"
+                            aria-expanded={mobileMenuOpen}
+                            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+                            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        >
+                            {mobileMenuOpen ? (
+                                <X className="h-6 w-6" strokeWidth={1.5} />
+                            ) : (
+                                <Menu className="h-6 w-6" strokeWidth={1.5} />
+                            )}
+                        </button>
                     </div>
                 </div>
 
                 {/* Mobile Navigation */}
                 {mobileMenuOpen && (
-                    <div className="md:hidden border-t bg-white">
+                    <div className="md:hidden border-t border-[#E7E4DF] bg-[#FAF9F7]">
                         <nav className="px-2 pt-2 pb-3 space-y-1">
                             {navigation.map((item) => (
                                 <Link
                                     key={item.name}
                                     href={item.href}
-                                    className="block px-3 py-2 text-base font-medium text-slate-700 hover:text-brand hover:bg-slate-50 rounded-xl transition-colors"
+                                    className="block rounded-[6px] px-3 py-2 text-base font-medium text-[#151515] transition-colors hover:underline"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     {item.name}
@@ -130,7 +129,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                                     {(user.role === 'admin' || user.role === 'editor') && (
                                         <Link
                                             href="/admin"
-                                            className="block px-3 py-2 text-base font-medium text-slate-700 hover:text-brand hover:bg-slate-50 rounded-xl"
+                                            className="block rounded-[6px] px-3 py-2 text-base font-medium text-[#151515] hover:underline"
                                             onClick={() => setMobileMenuOpen(false)}
                                         >
                                             Admin Dashboard
@@ -138,7 +137,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                                     )}
                                     <button
                                         onClick={handleSignOut}
-                                        className="block w-full text-left px-3 py-2 text-base font-medium text-slate-700 hover:text-brand hover:bg-slate-50 rounded-xl"
+                                        className="block w-full rounded-[6px] px-3 py-2 text-left text-base font-medium text-[#151515] hover:underline"
                                     >
                                         Sign Out
                                     </button>

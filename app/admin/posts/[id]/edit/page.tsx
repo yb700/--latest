@@ -169,7 +169,7 @@ export default function EditPostPage() {
                         </Button>
                     </Link>
                     <div>
-                        <h1 className="text-3xl font-bold text-brand">Edit Post</h1>
+                        <h1 className="text-3xl font-semibold text-brand">Edit Post</h1>
                         <p className="text-gray-600">Update your blog post.</p>
                     </div>
                 </div>

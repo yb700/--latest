@@ -15,19 +15,19 @@ export const BLOG_CATEGORY_PRESENTATION: Record<
 > = {
     'mergers-and-acquisitions': {
         label: 'M&A',
-        tagClassName: 'text-[#5A6270]',
+        tagClassName: 'text-[#5E5E5E]',
     },
     'banking-and-finance': {
         label: 'Finance',
-        tagClassName: 'text-[#5A6270]',
+        tagClassName: 'text-[#5E5E5E]',
     },
     'sports-deals-and-regulation': {
         label: 'Sport',
-        tagClassName: 'text-[#5A6270]',
+        tagClassName: 'text-[#5E5E5E]',
     },
     'competition-and-regulation': {
         label: 'Competition',
-        tagClassName: 'text-[#5A6270]',
+        tagClassName: 'text-[#5E5E5E]',
     },
 }
 

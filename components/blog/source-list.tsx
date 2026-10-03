@@ -6,7 +6,7 @@ export function SourceList({ sources }: { sources: SourceCitation[] }) {
 
     return (
         <section className="mt-8" aria-label="Sources">
-            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#8A92A3]">Sources</h2>
+            <h2 className="mb-3 text-sm font-semibold uppercase tracking-wide text-[#8A8780]">Sources</h2>
             <ul className="space-y-2">
                 {sources.map((source) => {
                     const url = sourceUrlForTitle(source.title)

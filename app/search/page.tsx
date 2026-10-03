@@ -48,7 +48,7 @@ export default async function SearchPage({
 
     return (
         <div className="container mx-auto max-w-3xl px-4 py-8">
-            <h1 className="mb-6 text-4xl font-bold text-[#14213D]">Search</h1>
+            <h1 className="mb-6 text-4xl font-semibold text-[#151515]">Search</h1>
             <form action="/search" method="get" className="mb-8 flex gap-2" role="search">
                 <label className="sr-only" htmlFor="search-q">
                     Search post titles and summaries
@@ -59,9 +59,9 @@ export default async function SearchPage({
                     type="search"
                     defaultValue={query}
                     placeholder="Search titles and summaries"
-                    className="w-full rounded-xl border border-[#E6E8EC] bg-white px-4 py-2 text-[#14213D]"
+                    className="w-full rounded-xl border border-[#E7E4DF] bg-white px-4 py-2 text-[#151515]"
                 />
-                <button type="submit" className="rounded-xl bg-[#14213D] px-4 py-2 font-medium text-white">
+                <button type="submit" className="rounded-xl bg-[#151515] px-4 py-2 font-medium text-white">
                     Search
                 </button>
             </form>
@@ -73,11 +73,11 @@ export default async function SearchPage({
             {results.length > 0 ? (
                 <ul className="space-y-3">
                     {results.map((post) => (
-                        <li key={post.slug} className="rounded-xl border border-[#E6E8EC] bg-white px-4 py-3">
-                            <Link href={`/blog/${post.slug}`} className="font-semibold text-[#14213D] hover:underline">
+                        <li key={post.slug} className="rounded-xl border border-[#E7E4DF] bg-white px-4 py-3">
+                            <Link href={`/blog/${post.slug}`} className="font-semibold text-[#151515] hover:underline">
                                 {post.title}
                             </Link>
-                            {post.excerpt ? <p className="mt-1 text-[#5A6270]">{post.excerpt}</p> : null}
+                            {post.excerpt ? <p className="mt-1 text-[#5E5E5E]">{post.excerpt}</p> : null}
                         </li>
                     ))}
                 </ul>

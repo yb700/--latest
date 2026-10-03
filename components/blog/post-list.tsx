@@ -3,10 +3,12 @@ import { BlogPostCard } from './post-card'
 
 export function PostList({ posts }: { posts: BlogListPost[] }) {
     return (
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="list-none divide-y divide-[#E7E4DF] border-y border-[#E7E4DF]">
             {posts.map((post) => (
-                <BlogPostCard key={post.id} post={post} />
+                <li key={post.id} className="py-6">
+                    <BlogPostCard post={post} />
+                </li>
             ))}
-        </div>
+        </ul>
     )
 }
