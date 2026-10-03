@@ -2,84 +2,60 @@ import Link from 'next/link'
 import { BLOG_CATEGORY_PRESENTATION } from '@/lib/blog-categories'
 import {
     blogCardDateIso,
-    cardPreview,
     formatBlogCardDate,
-    readingMinutesFromContent,
     type BlogListPost,
 } from '@/lib/blog-listing'
 import { cn } from '@/lib/utils'
-import { FeaturedMedia } from './featured-media'
+import { PostThumbnail } from './featured-media'
 
-function CategoryTag({ post }: { post: BlogListPost }) {
+function CategoryLabel({ post }: { post: BlogListPost }) {
     if (!post.categorySlug) return null
     const presentation = BLOG_CATEGORY_PRESENTATION[post.categorySlug]
 
     return (
-        <span
-            className={cn(
-                'inline-flex w-fit items-center rounded px-2 py-0.5 text-[11px] font-semibold uppercase leading-4 tracking-wide',
-                presentation.tagClassName
-            )}
-        >
+        <p className={cn('text-[11px] font-semibold uppercase tracking-wide', presentation.tagClassName)}>
             {presentation.label}
-        </span>
+        </p>
     )
 }
-
-function CardCopy({ post, featured = false }: { post: BlogListPost; featured?: boolean }) {
-    const preview = cardPreview(post)
-    const publishedIso = blogCardDateIso(post)
-    const minutes = readingMinutesFromContent(post.content)
-
-    return (
-        <div className="flex min-w-0 flex-col gap-1.5">
-            <CategoryTag post={post} />
-            <h2
-                className={cn(
-                    'font-bold leading-snug text-[#0F1B33]',
-                    featured ? 'text-xl sm:text-2xl' : 'text-base'
-                )}
-            >
-                {post.title}
-            </h2>
-            {preview ? (
-                <p
-                    className={cn(
-                        'text-sm leading-5 text-[#4A5468]',
-                        preview.limitToTwoLines && 'line-clamp-2'
-                    )}
-                >
-                    {preview.text}
-                </p>
-            ) : null}
-            <p className="text-xs leading-4 text-[#5B6577]">
-                <time dateTime={publishedIso}>{formatBlogCardDate(publishedIso)}</time>
-                {` · ${minutes} min read`}
-            </p>
-        </div>
-    )
-}
-
-const cardClassName =
-    'block h-full overflow-hidden rounded-xl border border-[#E3E6EB] bg-white transition-colors hover:border-[#C5CAD3] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F1B33] focus-visible:ring-offset-2'
 
 export function BlogPostCard({ post }: { post: BlogListPost }) {
+    const publishedIso = blogCardDateIso(post)
+
     return (
-        <Link href={`/blog/${post.slug}`} className={cn(cardClassName, 'px-3.5 py-3')}>
-            <CardCopy post={post} />
+        <Link
+            href={`/blog/${post.slug}`}
+            className="flex items-center gap-4 rounded-xl border border-[#E6E8EC] bg-white p-3 transition-colors hover:border-[#D5D9E0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#14213D] focus-visible:ring-offset-2"
+        >
+            <PostThumbnail imageUrl={post.heroImageUrl} className="h-16 w-16 sm:h-20 sm:w-20" />
+            <div className="flex min-w-0 flex-col gap-1">
+                <CategoryLabel post={post} />
+                <h2 className="font-bold leading-snug text-[#14213D]">{post.title}</h2>
+                <p className="text-xs text-[#8A92A3]">
+                    <time dateTime={publishedIso}>{formatBlogCardDate(publishedIso)}</time>
+                </p>
+            </div>
         </Link>
     )
 }
 
 export function FeaturedBlogCard({ post }: { post: BlogListPost }) {
+    const publishedIso = blogCardDateIso(post)
+
     return (
         <Link
             href={`/blog/${post.slug}`}
-            className={cn(cardClassName, 'grid md:grid-cols-[17rem_minmax(0,1fr)]')}
+            className={cn(
+                'flex items-center gap-4 rounded-xl border border-[#E6E8EC] bg-white p-3 transition-colors hover:border-[#D5D9E0] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#14213D] focus-visible:ring-offset-2 sm:p-4'
+            )}
         >
-            <FeaturedMedia imageUrl={post.heroImageUrl} />
-            <div className="px-4 py-3 sm:px-5 sm:py-4">
-                <CardCopy post={post} featured />
+            <PostThumbnail imageUrl={post.heroImageUrl} className="h-20 w-20 sm:h-28 sm:w-28" />
+            <div className="flex min-w-0 flex-col gap-1.5">
+                <CategoryLabel post={post} />
+                <h2 className="text-lg font-bold leading-snug text-[#14213D] sm:text-2xl">{post.title}</h2>
+                <p className="text-xs text-[#8A92A3]">
+                    <time dateTime={publishedIso}>{formatBlogCardDate(publishedIso)}</time>
+                </p>
             </div>
         </Link>
     )

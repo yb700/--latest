@@ -3,7 +3,7 @@ import { AreasOfInterest } from "@/components/home/areas-of-interest"
 import { LegalNews } from "@/components/home/legal-news"
 import { LatestPosts } from "@/components/home/latest-posts"
 import { Metadata } from "next"
-import { SITE_SHARE_DESCRIPTION } from "@/lib/site-copy"
+import { SITE_SHARE_DESCRIPTION, SITE_SHARE_IMAGE } from "@/lib/site-copy"
 
 const description = SITE_SHARE_DESCRIPTION
 
@@ -13,10 +13,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
     description,
+    images: [SITE_SHARE_IMAGE],
   },
   twitter: {
     title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
     description,
+    images: [SITE_SHARE_IMAGE.url],
   },
 }
 

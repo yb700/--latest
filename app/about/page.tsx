@@ -210,11 +210,11 @@ export default function AboutPage() {
             <section className="py-20">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
-                        <Card className="border-amber-200 bg-amber-50">
+                        <Card className="border-[#E6E8EC] bg-[#F7F8FA] shadow-none">
                             <CardHeader>
-                                <CardTitle className="text-amber-800">Important Legal Notice</CardTitle>
+                                <CardTitle className="text-[#14213D]">Important Legal Notice</CardTitle>
                             </CardHeader>
-                            <CardContent className="text-amber-700">
+                            <CardContent className="text-[#5A6270]">
                                 <p className="mb-4">
                                     ClearCut Law is a commentary site, not a law firm. The posts are commentary and not legal advice. They should not be relied on for any specific situation.
                                 </p>

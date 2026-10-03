@@ -4,48 +4,54 @@
 
 @layer base {
   :root {
+    --navy: #14213D;
+    --text-grey: #5A6270;
+    --light-grey: #8A92A3;
+    --border: #E6E8EC;
+    --bg-grey: #F7F8FA;
+    --gold: #C8A24A; /* logo only */
+
     --background: 0 0% 100%;
-    --foreground: 215 25% 27%;
+    --foreground: 218 11% 40%;
     --card: 0 0% 100%;
-    --card-foreground: 215 25% 27%;
+    --card-foreground: 218 11% 40%;
     --popover: 0 0% 100%;
-    --popover-foreground: 215 25% 27%;
-    --primary: 215 85% 13%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 215 13% 93%;
-    --secondary-foreground: 215 25% 27%;
-    --muted: 215 13% 93%;
-    --muted-foreground: 215 10% 46%;
-    --accent: 215 13% 93%;
-    --accent-foreground: 215 25% 27%;
+    --popover-foreground: 218 11% 40%;
+    --primary: 221 51% 16%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 23% 97%;
+    --secondary-foreground: 221 51% 16%;
+    --muted: 220 23% 97%;
+    --muted-foreground: 218 11% 40%;
+    --accent: 220 23% 97%;
+    --accent-foreground: 221 51% 16%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
-    --border: 215 13% 88%;
-    --input: 215 13% 88%;
-    --ring: 215 85% 13%;
+    --input: 220 14% 91%;
+    --ring: 221 51% 16%;
     --radius: 1rem;
   }
 
   .dark {
-    --background: 215 85% 13%;
-    --foreground: 0 0% 98%;
-    --card: 215 85% 13%;
-    --card-foreground: 0 0% 98%;
-    --popover: 215 85% 13%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 215 85% 13%;
-    --secondary: 215 25% 21%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 215 25% 21%;
-    --muted-foreground: 215 13% 65%;
-    --accent: 215 25% 21%;
-    --accent-foreground: 0 0% 98%;
+    --background: 221 51% 16%;
+    --foreground: 0 0% 100%;
+    --card: 221 51% 16%;
+    --card-foreground: 0 0% 100%;
+    --popover: 221 51% 16%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 0 0% 100%;
+    --primary-foreground: 221 51% 16%;
+    --secondary: 222 35% 25%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 222 35% 25%;
+    --muted-foreground: 221 12% 59%;
+    --accent: 222 35% 25%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
-    --border: 215 25% 21%;
-    --input: 215 25% 21%;
-    --ring: 0 0% 98%;
+    --border: #2A3858;
+    --input: 222 35% 25%;
+    --ring: 0 0% 100%;
   }
 }
 
@@ -118,6 +124,3 @@ html.news-feed-scroll {
 .news-card-feed {
   scroll-snap-align: start;
 }
-
-/* Font loading optimization */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');

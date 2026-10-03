@@ -1,5 +1,4 @@
 import { Suspense } from 'react'
-import { Manrope } from 'next/font/google'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { PostList } from '@/components/blog/post-list'
@@ -17,12 +16,6 @@ import {
     type BlogListPost,
     type BlogPostSource,
 } from '@/lib/blog-listing'
-
-const manrope = Manrope({
-    subsets: ['latin'],
-    display: 'swap',
-    fallback: ['system-ui', 'Segoe UI', 'sans-serif'],
-})
 
 const POSTS_PER_PAGE = 12
 
@@ -181,11 +174,11 @@ export default async function BlogPage({
     const totalPages = Math.max(1, Math.ceil((count || 0) / POSTS_PER_PAGE))
 
     return (
-        <div className={`${manrope.className} bg-[#F5F6F8]`}>
+        <div className="bg-white">
             <div className="container mx-auto px-4 py-6 sm:py-8">
                 <div className="mb-6">
-                    <h1 className="mb-2 text-4xl font-bold text-[#0F1B33]">Blog</h1>
-                    <p className="text-lg text-[#4A5468]">
+                    <h1 className="mb-2 text-4xl font-bold text-[#14213D]">Blog</h1>
+                    <p className="text-lg text-[#5A6270]">
                         Commentary on the deals, decisions and developments shaping commercial law.
                     </p>
                 </div>
@@ -219,7 +212,7 @@ export default async function BlogPage({
                                     {page > 1 && (
                                         <a
                                             href={`/blog?page=${page - 1}${search ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`}
-                                            className="rounded-md border border-[#D0D5DD] bg-white px-3 py-2 text-sm font-medium text-[#0F1B33] hover:bg-[#F5F6F8]"
+                                            className="rounded-md border border-[#D5D9E0] bg-white px-3 py-2 text-sm font-medium text-[#14213D] hover:bg-[#F7F8FA]"
                                         >
                                             Previous
                                         </a>
@@ -231,8 +224,8 @@ export default async function BlogPage({
                                             href={`/blog?page=${pageNumber}${search ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`}
                                             className={`rounded-md px-3 py-2 text-sm font-medium ${
                                                 pageNumber === page
-                                                    ? 'bg-[#0F1B33] text-white'
-                                                    : 'border border-[#D0D5DD] bg-white text-[#0F1B33] hover:bg-[#F5F6F8]'
+                                                    ? 'bg-[#14213D] text-white'
+                                                    : 'border border-[#D5D9E0] bg-white text-[#14213D] hover:bg-[#F7F8FA]'
                                             }`}
                                             aria-current={pageNumber === page ? 'page' : undefined}
                                         >
@@ -243,7 +236,7 @@ export default async function BlogPage({
                                     {page < totalPages && (
                                         <a
                                             href={`/blog?page=${page + 1}${search ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`}
-                                            className="rounded-md border border-[#D0D5DD] bg-white px-3 py-2 text-sm font-medium text-[#0F1B33] hover:bg-[#F5F6F8]"
+                                            className="rounded-md border border-[#D5D9E0] bg-white px-3 py-2 text-sm font-medium text-[#14213D] hover:bg-[#F7F8FA]"
                                         >
                                             Next
                                         </a>
