@@ -1,12 +1,11 @@
 import { CONTACT_EMAIL, buildContactNotification, type ContactEmailInput } from './contact'
-import { CANONICAL_PRODUCTION_ORIGIN } from './site-url'
 
-// FormSubmit emails this address with no API key. The form is activated for the
-// live contact page, so a server POST must present that page. Other referrers
-// are treated as a new form. Node's default user agent is challenged first.
+// FormSubmit accepts this address only from the activated contact page.
+// A POST from the Vercel server is rejected after the database row is saved,
+// which is what showed the visitor the red failure line. The browser on
+// /contact already has that page as its referrer, so the form posts from there.
+// application/x-www-form-urlencoded avoids a CORS preflight.
 const FORMSUBMIT_AJAX_URL = `https://formsubmit.co/ajax/${CONTACT_EMAIL}`
-const CONTACT_FORM_PAGE = `${CANONICAL_PRODUCTION_ORIGIN}/contact`
-const CONTACT_FORM_USER_AGENT = 'ClearCutLaw-website-contact/1.0'
 
 export type SendContactEmailResult =
     | { ok: true }
@@ -28,25 +27,24 @@ export async function sendContactEmail(
 ): Promise<SendContactEmailResult> {
     const notification = buildContactNotification(input)
     const fetchImpl = options.fetchImpl ?? fetch
+    const body = new URLSearchParams({
+        name: notification.name,
+        message: notification.text,
+        _subject: notification.subject,
+        _replyto: notification.replyTo,
+        _honey: '',
+    })
 
     try {
         const response = await fetchImpl(FORMSUBMIT_AJAX_URL, {
             method: 'POST',
             headers: {
                 Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Origin: CANONICAL_PRODUCTION_ORIGIN,
-                Referer: CONTACT_FORM_PAGE,
-                'User-Agent': CONTACT_FORM_USER_AGENT,
+                'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: JSON.stringify({
-                name: notification.name,
-                message: notification.text,
-                _subject: notification.subject,
-                _replyto: notification.replyTo,
-                _honey: '',
-            }),
-            signal: AbortSignal.timeout(10000),
+            referrerPolicy: 'unsafe-url',
+            body,
+            signal: AbortSignal.timeout(15000),
         })
 
         const detail = await response.text().catch(() => '')

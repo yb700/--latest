@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
-import { sendContactEmail } from "@/lib/contact-mail"
 import { contactMessageSchema } from "@/lib/validations"
 import { checkRateLimit, getClientIP } from "@/lib/rate-limit"
 
@@ -52,24 +51,10 @@ export async function POST(request: NextRequest) {
             )
         }
 
-        const sent = await sendContactEmail(validatedData)
-        if (!sent.ok) {
-            console.error('Contact email was not sent. The message was saved in contact_messages.')
-            return NextResponse.json(
-                { error: FAILED_MESSAGE },
-                {
-                    status: 503,
-                    headers: {
-                        'X-RateLimit-Limit': rateLimitResult.limit.toString(),
-                        'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
-                        'X-RateLimit-Reset': rateLimitResult.reset.toISOString(),
-                    }
-                }
-            )
-        }
-
+        // The row is saved. The browser sends the email from /contact, because
+        // FormSubmit rejects the same post when it comes from the Vercel server.
         return NextResponse.json(
-            { message: "Your message was sent." },
+            { saved: true },
             {
                 status: 201,
                 headers: {

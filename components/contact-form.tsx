@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { sendContactEmail } from '@/lib/contact-mail'
 import { contactMessageSchema } from '@/lib/validations'
 import { Loader2, Send } from 'lucide-react'
 
@@ -58,6 +59,13 @@ export function ContactForm() {
                         ? payload.error
                         : FAILED_MESSAGE,
                 )
+                return
+            }
+
+            const sent = await sendContactEmail(data)
+            if (!sent.ok) {
+                setStatus('error')
+                setStatusMessage(FAILED_MESSAGE)
                 return
             }
 
