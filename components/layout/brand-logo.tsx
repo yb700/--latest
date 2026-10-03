@@ -1,12 +1,22 @@
 type BrandLogoProps = {
     className?: string
+    /** light sits on white. onNavy is the same wordmark with the letters turned white so it reads on the navy footer. Gold brackets stay. */
+    tone?: 'light' | 'onNavy'
 }
 
-export function BrandWordmark({ className = "h-8 w-auto sm:h-10" }: BrandLogoProps) {
+const WORDMARK_SRC = {
+    light: '/brand/clearcut-wordmark.png',
+    onNavy: '/brand/clearcut-wordmark-white.png',
+} as const
+
+export function BrandWordmark({
+    className = 'h-10 w-auto md:h-12',
+    tone = 'light',
+}: BrandLogoProps) {
     return (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-            src="/brand/clearcut-wordmark.png"
+            src={WORDMARK_SRC[tone]}
             alt="ClearCut Law"
             width={1270}
             height={217}
@@ -15,7 +25,7 @@ export function BrandWordmark({ className = "h-8 w-auto sm:h-10" }: BrandLogoPro
     )
 }
 
-export function BrandMark({ className = "h-8 w-auto" }: BrandLogoProps) {
+export function BrandMark({ className = 'h-8 w-auto' }: { className?: string }) {
     return (
         // eslint-disable-next-line @next/next/no-img-element
         <img

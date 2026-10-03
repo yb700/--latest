@@ -8,26 +8,26 @@ export const BLOG_CATEGORY_SLUGS = [
 
 export type BlogCategorySlug = (typeof BLOG_CATEGORY_SLUGS)[number]
 
-/** Button label and card tag colours from the blog listing spec. */
+/** Button label and the grey capital section label used on blog cards. */
 export const BLOG_CATEGORY_PRESENTATION: Record<
     BlogCategorySlug,
     { label: string; tagClassName: string }
 > = {
     'mergers-and-acquisitions': {
         label: 'M&A',
-        tagClassName: 'bg-[#E6EDFA] text-[#1E4FA8]',
+        tagClassName: 'text-[#5A6270]',
     },
     'banking-and-finance': {
         label: 'Finance',
-        tagClassName: 'bg-[#E1F2EF] text-[#0B6B61]',
+        tagClassName: 'text-[#5A6270]',
     },
     'sports-deals-and-regulation': {
         label: 'Sports',
-        tagClassName: 'bg-[#FBEADF] text-[#A84300]',
+        tagClassName: 'text-[#5A6270]',
     },
     'competition-and-regulation': {
         label: 'Competition',
-        tagClassName: 'bg-[#EEE7F8] text-[#5B2C9E]',
+        tagClassName: 'text-[#5A6270]',
     },
 }
 

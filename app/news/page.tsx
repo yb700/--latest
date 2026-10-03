@@ -6,6 +6,7 @@ import { NEWS_PAGE_SIZE } from '@/lib/news'
 import { getNewsPage } from '@/lib/news-data'
 import { isNewsCategorySlug, newsCategoryLabel } from '@/lib/news-categories'
 import { shouldUseNewsFixtures } from '@/lib/news-preview'
+import { SITE_SHARE_IMAGE } from '@/lib/site-copy'
 
 const description =
     'Legal News from ClearCut Law: the latest deals, decisions and regulatory developments in mergers, banking, sport and competition.'
@@ -16,10 +17,12 @@ export const metadata: Metadata = {
     openGraph: {
         title: 'Legal News | ClearCut Law',
         description,
+        images: [SITE_SHARE_IMAGE],
     },
     twitter: {
         title: 'Legal News | ClearCut Law',
         description,
+        images: [SITE_SHARE_IMAGE.url],
     },
 }
 

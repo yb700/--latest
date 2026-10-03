@@ -23,13 +23,6 @@ const BT_TOWER_SRC = '/news/bt-tower-dusk.jpg'
  */
 const BT_TOWER_FIT = 'object-cover object-top'
 
-const AREA_PILL: Record<string, string> = {
-    'mergers-acquisitions': 'bg-rose-600 text-white',
-    'banking-finance': 'bg-blue-600 text-white',
-    'competition-regulation': 'bg-purple-600 text-white',
-    'sports-deals-regulation': 'bg-green-600 text-white',
-}
-
 interface NewsCardProps {
     item: NewsListItem
     headingLevel?: 'h2' | 'h3'
@@ -53,7 +46,7 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
     return (
         <article
             className={cn(
-                'relative flex h-full w-full min-h-0 flex-col overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition duration-200 hover:-translate-y-1 hover:shadow-lg',
+                'relative flex h-full w-full min-h-0 flex-col overflow-hidden rounded-xl border border-[#E6E8EC] bg-white',
                 layout === 'feed' && 'news-card-feed'
             )}
         >
@@ -69,7 +62,7 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                 </span>
             </button>
 
-            <div className="relative aspect-video w-full overflow-hidden bg-brand">
+            <div className="relative aspect-video w-full overflow-hidden bg-[#F7F8FA]">
                 {imageSrc ? (
                     // The Man City file is a local public asset. Other photos may be publisher URLs.
                     // eslint-disable-next-line @next/next/no-img-element
@@ -82,49 +75,38 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                         )}
                     />
                 ) : (
-                    <p className="absolute inset-0 flex items-center justify-center px-6 text-center text-lg font-semibold text-white">
+                    <p className="absolute inset-0 flex items-center justify-center px-6 text-center text-sm font-semibold uppercase tracking-wide text-[#5A6270]">
                         {areaLabel}
                     </p>
                 )}
-                <div className="absolute left-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-brand text-xs font-bold text-white ring-2 ring-white">
-                    CL
-                </div>
             </div>
 
             <div className="flex h-full min-h-0 flex-col gap-2 p-4">
-                <div className="flex items-center justify-between gap-3">
-                    <span
-                        className={cn(
-                            'shrink-0 rounded-full px-2.5 py-0.5 text-xs font-medium',
-                            AREA_PILL[item.category] ?? 'bg-slate-600 text-white'
-                        )}
-                    >
-                        {newsCategoryShortLabel(item.category)}
-                    </span>
-                    {published && (
-                        <time dateTime={item.published_at} className="shrink-0 text-xs text-gray-500">
-                            {published}
-                        </time>
-                    )}
-                </div>
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-[#5A6270]">
+                    {newsCategoryShortLabel(item.category)}
+                </p>
 
-                <Heading className="line-clamp-2 min-w-0 text-lg font-bold leading-snug text-brand">
+                <Heading className="line-clamp-2 min-w-0 text-lg font-bold leading-snug text-[#14213D]">
                     {item.headline}
                 </Heading>
 
                 <p
                     id={summaryId}
                     className={cn(
-                        'min-w-0 text-sm leading-snug text-gray-500',
+                        'min-w-0 text-sm leading-snug text-[#5A6270]',
                         !expanded && 'line-clamp-2'
                     )}
                 >
                     {item.summary}
                 </p>
 
-                <div className="mt-auto flex items-center justify-between gap-3 border-t border-gray-200 pt-3">
-                    <p className="min-w-0 truncate text-xs text-gray-500">Source: {item.source_name}</p>
-                </div>
+                <p className="mt-auto truncate text-xs text-[#8A92A3]">
+                    {published ? (
+                        <time dateTime={item.published_at}>{published}</time>
+                    ) : null}
+                    {published ? ' · ' : null}
+                    {item.source_name}
+                </p>
             </div>
         </article>
     )

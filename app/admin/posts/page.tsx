@@ -139,7 +139,7 @@ export default function PostsManagementPage() {
     const getStatusBadge = (status: string) => {
         switch (status) {
             case 'published':
-                return <Badge className="bg-green-100 text-green-800 hover:bg-green-100">Published</Badge>
+                return <Badge className="bg-[#14213D] text-white hover:bg-[#14213D]">Published</Badge>
             case 'draft':
                 return <Badge variant="secondary">Draft</Badge>
             case 'review':
@@ -211,7 +211,7 @@ export default function PostsManagementPage() {
                                             </h3>
                                             {getStatusBadge(post.status)}
                                             {pinnedId === post.id && (
-                                                <Badge className="bg-[#0F1B33] text-white hover:bg-[#0F1B33]">Pinned</Badge>
+                                                <Badge className="bg-[#14213D] text-white hover:bg-[#14213D]">Pinned</Badge>
                                             )}
                                         </div>
                                         {post.excerpt && (

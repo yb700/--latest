@@ -3,7 +3,7 @@ import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
 import { TagPills } from '@/components/blog/tag-pills'
-import { SITE_SHARE_DESCRIPTION } from '@/lib/site-copy'
+import { SITE_SHARE_DESCRIPTION, SITE_SHARE_IMAGE } from '@/lib/site-copy'
 
 interface BlogPostPageProps {
     params: Promise<{ slug: string }>
@@ -55,11 +55,13 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
             publishedTime: post.created_at,
             modifiedTime: post.updated_at,
             authors: ['ClearCut Law'],
+            images: [SITE_SHARE_IMAGE],
         },
         twitter: {
             card: 'summary_large_image',
             title: post.title,
             description: SITE_SHARE_DESCRIPTION,
+            images: [SITE_SHARE_IMAGE.url],
         },
     }
 }
