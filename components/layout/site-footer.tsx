@@ -1,97 +1,47 @@
 import Link from "next/link"
 import { BrandWordmark } from "@/components/layout/brand-logo"
-import { blogCategoryPath, type BlogCategorySlug } from "@/lib/blog-categories"
-import { NEWS_CATEGORIES, type NewsCategorySlug } from "@/lib/news-categories"
 
-const footerAreaOrder: NewsCategorySlug[] = [
-    "mergers-acquisitions",
-    "banking-finance",
-    "competition-regulation",
-    "sports-deals-regulation",
+const footerLinks = [
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Blog", href: "/blog" },
+    { name: "Glossary", href: "/glossary" },
+    { name: "Legal News", href: "/news" },
+    { name: "Contact", href: "/contact" },
 ]
-
-const blogSlugForNews: Record<NewsCategorySlug, BlogCategorySlug> = {
-    "mergers-acquisitions": "mergers-and-acquisitions",
-    "banking-finance": "banking-and-finance",
-    "competition-regulation": "competition-and-regulation",
-    "sports-deals-regulation": "sports-deals-and-regulation",
-}
 
 export function SiteFooter() {
     const currentYear = new Date().getFullYear()
 
     return (
-        <footer className="bg-slate-50 border-t">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-                    <div className="md:col-span-2">
-                        <Link href="/" className="mb-4 inline-flex items-center">
-                            <BrandWordmark />
+        <footer className="bg-[#14213D]">
+            <div className="container mx-auto px-4 py-10 sm:px-6 lg:px-8">
+                <Link href="/" className="inline-flex items-center">
+                    <BrandWordmark tone="onNavy" />
+                </Link>
+
+                <nav aria-label="Footer" className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-x-8 sm:gap-y-3">
+                    {footerLinks.map((item) => (
+                        <Link
+                            key={item.name}
+                            href={item.href}
+                            className="text-sm font-medium text-[#C9CED8] transition-colors hover:text-white"
+                        >
+                            {item.name}
                         </Link>
-                        <p className="text-slate-600 mb-4 max-w-md">
-                            Plain English commentary on UK deals, finance, competition and sport.
-                            Written by Younas Ficel, a law graduate.
-                        </p>
-                        <p className="text-xs text-slate-500 leading-relaxed">
-                            This is a commentary site, not a law firm. The posts are commentary and not legal advice.
-                        </p>
-                    </div>
+                    ))}
+                </nav>
 
-                    <div>
-                        <h3 className="font-semibold text-brand mb-4">Quick Links</h3>
-                        <ul className="space-y-2">
-                            <li>
-                                <Link href="/about" className="text-slate-600 hover:text-brand transition-colors">
-                                    About
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/blog" className="text-slate-600 hover:text-brand transition-colors">
-                                    Blog
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/glossary" className="text-slate-600 hover:text-brand transition-colors">
-                                    Glossary
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/news" className="text-slate-600 hover:text-brand transition-colors">
-                                    Legal News
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/contact" className="text-slate-600 hover:text-brand transition-colors">
-                                    Contact
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h3 className="font-semibold text-brand mb-4">Legal Areas</h3>
-                        <ul className="space-y-2">
-                            {footerAreaOrder.map((slug) => NEWS_CATEGORIES.find((category) => category.slug === slug)!).map((category) => (
-                                <li key={category.slug}>
-                                    <Link href={blogCategoryPath(blogSlugForNews[category.slug])} className="text-slate-600 hover:text-brand transition-colors">
-                                        {category.label}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-
-                <div className="border-t border-slate-200 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center">
-                    <div className="text-sm text-slate-600">
+                <div className="mt-8 flex flex-col gap-3 border-t border-[#2A3858] pt-6 sm:flex-row sm:items-center sm:justify-between">
+                    <p className="text-sm text-[#C9CED8]">
                         © {currentYear} ClearCut Law. All rights reserved.
-                    </div>
-                    <div className="flex space-x-6 mt-4 sm:mt-0">
-                        <Link href="/privacy" className="text-sm text-slate-600 hover:text-brand transition-colors">
-                            Privacy Policy
+                    </p>
+                    <div className="flex gap-6">
+                        <Link href="/privacy" className="text-sm text-[#C9CED8] transition-colors hover:text-white">
+                            Privacy
                         </Link>
-                        <Link href="/terms" className="text-sm text-slate-600 hover:text-brand transition-colors">
-                            Terms of Service
+                        <Link href="/terms" className="text-sm text-[#C9CED8] transition-colors hover:text-white">
+                            Terms
                         </Link>
                     </div>
                 </div>

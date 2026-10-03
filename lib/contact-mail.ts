@@ -27,8 +27,13 @@ export async function sendContactEmail(
 ): Promise<SendContactEmailResult> {
     const notification = buildContactNotification(input)
     const fetchImpl = options.fetchImpl ?? fetch
+    // FormSubmit prints ordinary fields and hides names that start with _.
+    // The 19:54 mail therefore showed name and message only. Reply-To stays
+    // FormSubmit until the form also sends a field named email; that field is
+    // the plain line in the mail, and _replyto is the same address.
     const body = new URLSearchParams({
         name: notification.name,
+        email: notification.replyTo,
         message: notification.text,
         _subject: notification.subject,
         _replyto: notification.replyTo,

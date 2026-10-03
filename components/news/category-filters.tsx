@@ -26,7 +26,7 @@ export function NewsCategoryFilters({ selected, preview = false }: NewsCategoryF
     ]
 
     return (
-        <nav aria-label="Filter Legal News by category" className="flex flex-nowrap gap-x-4 overflow-x-auto text-sm">
+        <nav aria-label="Filter Legal News by category" className="flex flex-nowrap gap-2 overflow-x-auto text-sm">
             {filters.map((filter) => {
                 const active = filter.slug === selected
 
@@ -37,10 +37,10 @@ export function NewsCategoryFilters({ selected, preview = false }: NewsCategoryF
                         aria-current={active ? 'page' : undefined}
                         aria-label={filter.slug ? newsCategoryLabel(filter.slug) : 'All categories'}
                         className={cn(
-                            'shrink-0 whitespace-nowrap rounded-sm py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2',
+                            'shrink-0 whitespace-nowrap rounded-md border px-3 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2',
                             active
-                                ? 'font-semibold text-brand underline underline-offset-4'
-                                : 'text-gray-500 hover:text-brand'
+                                ? 'border-[#14213D] bg-[#14213D] font-semibold text-white'
+                                : 'border-[#D5D9E0] bg-white text-[#5A6270] hover:border-[#14213D]'
                         )}
                     >
                         {filter.label}

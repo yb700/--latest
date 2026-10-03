@@ -22,14 +22,14 @@ export default async function AdminPage() {
             description: 'Create a new blog post',
             icon: Plus,
             href: '/admin/posts/new',
-            color: 'text-blue-600',
+            color: 'text-brand',
         },
         {
             title: 'View Messages',
             description: 'Check contact form submissions',
             icon: Eye,
             href: '/admin/contact',
-            color: 'text-purple-600',
+            color: 'text-brand',
         },
         {
             title: 'Site Settings',
@@ -102,7 +102,7 @@ export default async function AdminPage() {
                             <Settings className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-green-600">Active</div>
+                            <div className="text-2xl font-bold text-brand">Active</div>
                             <p className="text-xs text-muted-foreground">Site is running</p>
                         </CardContent>
                     </Card>

@@ -1,14 +1,19 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import './globals.css'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { Toaster } from '@/components/ui/toaster'
 import { getProfile } from '@/lib/auth-server'
 import { CANONICAL_PRODUCTION_ORIGIN } from '@/lib/site-url'
-import { SITE_SHARE_DESCRIPTION } from '@/lib/site-copy'
+import { SITE_SHARE_DESCRIPTION, SITE_SHARE_IMAGE } from '@/lib/site-copy'
 
-const inter = Inter({ subsets: ['latin'] })
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+  variable: '--font-poppins',
+})
 
 const description = SITE_SHARE_DESCRIPTION
 
@@ -26,11 +31,13 @@ export const metadata: Metadata = {
     title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
     description,
     siteName: 'ClearCut Law',
+    images: [SITE_SHARE_IMAGE],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'ClearCut Law | Commentary on UK deals, finance, competition and sport',
     description,
+    images: [SITE_SHARE_IMAGE.url],
   },
   robots: {
     index: true,
@@ -46,8 +53,8 @@ export default async function RootLayout({
   const user = await getProfile()
 
   return (
-    <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>
+    <html lang="en" className={`${poppins.variable} scroll-smooth`}>
+      <body className={`${poppins.className} font-sans`}>
         <div className="flex min-h-screen flex-col">
           <SiteHeader user={user} />
           <main className="flex-1">{children}</main>

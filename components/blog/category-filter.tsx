@@ -28,10 +28,10 @@ export function CategoryFilter({ selectedCategory, search }: CategoryFilterProps
                         href={blogFilterHref(filter.slug, search)}
                         aria-current={selected ? 'page' : undefined}
                         className={cn(
-                            'inline-flex min-h-[36px] items-center justify-center whitespace-nowrap rounded-md border px-3.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0F1B33] focus-visible:ring-offset-2',
+                            'inline-flex min-h-[36px] items-center justify-center whitespace-nowrap rounded-md border px-3.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#14213D] focus-visible:ring-offset-2',
                             selected
-                                ? 'border-[#0F1B33] bg-[#0F1B33] text-white'
-                                : 'border-[#D0D5DD] bg-white text-[#0F1B33] hover:bg-[#F5F6F8]'
+                                ? 'border-[#14213D] bg-[#14213D] text-white'
+                                : 'border-[#D5D9E0] bg-white text-[#5A6270] hover:border-[#14213D]'
                         )}
                     >
                         {filter.label}
