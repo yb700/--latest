@@ -3,7 +3,6 @@ import { Manrope } from 'next/font/google'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { PostList } from '@/components/blog/post-list'
-import { SearchInput } from '@/components/search-input'
 import { CategoryFilter } from '@/components/blog/category-filter'
 import { FeaturedBlogCard } from '@/components/blog/post-card'
 import { EmptyState } from '@/components/empty-state'
@@ -17,6 +16,7 @@ import {
     type BlogListPost,
     type BlogPostSource,
 } from '@/lib/blog-listing'
+import { titleAndExcerptFilter } from '@/lib/post-search'
 
 const manrope = Manrope({
     subsets: ['latin'],
@@ -54,25 +54,18 @@ async function getPosts(
     const from = (page - 1) * POSTS_PER_PAGE
     const to = from + POSTS_PER_PAGE - 1
 
-    const buildQuery = (contentColumn: 'content_md' | 'content') => {
-        let query = category
-            ? supabase.from('posts').select(FILTERED_CARD_SELECT, { count: 'exact' }).eq('post_categories.categories.slug', category)
-            : supabase.from('posts').select(CARD_SELECT, { count: 'exact' })
+    let query = category
+        ? supabase.from('posts').select(FILTERED_CARD_SELECT, { count: 'exact' }).eq('post_categories.categories.slug', category)
+        : supabase.from('posts').select(CARD_SELECT, { count: 'exact' })
 
-        query = query.eq('status', 'published').order('created_at', { ascending: false })
+    query = query.eq('status', 'published').order('created_at', { ascending: false })
 
-        if (search) {
-            query = query.or(`title.ilike.%${search}%,${contentColumn}.ilike.%${search}%`)
-        }
-
-        return query.range(from, to)
+    const searchFilter = titleAndExcerptFilter(search)
+    if (searchFilter) {
+        query = query.or(searchFilter)
     }
 
-    let result = await buildQuery('content_md')
-
-    if (result.error && search && result.error.message?.includes('content_md')) {
-        result = await buildQuery('content')
-    }
+    const result = await query.range(from, to)
 
     if (result.error) {
         console.error('Error fetching posts:', result.error)
@@ -191,7 +184,20 @@ export default async function BlogPage({
                 </div>
 
                 <div className="mb-6 space-y-3">
-                    <SearchInput placeholder="Search posts..." value={search} className="w-full" />
+                    <form action="/blog" method="get" className="w-full" role="search">
+                        {category ? <input type="hidden" name="category" value={category} /> : null}
+                        <label className="sr-only" htmlFor="blog-search">
+                            Search titles and summaries
+                        </label>
+                        <input
+                            id="blog-search"
+                            name="search"
+                            type="search"
+                            defaultValue={search}
+                            placeholder="Search titles and summaries"
+                            className="w-full rounded-xl border border-[#E6E8EC] bg-white px-4 py-2 text-[#0F1B33]"
+                        />
+                    </form>
                     <CategoryFilter selectedCategory={category} search={search} />
                 </div>
 

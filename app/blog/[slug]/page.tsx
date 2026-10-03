@@ -3,6 +3,15 @@ import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
 import { TagPills } from '@/components/blog/tag-pills'
+import { DealGlanceBox } from '@/components/blog/deal-glance'
+import { InterviewNoteBox } from '@/components/blog/interview-note'
+import { RelatedPosts, type RelatedPost } from '@/components/blog/related-posts'
+import { SourceList } from '@/components/blog/source-list'
+import { categorySlugFromEmbed, comparePostsNewestFirst } from '@/lib/blog-listing'
+import { dealGlanceForTitle } from '@/lib/deal-glance'
+import { linkGlossaryTerms } from '@/lib/glossary'
+import { interviewNoteForTitle } from '@/lib/interview-notes'
+import { splitPostContent } from '@/lib/post-content'
 import { SITE_SHARE_DESCRIPTION } from '@/lib/site-copy'
 
 interface BlogPostPageProps {
@@ -16,7 +25,7 @@ async function getPost(slug: string) {
 
     const { data: post, error } = await supabase
         .from('posts')
-        .select('*')
+        .select('*, post_categories(categories(slug))')
         .eq('slug', slug)
         .eq('status', 'published')
         .single()
@@ -33,6 +42,44 @@ async function getPost(slug: string) {
 
     console.log('Found post:', post.title)
     return post
+}
+
+async function getRelatedPosts(post: {
+    id: string
+    post_categories?: unknown
+}): Promise<RelatedPost[]> {
+    const categorySlug = categorySlugFromEmbed(post.post_categories)
+    if (!categorySlug) return []
+
+    const supabase = createClient()
+    const { data, error } = await supabase
+        .from('posts')
+        .select('id, title, slug, published_at, created_at, post_categories!inner(categories!inner(slug))')
+        .eq('status', 'published')
+        .eq('post_categories.categories.slug', categorySlug)
+        .neq('id', post.id)
+
+    if (error || !data) {
+        if (error) console.error('Error fetching related posts:', error)
+        return []
+    }
+
+    return [...data]
+        .map((item) => ({
+            id: item.id,
+            title: item.title,
+            slug: item.slug,
+            publishedAt: item.published_at,
+            createdAt: item.created_at,
+            categorySlug: categorySlugFromEmbed(item.post_categories),
+        }))
+        .sort(comparePostsNewestFirst)
+        .slice(0, 3)
+        .map(({ title, slug, categorySlug: relatedCategory }) => ({
+            title,
+            slug,
+            categorySlug: relatedCategory,
+        }))
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
@@ -72,6 +119,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         notFound()
     }
 
+    const relatedPosts = await getRelatedPosts(post)
+    const split = splitPostContent(post.content_md ?? post.content ?? '')
+    const body = linkGlossaryTerms(split.body)
+    const deal = dealGlanceForTitle(post.title)
+    const interview = interviewNoteForTitle(post.title)
+
     // For now, we'll skip categories and tags until we have the full schema
     const categories: any[] = []
     const tags: any[] = []
@@ -107,9 +160,18 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 )}
             </header>
 
+            {deal ? <DealGlanceBox deal={deal} /> : null}
+
             <div className="prose prose-lg max-w-none">
-                <MarkdownRenderer content={post.content_md ?? post.content ?? ''} />
+                <MarkdownRenderer content={body} />
             </div>
+
+            {interview ? <InterviewNoteBox note={interview} /> : null}
+            <SourceList sources={split.sources} />
+            {split.disclaimer ? (
+                <p className="mt-8 italic text-slate-600">{split.disclaimer}</p>
+            ) : null}
+            <RelatedPosts posts={relatedPosts} />
 
             <footer className="mt-12 pt-8 border-t border-gray-200">
                 <div className="text-sm text-gray-500">

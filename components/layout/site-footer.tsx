@@ -51,6 +51,11 @@ export function SiteFooter() {
                                 </Link>
                             </li>
                             <li>
+                                <Link href="/glossary" className="text-slate-600 hover:text-brand transition-colors">
+                                    Glossary
+                                </Link>
+                            </li>
+                            <li>
                                 <Link href="/news" className="text-slate-600 hover:text-brand transition-colors">
                                     Legal News
                                 </Link>
