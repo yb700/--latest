@@ -43,7 +43,7 @@ export default async function AdminPage() {
     return (
         <div className="space-y-8">
             <div>
-                <h1 className="text-3xl font-bold text-brand">Dashboard</h1>
+                <h1 className="text-3xl font-semibold text-brand">Dashboard</h1>
                 <p className="text-gray-600">Welcome to the ClearCut Law admin dashboard.</p>
             </div>
 
@@ -80,7 +80,7 @@ export default async function AdminPage() {
                             <FileText className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">0</div>
+                            <div className="text-2xl font-semibold">0</div>
                             <p className="text-xs text-muted-foreground">No posts yet</p>
                         </CardContent>
                     </Card>
@@ -91,7 +91,7 @@ export default async function AdminPage() {
                             <Users className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold">0</div>
+                            <div className="text-2xl font-semibold">0</div>
                             <p className="text-xs text-muted-foreground">No messages yet</p>
                         </CardContent>
                     </Card>
@@ -102,7 +102,7 @@ export default async function AdminPage() {
                             <Settings className="h-4 w-4 text-muted-foreground" />
                         </CardHeader>
                         <CardContent>
-                            <div className="text-2xl font-bold text-brand">Active</div>
+                            <div className="text-2xl font-semibold text-brand">Active</div>
                             <p className="text-xs text-muted-foreground">Site is running</p>
                         </CardContent>
                     </Card>

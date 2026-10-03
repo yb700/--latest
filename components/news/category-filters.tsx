@@ -37,10 +37,10 @@ export function NewsCategoryFilters({ selected, preview = false }: NewsCategoryF
                         aria-current={active ? 'page' : undefined}
                         aria-label={filter.slug ? newsCategoryLabel(filter.slug) : 'All categories'}
                         className={cn(
-                            'inline-flex min-h-[36px] shrink-0 items-center justify-center whitespace-nowrap rounded-md border px-3.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#14213D] focus-visible:ring-offset-2',
+                            'inline-flex min-h-[36px] shrink-0 items-center justify-center whitespace-nowrap rounded-[6px] border px-3.5 text-sm font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#151515] focus-visible:ring-offset-2',
                             active
-                                ? 'border-[#14213D] bg-[#14213D] text-white'
-                                : 'border-[#D5D9E0] bg-white text-[#5A6270] hover:border-[#14213D]'
+                                ? 'border-[#151515] bg-[#151515] text-white'
+                                : 'border-[#E7E4DF] bg-white text-[#5E5E5E] hover:border-[#151515]'
                         )}
                     >
                         {filter.label}

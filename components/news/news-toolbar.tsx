@@ -37,12 +37,15 @@ export function NewsToolbar({ selected, preview }: NewsToolbarProps) {
     return (
         <div
             ref={ref}
-            className="sticky z-40 border-b border-gray-200 bg-white"
+            className="sticky z-40 border-b border-[#E7E4DF] bg-[#FAF9F7]"
             style={{ top: 'var(--header-h)' }}
         >
             <div className="mx-auto flex max-w-[720px] flex-col gap-1 px-4 py-3">
                 <div className="flex items-baseline justify-between gap-3">
-                    <h1 className="shrink-0 text-xl font-bold leading-none text-brand">Legal News</h1>
+                    <div className="min-w-0">
+                        <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">Legal News</p>
+                        <h1 className="text-2xl font-semibold leading-tight tracking-[-0.5px] text-[#151515]">The latest developments</h1>
+                    </div>
                     {preview && (
                         <p className="text-right text-xs text-gray-500">Sample preview. Not live news.</p>
                     )}

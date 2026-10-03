@@ -23,7 +23,7 @@ export default function SiteSettingsPage() {
                     </Button>
                 </Link>
                 <div>
-                    <h1 className="text-3xl font-bold text-brand">Site Settings</h1>
+                    <h1 className="text-3xl font-semibold text-brand">Site Settings</h1>
                     <p className="text-gray-600">Manage your site configuration and settings.</p>
                 </div>
             </div>

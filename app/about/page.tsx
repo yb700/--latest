@@ -52,14 +52,14 @@ const startHerePosts: {
 
 export default function AboutPage() {
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-[#FAF9F7]">
             {/* Hero Section */}
             <section className="py-20 bg-gradient-to-b from-slate-50 to-white">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                             <div>
-                                <h1 className="text-4xl sm:text-5xl font-bold text-brand mb-6">
+                                <h1 className="text-4xl sm:text-5xl font-semibold text-brand mb-6">
                                     About ClearCut Law
                                 </h1>
                                 <div className="space-y-4 text-xl text-slate-600 mb-6 leading-relaxed">
@@ -85,9 +85,9 @@ export default function AboutPage() {
                             <div className="relative">
                                 <div className="bg-brand-50 rounded-2xl p-8 text-center">
                                     <div className="w-32 h-32 bg-brand rounded-full flex items-center justify-center mx-auto mb-6">
-                                        <span className="text-white font-bold text-4xl">YF</span>
+                                        <span className="text-white font-semibold text-4xl">YF</span>
                                     </div>
-                                    <h3 className="text-2xl font-bold text-brand mb-2">Younas Ficel</h3>
+                                    <h3 className="text-2xl font-semibold text-brand mb-2">Younas Ficel</h3>
                                     <p className="text-brand-600 font-medium">LLB (Hons), Royal Holloway</p>
                                 </div>
                             </div>
@@ -102,7 +102,7 @@ export default function AboutPage() {
                     <div className="max-w-4xl mx-auto">
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
                             <div>
-                                <h2 className="text-3xl font-bold text-brand mb-6">Who I Am</h2>
+                                <h2 className="text-3xl font-semibold text-brand mb-6">Who I Am</h2>
                                 <div className="space-y-4 text-slate-700 leading-relaxed">
                                     <p>
                                         I&apos;m Younas Ficel, a law graduate aiming to qualify as a commercial solicitor. I studied for an LLB at Royal Holloway, University of London, graduating with a 2:1.
@@ -117,7 +117,7 @@ export default function AboutPage() {
                             </div>
 
                             <div>
-                                <h2 className="text-3xl font-bold text-brand mb-6">Why This Site Exists</h2>
+                                <h2 className="text-3xl font-semibold text-brand mb-6">Why This Site Exists</h2>
                                 <div className="space-y-4 text-slate-700 leading-relaxed">
                                     <p>
                                         <strong>Clarity:</strong> Big deals and rulings are often reported in jargon. Each post explains what happened in plain English.
@@ -170,7 +170,7 @@ export default function AboutPage() {
                         </Card>
 
                         <div className="mt-16">
-                            <h2 className="text-3xl font-bold text-brand mb-4">Start Here</h2>
+                            <h2 className="text-3xl font-semibold text-brand mb-4">Start Here</h2>
                             <p className="text-lg text-slate-600 mb-8">
                                 New to ClearCut Law? These four posts show what the site covers, one from each area.
                             </p>
@@ -210,11 +210,11 @@ export default function AboutPage() {
             <section className="py-20">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto">
-                        <Card className="border-[#E6E8EC] bg-[#F7F8FA] shadow-none">
+                        <Card className="border-[#E7E4DF] bg-[#FAF9F7] shadow-none">
                             <CardHeader>
-                                <CardTitle className="text-[#14213D]">Important Legal Notice</CardTitle>
+                                <CardTitle className="text-[#151515]">Important Legal Notice</CardTitle>
                             </CardHeader>
-                            <CardContent className="text-[#5A6270]">
+                            <CardContent className="text-[#5E5E5E]">
                                 <p className="mb-4">
                                     ClearCut Law is a commentary site, not a law firm. The posts are commentary and not legal advice. They should not be relied on for any specific situation.
                                 </p>
@@ -234,7 +234,7 @@ export default function AboutPage() {
             <section className="py-20 bg-brand text-white">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="max-w-4xl mx-auto text-center">
-                        <h2 className="text-3xl sm:text-4xl font-bold mb-6">
+                        <h2 className="text-3xl sm:text-4xl font-semibold mb-6">
                             Read the commentary
                         </h2>
                         <p className="text-xl text-brand-100 mb-8 max-w-2xl mx-auto">

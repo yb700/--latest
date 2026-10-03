@@ -139,20 +139,20 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <header className="mb-8">
                 <div className="mb-4 flex items-start justify-between gap-3">
                     {sectionLabel ? (
-                        <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8A92A3]">
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8A8780]">
                             {sectionLabel}
                         </p>
                     ) : (
                         <span />
                     )}
                     {publishedLabel ? (
-                        <time dateTime={publishedIso} className="shrink-0 text-sm text-[#5A6270]">
+                        <time dateTime={publishedIso} className="shrink-0 text-sm text-[#5E5E5E]">
                             {publishedLabel}
                         </time>
                     ) : null}
                 </div>
 
-                <h1 className="text-4xl font-bold text-brand mb-4">{post.title}</h1>
+                <h1 className="text-4xl font-semibold text-brand mb-4">{post.title}</h1>
 
                 {post.excerpt && (
                     <p className="text-xl text-gray-600 mb-6 leading-relaxed">

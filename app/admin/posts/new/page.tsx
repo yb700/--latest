@@ -87,7 +87,7 @@ export default function NewPostPage() {
                     </Button>
                 </Link>
                 <div>
-                    <h1 className="text-3xl font-bold text-brand">Create New Post</h1>
+                    <h1 className="text-3xl font-semibold text-brand">Create New Post</h1>
                     <p className="text-gray-600">Write a new blog post for ClearCut Law.</p>
                 </div>
             </div>

@@ -84,7 +84,7 @@ export function ContactForm() {
     return (
         <Card className="max-w-2xl mx-auto">
             <CardHeader>
-                <CardTitle className="text-2xl font-bold text-brand">Get in Touch</CardTitle>
+                <CardTitle className="text-2xl font-semibold text-brand">Get in Touch</CardTitle>
                 <p className="text-gray-600">
                     The site sends your message to Younas. Your email app does not open. He can reply to the email address you enter.
                 </p>

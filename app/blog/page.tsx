@@ -76,11 +76,12 @@ export default async function BlogPage({
     const totalPages = Math.max(1, Math.ceil((count || 0) / POSTS_PER_PAGE))
 
     return (
-        <div className="bg-white">
+        <div className="bg-[#FAF9F7]">
             <div className="container mx-auto px-4 py-6 sm:py-8">
-                <div className="mb-6">
-                    <h1 className="mb-2 text-4xl font-bold text-[#14213D]">Blog</h1>
-                    <p className="text-lg text-[#5A6270]">
+                <div className="mb-6 max-w-[720px]">
+                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">The blog</p>
+                    <h1 className="mb-2 text-4xl font-semibold tracking-[-0.5px] text-[#151515]">Latest blog posts</h1>
+                    <p className="text-lg text-[#5E5E5E]">
                         Commentary on the deals, decisions and developments shaping commercial law.
                     </p>
                 </div>
@@ -101,7 +102,9 @@ export default async function BlogPage({
                 ) : (
                     <>
                         <Suspense fallback={<div>Loading posts...</div>}>
-                            <PostList posts={posts} />
+                            <div className="max-w-[720px]">
+                                <PostList posts={posts} />
+                            </div>
                         </Suspense>
 
                         {totalPages > 1 && (
@@ -110,7 +113,7 @@ export default async function BlogPage({
                                     {page > 1 && (
                                         <a
                                             href={`/blog?page=${page - 1}${search ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`}
-                                            className="rounded-md border border-[#D5D9E0] bg-white px-3 py-2 text-sm font-medium text-[#14213D] hover:bg-[#F7F8FA]"
+                                            className="rounded-[6px] border border-[#E7E4DF] bg-white px-3 py-2 text-sm font-medium text-[#151515] hover:bg-[#FAF9F7]"
                                         >
                                             Previous
                                         </a>
@@ -120,10 +123,10 @@ export default async function BlogPage({
                                         <a
                                             key={pageNumber}
                                             href={`/blog?page=${pageNumber}${search ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`}
-                                            className={`rounded-md px-3 py-2 text-sm font-medium ${
+                                            className={`rounded-[6px] px-3 py-2 text-sm font-medium ${
                                                 pageNumber === page
-                                                    ? 'bg-[#14213D] text-white'
-                                                    : 'border border-[#D5D9E0] bg-white text-[#14213D] hover:bg-[#F7F8FA]'
+                                                    ? 'bg-[#151515] text-white'
+                                                    : 'border border-[#E7E4DF] bg-white text-[#151515] hover:bg-[#FAF9F7]'
                                             }`}
                                             aria-current={pageNumber === page ? 'page' : undefined}
                                         >
@@ -134,7 +137,7 @@ export default async function BlogPage({
                                     {page < totalPages && (
                                         <a
                                             href={`/blog?page=${page + 1}${search ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`}
-                                            className="rounded-md border border-[#D5D9E0] bg-white px-3 py-2 text-sm font-medium text-[#14213D] hover:bg-[#F7F8FA]"
+                                            className="rounded-[6px] border border-[#E7E4DF] bg-white px-3 py-2 text-sm font-medium text-[#151515] hover:bg-[#FAF9F7]"
                                         >
                                             Next
                                         </a>

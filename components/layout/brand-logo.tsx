@@ -1,12 +1,12 @@
 type BrandLogoProps = {
     className?: string
-    /** light sits on white. onNavy is the same wordmark with the letters turned white so it reads on the navy footer. Gold brackets stay. */
-    tone?: 'light' | 'onNavy'
+    /** light sits on the warm page. onDark is the white wordmark for the black footer. Gold brackets stay. */
+    tone?: 'light' | 'onDark'
 }
 
 const WORDMARK_SRC = {
     light: '/brand/clearcut-wordmark.png',
-    onNavy: '/brand/clearcut-wordmark-white.png',
+    onDark: '/brand/clearcut-wordmark-white.png',
 } as const
 
 export function BrandWordmark({

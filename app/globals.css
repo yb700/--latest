@@ -4,53 +4,53 @@
 
 @layer base {
   :root {
-    --navy: #14213D;
-    --text-grey: #5A6270;
-    --light-grey: #8A92A3;
-    --border: #E6E8EC;
-    --bg-grey: #F7F8FA;
+    --black: #151515;
+    --text-grey: #5E5E5E;
+    --light-grey: #8A8780;
+    --border: #E7E4DF;
+    --bg-grey: #FAF9F7;
     --gold: #C8A24A; /* logo only */
 
-    --background: 0 0% 100%;
-    --foreground: 218 11% 40%;
+    --background: 40 23% 97.5%;
+    --foreground: 0 0% 37%;
     --card: 0 0% 100%;
-    --card-foreground: 218 11% 40%;
+    --card-foreground: 0 0% 37%;
     --popover: 0 0% 100%;
-    --popover-foreground: 218 11% 40%;
-    --primary: 221 51% 16%;
+    --popover-foreground: 0 0% 37%;
+    --primary: 0 0% 8%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 23% 97%;
-    --secondary-foreground: 221 51% 16%;
-    --muted: 220 23% 97%;
-    --muted-foreground: 218 11% 40%;
-    --accent: 220 23% 97%;
-    --accent-foreground: 221 51% 16%;
+    --secondary: 40 23% 97.5%;
+    --secondary-foreground: 0 0% 8%;
+    --muted: 40 23% 97.5%;
+    --muted-foreground: 0 0% 37%;
+    --accent: 37 14% 89%;
+    --accent-foreground: 0 0% 8%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
-    --input: 220 14% 91%;
-    --ring: 221 51% 16%;
+    --input: 37 14% 89%;
+    --ring: 0 0% 8%;
     --radius: 1rem;
   }
 
   .dark {
-    --background: 221 51% 16%;
+    --background: 0 0% 8%;
     --foreground: 0 0% 100%;
-    --card: 221 51% 16%;
+    --card: 0 0% 8%;
     --card-foreground: 0 0% 100%;
-    --popover: 221 51% 16%;
+    --popover: 0 0% 8%;
     --popover-foreground: 0 0% 100%;
     --primary: 0 0% 100%;
-    --primary-foreground: 221 51% 16%;
-    --secondary: 222 35% 25%;
+    --primary-foreground: 0 0% 8%;
+    --secondary: 0 0% 18%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 222 35% 25%;
-    --muted-foreground: 221 12% 59%;
-    --accent: 222 35% 25%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 40 4% 73%;
+    --accent: 0 0% 18%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 62% 30%;
     --destructive-foreground: 0 0% 98%;
-    --border: #2A3858;
-    --input: 222 35% 25%;
+    --border: #2E2E2E;
+    --input: 0 0% 18%;
     --ring: 0 0% 100%;
   }
 }
@@ -62,6 +62,16 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-weight: 600;
+    letter-spacing: -0.5px;
   }
 }
 
@@ -76,7 +86,7 @@
   .prose h4,
   .prose h5,
   .prose h6 {
-    @apply text-brand-900;
+    @apply font-semibold tracking-[-0.5px] text-brand-900;
   }
 
   .prose a {

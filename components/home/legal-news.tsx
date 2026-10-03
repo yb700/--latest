@@ -1,9 +1,7 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
 import { NewsCard } from '@/components/news/news-card'
 import { getPublishedNewsItems, getNewsPage } from '@/lib/news-data'
 import { shouldUseNewsFixtures } from '@/lib/news-preview'
-import { ArrowRight } from 'lucide-react'
 
 interface LegalNewsProps {
     /** Honour the same ?preview=fixtures switch as /news. Production ignores it. */
@@ -32,36 +30,31 @@ export async function LegalNews({ preview = false }: LegalNewsProps) {
     }
 
     return (
-        <section className="bg-white py-16" aria-labelledby="legal-news-heading">
+        <section className="bg-[#FAF9F7] py-16" aria-labelledby="legal-news-heading">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-10">
-                    <h2 id="legal-news-heading" className="mb-3 text-3xl font-bold text-brand sm:text-4xl">
+                <div className="mb-8 max-w-[720px]">
+                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">
                         Legal News
-                    </h2>
-                    <p className="max-w-2xl text-lg text-slate-600">
-                        The latest deals, decisions and developments.
                     </p>
+                    <h2 id="legal-news-heading" className="text-3xl font-semibold tracking-[-0.5px] text-[#151515] sm:text-4xl">
+                        The latest developments
+                    </h2>
                     {showingFixtures && (
-                        <p className="mt-2 text-sm text-slate-500">Sample preview. Not live news.</p>
+                        <p className="mt-2 text-sm text-[#8A8780]">Sample preview. Not live news.</p>
                     )}
                 </div>
 
-                <ul className="mb-10 grid list-none grid-cols-1 items-start gap-4 lg:grid-cols-3">
+                <ul className="mb-8 max-w-[720px] list-none divide-y divide-[#E7E4DF] border-y border-[#E7E4DF]">
                     {items.map((item) => (
-                        <li key={item.id} className="flex min-w-0">
+                        <li key={item.id} className="py-6">
                             <NewsCard item={item} headingLevel="h3" />
                         </li>
                     ))}
                 </ul>
 
-                <div>
-                    <Link href="/news">
-                        <Button size="lg">
-                            See all news
-                            <ArrowRight className="ml-2 h-5 w-5" />
-                        </Button>
-                    </Link>
-                </div>
+                <Link href="/news" className="text-sm font-semibold text-[#151515] underline underline-offset-4">
+                    See all news
+                </Link>
             </div>
         </section>
     )
