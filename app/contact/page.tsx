@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
 import { ContactForm } from '@/components/contact-form'
-import { CONTACT_EMAIL, contactMailtoHref } from '@/lib/contact'
 
 export const metadata: Metadata = {
     title: 'Contact | ClearCut Law',
@@ -27,36 +26,10 @@ export default function ContactPage() {
                     <div className="space-y-6">
                         <div className="bg-gray-50 rounded-2xl p-6">
                             <h3 className="text-lg font-semibold text-brand mb-4">Important Notice</h3>
-                            <p className="text-sm text-gray-600 mb-4">
+                            <p className="text-sm text-gray-600">
                                 ClearCut Law publishes commentary. It does not give legal advice.
                                 For advice on your own circumstances, speak to a qualified solicitor.
                             </p>
-                            <p className="text-sm text-gray-600">
-                                We aim to respond to all inquiries within 24-48 hours during business days.
-                            </p>
-                        </div>
-
-                        <div className="bg-gray-50 rounded-2xl p-6">
-                            <h3 className="text-lg font-semibold text-brand mb-4">Other Ways to Connect</h3>
-                            <div className="space-y-3">
-                                <div>
-                                    <h4 className="font-medium text-gray-900">Email</h4>
-                                    <a
-                                        href={contactMailtoHref()}
-                                        className="text-sm text-brand underline break-all"
-                                    >
-                                        {CONTACT_EMAIL}
-                                    </a>
-                                </div>
-                                <div>
-                                    <h4 className="font-medium text-gray-900">Response Time</h4>
-                                    <p className="text-sm text-gray-600">24-48 hours</p>
-                                </div>
-                                <div>
-                                    <h4 className="font-medium text-gray-900">Business Hours</h4>
-                                    <p className="text-sm text-gray-600">Monday - Friday, 9 AM - 5 PM GMT</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>

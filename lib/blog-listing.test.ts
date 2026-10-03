@@ -74,12 +74,12 @@ describe('daily rotation', () => {
 
 describe('card text', () => {
     it('formats the date and read time like the spec example', () => {
-        assert.equal(formatBlogCardDate('2026-09-15T12:00:00.000Z'), 'Sep 2026')
-        assert.equal(formatBlogCardMeta('2026-09-15T12:00:00.000Z', 3), 'Sep 2026 · 3 min read')
+        assert.equal(formatBlogCardDate('2026-09-15T12:00:00.000Z'), '15 Sep 2026')
+        assert.equal(formatBlogCardMeta('2026-09-15T12:00:00.000Z', 3), '15 Sep 2026 · 3 min read')
     })
 
-    it('uses the UK month when UTC is still the previous month', () => {
-        assert.equal(formatBlogCardDate('2026-03-31T23:30:00.000Z'), 'Apr 2026')
+    it('uses the UK day when UTC is still the previous month', () => {
+        assert.equal(formatBlogCardDate('2026-03-31T23:30:00.000Z'), '1 Apr 2026')
     })
 
     it('prefers the short preview and otherwise keeps the description for a two-line fallback', () => {

@@ -7,8 +7,6 @@ export const PINNED_FEATURED_POST_SETTING = 'pinned_featured_post_id'
 
 const WORDS_PER_MINUTE = 200
 
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] as const
-
 export type BlogListPost = {
     id: string
     title: string
@@ -140,18 +138,27 @@ export function resolveFeaturedPostId(
     return selectRotatedPost(postsNewestFirst, ukDay)?.id ?? null
 }
 
+/** Full UK date, for example 27 Oct 2025. */
 export function formatBlogCardDate(iso: string): string {
+    const date = new Date(iso)
+    if (Number.isNaN(date.getTime())) return ''
+
     const parts = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Europe/London',
-        month: '2-digit',
+        day: 'numeric',
+        month: 'short',
         year: 'numeric',
-    }).formatToParts(new Date(iso))
+    }).formatToParts(date)
 
-    const month = Number(parts.find((part) => part.type === 'month')?.value)
+    const day = parts.find((part) => part.type === 'day')?.value ?? ''
     const year = parts.find((part) => part.type === 'year')?.value ?? ''
-    const label = MONTHS[month - 1] ?? ''
+    const monthRaw = (parts.find((part) => part.type === 'month')?.value ?? '').replace(/\./g, '')
+    const month =
+        monthRaw.toLowerCase() === 'sept'
+            ? 'Sep'
+            : `${monthRaw.charAt(0).toUpperCase()}${monthRaw.slice(1).toLowerCase()}`
 
-    return `${label} ${year}`
+    return `${day} ${month} ${year}`
 }
 
 export function formatBlogCardMeta(iso: string, minutes: number): string {

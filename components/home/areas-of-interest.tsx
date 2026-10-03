@@ -1,37 +1,37 @@
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Handshake, Landmark, Goal, Scale } from "lucide-react"
-import { newsCategoryPath, NewsCategorySlug } from "@/lib/news-categories"
+import { blogCategoryPath, type BlogCategorySlug } from "@/lib/blog-categories"
 
 const areas: {
     title: string
     description: string
     icon: typeof Handshake
-    newsSlug: NewsCategorySlug
+    blogSlug: BlogCategorySlug
 }[] = [
     {
         title: "Mergers and Acquisitions",
         description: "Deal structures, due diligence, takeover rules, merger control and the latest UK transactions.",
         icon: Handshake,
-        newsSlug: "mergers-acquisitions",
+        blogSlug: "mergers-and-acquisitions",
     },
     {
         title: "Banking and Finance",
         description: "Lending, capital markets, financial regulation and the deals shaping UK finance.",
         icon: Landmark,
-        newsSlug: "banking-finance",
+        blogSlug: "banking-and-finance",
     },
     {
         title: "Competition and Regulation",
         description: "CMA and CAT decisions, class actions, market investigations and regulatory enforcement.",
         icon: Scale,
-        newsSlug: "competition-regulation",
+        blogSlug: "competition-and-regulation",
     },
     {
         title: "Sports Deals and Regulation",
         description: "Club takeovers, ownership rules, broadcasting rights and sports governance.",
         icon: Goal,
-        newsSlug: "sports-deals-regulation",
+        blogSlug: "sports-deals-and-regulation",
     },
 ]
 
@@ -56,7 +56,7 @@ export function AreasOfInterest() {
                                     </CardDescription>
                                     <div className="mt-auto">
                                         <Link
-                                            href={newsCategoryPath(area.newsSlug)}
+                                            href={blogCategoryPath(area.blogSlug)}
                                             className="text-sm font-semibold text-[#14213D] hover:underline"
                                             aria-label={`Explore ${area.title}`}
                                         >

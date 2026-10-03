@@ -79,7 +79,7 @@ export function NewsFeed({ initialItems, initialHasMore, category, preview }: Ne
 
     return (
         <div>
-            <ul className="news-feed mx-auto flex w-full max-w-[720px] list-none flex-col px-4 max-md:gap-2 max-md:pb-4 max-md:pt-0 md:gap-5 md:py-8">
+            <ul className="news-feed mx-auto flex w-full max-w-[720px] list-none flex-col gap-4 px-4 pb-4 pt-4 md:py-8">
                 {items.map((item) => (
                     <li key={item.id}>
                         <NewsCard item={item} layout="feed" />
