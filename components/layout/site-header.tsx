@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Menu, X, User, LogOut, Search } from "lucide-react"
+import { Menu, X, User, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { BrandWordmark } from "@/components/layout/brand-logo"
@@ -85,13 +85,6 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                     </div>
 
                     <div className="flex items-center">
-                        <Link
-                            href="/search"
-                            aria-label="Search"
-                            className="inline-flex h-10 w-10 items-center justify-center text-slate-700 hover:text-brand"
-                        >
-                            <Search className="h-5 w-5" />
-                        </Link>
                         {/* Mobile menu button */}
                         <div className="md:hidden">
                             <Button
