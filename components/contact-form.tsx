@@ -8,19 +8,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useToast } from '@/hooks/use-toast'
-import { buildContactMailto } from '@/lib/contact'
 import { contactMessageSchema } from '@/lib/validations'
 import { Loader2, Send } from 'lucide-react'
-
-function openMailto(href: string) {
-    const link = document.createElement('a')
-    link.href = href
-    link.setAttribute('aria-hidden', 'true')
-    document.body.appendChild(link)
-    link.click()
-    window.setTimeout(() => link.remove(), 0)
-}
 
 type ContactFormData = {
     name: string
@@ -29,9 +18,13 @@ type ContactFormData = {
     message: string
 }
 
+const SENT_MESSAGE = 'Your message was sent.'
+const FAILED_MESSAGE = 'Your message could not be sent. Please try again.'
+
 export function ContactForm() {
-    const { toast } = useToast()
     const [isSubmitting, setIsSubmitting] = useState(false)
+    const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
+    const [statusMessage, setStatusMessage] = useState('')
 
     const {
         register,
@@ -44,45 +37,40 @@ export function ContactForm() {
 
     const onSubmit = async (data: ContactFormData) => {
         setIsSubmitting(true)
+        setStatus('idle')
+        setStatusMessage('')
 
-        let savePromise: Promise<boolean> = Promise.resolve(false)
         try {
-            savePromise = fetch('/api/contact', {
+            const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(data),
-                signal: AbortSignal.timeout(8000),
+                signal: AbortSignal.timeout(15000),
             })
-                .then(async (response) => {
-                    if (!response.ok) {
-                        console.error('Could not save contact message', response.status)
-                        return false
-                    }
-                    return true
-                })
-                .catch((error) => {
-                    console.error('Could not save contact message', error)
-                    return false
-                })
-        } catch (error) {
-            console.error('Could not save contact message', error)
-        }
+            const payload = await response.json().catch(() => null)
 
-        // Open the email app before waiting on the save. A failed save must not block it.
-        openMailto(buildContactMailto(data))
+            if (!response.ok) {
+                setStatus('error')
+                setStatusMessage(
+                    response.status === 429 && typeof payload?.error === 'string'
+                        ? payload.error
+                        : FAILED_MESSAGE,
+                )
+                return
+            }
 
-        toast({
-            title: 'Opening an email',
-            description: 'This opens an email to Younas. Send it from your email app.',
-        })
-
-        const saved = await savePromise
-        if (saved) {
+            setStatus('success')
+            setStatusMessage(SENT_MESSAGE)
             reset()
+        } catch (error) {
+            console.error('Could not send contact message', error)
+            setStatus('error')
+            setStatusMessage(FAILED_MESSAGE)
+        } finally {
+            setIsSubmitting(false)
         }
-        setIsSubmitting(false)
     }
 
     return (
@@ -90,7 +78,7 @@ export function ContactForm() {
             <CardHeader>
                 <CardTitle className="text-2xl font-bold text-brand">Get in Touch</CardTitle>
                 <p className="text-gray-600">
-                    Send Message opens an email to Younas in your email app. Your subject and message are filled in, and your name and email are added so he can reply.
+                    The site sends your message to Younas. Your email app does not open. He can reply to the email address you enter.
                 </p>
             </CardHeader>
             <CardContent>
@@ -152,6 +140,15 @@ export function ContactForm() {
                         <Send className="h-4 w-4 mr-2" />
                         Send Message
                     </Button>
+
+                    {statusMessage ? (
+                        <p
+                            role={status === 'error' ? 'alert' : 'status'}
+                            className={status === 'error' ? 'text-sm text-red-600' : 'text-sm text-brand'}
+                        >
+                            {statusMessage}
+                        </p>
+                    ) : null}
                 </form>
             </CardContent>
         </Card>

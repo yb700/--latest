@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
+import { sendContactEmail } from "@/lib/contact-mail"
 import { contactMessageSchema } from "@/lib/validations"
 import { checkRateLimit, getClientIP } from "@/lib/rate-limit"
+
+const FAILED_MESSAGE = "Your message could not be sent. Please try again."
 
 export async function POST(request: NextRequest) {
     try {
@@ -30,8 +33,9 @@ export async function POST(request: NextRequest) {
 
         const supabase = createClient()
 
-        // Insert contact message
-        const { data, error } = await supabase
+        // Visitors may insert a row. Only staff may read one, so do not request
+        // the new row back. A returning select makes the insert fail.
+        const { error } = await supabase
             .from('contact_messages')
             .insert({
                 name: validatedData.name,
@@ -39,22 +43,39 @@ export async function POST(request: NextRequest) {
                 subject: validatedData.subject,
                 message: validatedData.message,
             })
-            .select()
-            .single()
 
         if (error) {
             console.error('Database error:', error)
             return NextResponse.json(
-                { error: "Failed to submit message. Please try again." },
+                { error: FAILED_MESSAGE },
                 { status: 500 }
             )
         }
 
+        const sent = await sendContactEmail(validatedData)
+        if (!sent.ok) {
+            if (sent.reason === 'not_configured') {
+                console.error(
+                    `Contact email was not sent. Missing ${sent.missing.join(' and ')}. The message was saved in contact_messages.`
+                )
+            } else {
+                console.error('Contact email was not sent. The message was saved in contact_messages.')
+            }
+            return NextResponse.json(
+                { error: FAILED_MESSAGE },
+                {
+                    status: 503,
+                    headers: {
+                        'X-RateLimit-Limit': rateLimitResult.limit.toString(),
+                        'X-RateLimit-Remaining': rateLimitResult.remaining.toString(),
+                        'X-RateLimit-Reset': rateLimitResult.reset.toISOString(),
+                    }
+                }
+            )
+        }
+
         return NextResponse.json(
-            {
-                message: "Message submitted successfully. We'll get back to you soon!",
-                id: data.id
-            },
+            { message: "Your message was sent." },
             {
                 status: 201,
                 headers: {
