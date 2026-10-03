@@ -5,6 +5,7 @@ import { useState } from "react"
 import { Menu, X, User, LogOut } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { BrandWordmark } from "@/components/layout/brand-logo"
 import { Profile } from "@/lib/supabase/types"
 import { signOut } from "@/lib/auth-client"
 
@@ -33,11 +34,8 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                 <div className="flex h-16 items-center justify-between">
                     {/* Logo */}
                     <div className="flex items-center">
-                        <Link href="/" className="flex items-center space-x-2">
-                            <div className="h-8 w-8 rounded-lg bg-brand flex items-center justify-center">
-                                <span className="text-white font-bold text-sm">CL</span>
-                            </div>
-                            <span className="font-bold text-xl text-brand">ClearCut Law</span>
+                        <Link href="/" className="flex items-center">
+                            <BrandWordmark />
                         </Link>
                     </div>
 

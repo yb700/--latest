@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { signInWithEmail } from "@/lib/auth-client"
 import { toast } from "@/hooks/use-toast"
 import { Mail, ArrowLeft } from "lucide-react"
+import { BrandWordmark } from "@/components/layout/brand-logo"
 
 export default function LoginPage() {
     const [email, setEmail] = useState("")
@@ -82,11 +83,8 @@ export default function LoginPage() {
         <div className="min-h-screen flex items-center justify-center bg-slate-50 py-12 px-4 sm:px-6 lg:px-8">
             <Card className="w-full max-w-md">
                 <CardHeader className="text-center">
-                    <Link href="/" className="flex items-center justify-center space-x-2 mb-4">
-                        <div className="h-8 w-8 rounded-lg bg-brand flex items-center justify-center">
-                            <span className="text-white font-bold text-sm">CL</span>
-                        </div>
-                        <span className="font-bold text-xl text-brand">ClearCut Law</span>
+                    <Link href="/" className="mb-4 flex items-center justify-center">
+                        <BrandWordmark />
                     </Link>
                     <CardTitle>Sign in to your account</CardTitle>
                     <CardDescription>
