@@ -85,21 +85,7 @@ export default async function BlogPage({
                     </p>
                 </div>
 
-                <div className="mb-6 space-y-3">
-                    <form action="/blog" method="get" className="w-full" role="search">
-                        {category ? <input type="hidden" name="category" value={category} /> : null}
-                        <label className="sr-only" htmlFor="blog-search">
-                            Search titles and summaries
-                        </label>
-                        <input
-                            id="blog-search"
-                            name="search"
-                            type="search"
-                            defaultValue={search}
-                            placeholder="Search titles and summaries"
-                            className="w-full rounded-xl border border-[#E6E8EC] bg-white px-4 py-2 text-[#14213D]"
-                        />
-                    </form>
+                <div className="mb-6">
                     <CategoryFilter selectedCategory={category} search={search} />
                 </div>
 
