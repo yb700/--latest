@@ -83,7 +83,7 @@ export function NewsCard({ item, headingLevel = 'h2', layout = 'block' }: NewsCa
                 )}
                 {imageSrc ? (
                     <div className="pointer-events-none absolute left-3 top-3 rounded-md bg-white px-1.5 py-1">
-                        <BrandMark className="block h-6 w-auto" />
+                        <BrandMark className="block h-4 w-auto" />
                     </div>
                 ) : null}
             </div>
