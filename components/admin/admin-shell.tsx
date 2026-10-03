@@ -12,6 +12,7 @@ import {
     LogOut
 } from 'lucide-react'
 import { signOut } from '@/lib/auth-client'
+import { BrandMark } from '@/components/layout/brand-logo'
 
 interface AdminShellProps {
     children: ReactNode
@@ -33,9 +34,7 @@ export function AdminShell({ children }: AdminShellProps) {
                     <div className="flex justify-between items-center h-16">
                         <div className="flex items-center">
                             <Link href="/admin" className="flex items-center space-x-2">
-                                <div className="w-8 h-8 bg-brand rounded-lg flex items-center justify-center">
-                                    <span className="text-white font-bold text-sm">CL</span>
-                                </div>
+                                <BrandMark />
                                 <span className="text-xl font-bold text-brand">ClearCut Law Admin</span>
                             </Link>
                         </div>

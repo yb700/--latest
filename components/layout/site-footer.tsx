@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { BrandWordmark } from "@/components/layout/brand-logo"
 import { blogCategoryPath, type BlogCategorySlug } from "@/lib/blog-categories"
 import { NEWS_CATEGORIES, type NewsCategorySlug } from "@/lib/news-categories"
 
@@ -24,11 +25,8 @@ export function SiteFooter() {
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="md:col-span-2">
-                        <Link href="/" className="flex items-center space-x-2 mb-4">
-                            <div className="h-8 w-8 rounded-lg bg-brand flex items-center justify-center">
-                                <span className="text-white font-bold text-sm">CL</span>
-                            </div>
-                            <span className="font-bold text-xl text-brand">ClearCut Law</span>
+                        <Link href="/" className="mb-4 inline-flex items-center">
+                            <BrandWordmark />
                         </Link>
                         <p className="text-slate-600 mb-4 max-w-md">
                             Plain English commentary on UK deals, finance, competition and sport.
