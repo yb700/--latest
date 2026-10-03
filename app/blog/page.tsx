@@ -3,15 +3,10 @@ import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { PostList } from '@/components/blog/post-list'
 import { CategoryFilter } from '@/components/blog/category-filter'
-import { FeaturedBlogCard } from '@/components/blog/post-card'
 import { EmptyState } from '@/components/empty-state'
 import { isBlogCategorySlug, type BlogCategorySlug } from '@/lib/blog-categories'
 import {
-    comparePostsNewestFirst,
-    PINNED_FEATURED_POST_SETTING,
-    resolveFeaturedPostId,
     toBlogListPost,
-    ukDayNumber,
     type BlogListPost,
     type BlogPostSource,
 } from '@/lib/blog-listing'
@@ -69,69 +64,6 @@ async function getPosts(
     return { posts, count: result.count || 0 }
 }
 
-async function getPinnedPostId(supabase: ReturnType<typeof createClient>) {
-    const { data, error } = await supabase
-        .from('site_settings')
-        .select('value')
-        .eq('key', PINNED_FEATURED_POST_SETTING)
-        .maybeSingle()
-
-    if (error) {
-        console.error('Error fetching pinned featured post:', error)
-        return null
-    }
-
-    const value = data?.value?.trim()
-    return value || null
-}
-
-async function getRotationPostId(supabase: ReturnType<typeof createClient>) {
-    const { data, error } = await supabase.rpc('blog_rotation_post_id')
-
-    if (error) {
-        console.error('Error fetching blog rotation:', error)
-        return { id: null as string | null, failed: true }
-    }
-
-    return { id: data, failed: false }
-}
-
-async function getPublishedRotationPosts(supabase: ReturnType<typeof createClient>) {
-    const { data, error } = await supabase
-        .from('posts')
-        .select('id, published_at, created_at')
-        .eq('status', 'published')
-
-    if (error || !data) {
-        console.error('Error fetching posts for rotation:', error)
-        return []
-    }
-
-    return [...data]
-        .map((post) => ({
-            id: post.id,
-            publishedAt: post.published_at,
-            createdAt: post.created_at,
-        }))
-        .sort(comparePostsNewestFirst)
-}
-
-async function getPublishedCard(supabase: ReturnType<typeof createClient>, id: string) {
-    const { data, error } = await supabase
-        .from('posts')
-        .select(CARD_SELECT)
-        .eq('id', id)
-        .eq('status', 'published')
-        .maybeSingle()
-
-    if (error || !data) {
-        if (error) console.error('Error fetching featured post:', error)
-        return null
-    }
-
-    return toBlogListPost(data as BlogPostSource)
-}
-
 export default async function BlogPage({
     searchParams,
 }: {
@@ -140,30 +72,7 @@ export default async function BlogPage({
     const { search, category, page } = parseListingFilters(searchParams)
     const supabase = createClient()
 
-    const [{ posts, count }, pinnedId, rotation] = await Promise.all([
-        getPosts(supabase, search, category, page),
-        getPinnedPostId(supabase),
-        getRotationPostId(supabase),
-    ])
-
-    let featured: BlogListPost | null = null
-
-    if (pinnedId) {
-        featured = posts.find((post) => post.id === pinnedId) ?? (await getPublishedCard(supabase, pinnedId))
-    }
-
-    if (!featured) {
-        let rotationId = rotation.failed ? null : rotation.id
-        if (!rotationId) {
-            const rotationPosts = await getPublishedRotationPosts(supabase)
-            rotationId = resolveFeaturedPostId(rotationPosts, ukDayNumber(new Date()), null)
-        }
-        if (rotationId) {
-            featured = posts.find((post) => post.id === rotationId) ?? (await getPublishedCard(supabase, rotationId))
-        }
-    }
-
-    const showFeatured = Boolean(featured) && !search && (!category || featured?.categorySlug === category)
+    const { posts, count } = await getPosts(supabase, search, category, page)
     const totalPages = Math.max(1, Math.ceil((count || 0) / POSTS_PER_PAGE))
 
     return (
@@ -205,12 +114,9 @@ export default async function BlogPage({
                     />
                 ) : (
                     <>
-                        <div className="space-y-3">
-                            {showFeatured && featured ? <FeaturedBlogCard post={featured} /> : null}
-                            <Suspense fallback={<div>Loading posts...</div>}>
-                                <PostList posts={posts} />
-                            </Suspense>
-                        </div>
+                        <Suspense fallback={<div>Loading posts...</div>}>
+                            <PostList posts={posts} />
+                        </Suspense>
 
                         {totalPages > 1 && (
                             <div className="mt-8 flex justify-center">

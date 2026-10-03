@@ -22,7 +22,7 @@ export const BLOG_CATEGORY_PRESENTATION: Record<
         tagClassName: 'text-[#5A6270]',
     },
     'sports-deals-and-regulation': {
-        label: 'Sports',
+        label: 'Sport',
         tagClassName: 'text-[#5A6270]',
     },
     'competition-and-regulation': {

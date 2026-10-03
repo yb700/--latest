@@ -2,12 +2,12 @@ import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
-import { TagPills } from '@/components/blog/tag-pills'
 import { DealGlanceBox } from '@/components/blog/deal-glance'
 import { InterviewNoteBox } from '@/components/blog/interview-note'
 import { RelatedPosts, type RelatedPost } from '@/components/blog/related-posts'
 import { SourceList } from '@/components/blog/source-list'
-import { categorySlugFromEmbed, comparePostsNewestFirst } from '@/lib/blog-listing'
+import { BLOG_CATEGORY_PRESENTATION } from '@/lib/blog-categories'
+import { blogCardDateIso, categorySlugFromEmbed, comparePostsNewestFirst, formatBlogCardDate } from '@/lib/blog-listing'
 import { dealGlanceForTitle } from '@/lib/deal-glance'
 import { linkGlossaryTerms } from '@/lib/glossary'
 import { interviewNoteForTitle } from '@/lib/interview-notes'
@@ -126,27 +126,30 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const body = linkGlossaryTerms(split.body)
     const deal = dealGlanceForTitle(post.title)
     const interview = interviewNoteForTitle(post.title)
-
-    // For now, we'll skip categories and tags until we have the full schema
-    const categories: any[] = []
-    const tags: any[] = []
+    const categorySlug = categorySlugFromEmbed(post.post_categories)
+    const sectionLabel = categorySlug ? BLOG_CATEGORY_PRESENTATION[categorySlug].label : null
+    const publishedIso = blogCardDateIso({
+        publishedAt: post.published_at,
+        createdAt: post.created_at,
+    })
+    const publishedLabel = formatBlogCardDate(publishedIso)
 
     return (
         <article className="container mx-auto px-4 py-8 max-w-4xl">
             <header className="mb-8">
-                <div className="mb-4">
-                    {categories.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-4">
-                            {categories.map((category: any) => (
-                                <span
-                                    key={category.id}
-                                    className="inline-block px-3 py-1 text-sm font-medium text-brand bg-brand-50 rounded-full"
-                                >
-                                    {category.name}
-                                </span>
-                            ))}
-                        </div>
+                <div className="mb-4 flex items-start justify-between gap-3">
+                    {sectionLabel ? (
+                        <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8A92A3]">
+                            {sectionLabel}
+                        </p>
+                    ) : (
+                        <span />
                     )}
+                    {publishedLabel ? (
+                        <time dateTime={publishedIso} className="shrink-0 text-sm text-[#5A6270]">
+                            {publishedLabel}
+                        </time>
+                    ) : null}
                 </div>
 
                 <h1 className="text-4xl font-bold text-brand mb-4">{post.title}</h1>
@@ -157,9 +160,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     </p>
                 )}
 
-                {tags.length > 0 && (
-                    <TagPills tags={tags} />
-                )}
             </header>
 
             {deal ? <DealGlanceBox deal={deal} /> : null}
@@ -170,15 +170,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
             {interview ? <InterviewNoteBox note={interview} /> : null}
             <SourceList sources={split.sources} />
-            {split.disclaimer ? (
-                <p className="mt-8 italic text-slate-600">{split.disclaimer}</p>
-            ) : null}
             <RelatedPosts posts={relatedPosts} />
 
             <footer className="mt-12 pt-8 border-t border-gray-200">
                 <div className="text-sm text-gray-500">
                     <p>
-                        This article is commentary, not legal advice. ClearCut Law is a commentary site, not a law firm.
+                        This post is general commentary and not legal advice. ClearCut Law is a commentary site, not a law firm.
                     </p>
                 </div>
             </footer>
