@@ -2,7 +2,7 @@
 export const NEWS_CATEGORIES = [
     { slug: 'mergers-acquisitions', label: 'Mergers and Acquisitions', shortLabel: 'M&A' },
     { slug: 'banking-finance', label: 'Banking and Finance', shortLabel: 'Finance' },
-    { slug: 'sports-deals-regulation', label: 'Sports Deals and Regulation', shortLabel: 'Sport' },
+    { slug: 'sports-deals-regulation', label: 'Sport Deals and Regulation', shortLabel: 'Sport' },
     { slug: 'competition-regulation', label: 'Competition and Regulation', shortLabel: 'Competition' },
 ] as const
 

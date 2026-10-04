@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { PostList } from '@/components/blog/post-list'
 import { CategoryFilter } from '@/components/blog/category-filter'
 import { EmptyState } from '@/components/empty-state'
-import { isBlogCategorySlug, type BlogCategorySlug } from '@/lib/blog-categories'
+import { BLOG_CATEGORY_PRESENTATION, isBlogCategorySlug, titlesForSection, type BlogCategorySlug } from '@/lib/blog-categories'
 import {
     toBlogListPost,
     type BlogListPost,
@@ -53,15 +53,40 @@ async function getPosts(
         query = query.or(searchFilter)
     }
 
-    const result = await query.range(from, to)
+    const extraTitles = category ? titlesForSection(category) : []
+    const result = extraTitles.length > 0 ? await query : await query.range(from, to)
 
     if (result.error) {
         console.error('Error fetching posts:', result.error)
         return { posts: [] as BlogListPost[], count: 0 }
     }
 
-    const posts = ((result.data ?? []) as BlogPostSource[]).map(toBlogListPost)
-    return { posts, count: result.count || 0 }
+    let posts = ((result.data ?? []) as BlogPostSource[]).map(toBlogListPost)
+    let count = result.count || 0
+
+    if (extraTitles.length > 0) {
+        const extra = await supabase
+            .from('posts')
+            .select(CARD_SELECT)
+            .eq('status', 'published')
+            .in('title', extraTitles)
+
+        if (extra.error) {
+            console.error('Error fetching section posts:', extra.error)
+        } else {
+            const seen = new Set(posts.map((post) => post.id))
+            const additions = ((extra.data ?? []) as BlogPostSource[])
+                .map(toBlogListPost)
+                .filter((post) => !seen.has(post.id))
+            posts = [...posts, ...additions].sort(
+                (a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
+            )
+        }
+        count = posts.length
+        posts = posts.slice(from, to + 1)
+    }
+
+    return { posts, count }
 }
 
 export default async function BlogPage({
@@ -80,7 +105,9 @@ export default async function BlogPage({
             <div className="container mx-auto px-4 py-6 sm:py-8">
                 <div className="mb-6 max-w-[720px]">
                     <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">The blog</p>
-                    <h1 className="mb-2 text-4xl font-semibold tracking-[-0.5px] text-[#151515]">Latest blog posts</h1>
+                    <h1 className="mb-2 text-4xl font-semibold tracking-[-0.5px] text-[#151515]">
+                        {category ? BLOG_CATEGORY_PRESENTATION[category].fullName : 'Latest blog posts'}
+                    </h1>
                     <p className="text-lg text-[#5E5E5E]">
                         Commentary on the deals, decisions and developments shaping commercial law.
                     </p>
@@ -94,9 +121,11 @@ export default async function BlogPage({
                     <EmptyState
                         title="No posts found"
                         description={
-                            search || category
-                                ? 'Try adjusting your search or filter criteria.'
-                                : 'No blog posts have been published yet.'
+                            category
+                                ? 'Nothing is published in this category yet.'
+                                : search
+                                  ? 'Nothing matches.'
+                                  : 'No blog posts have been published yet.'
                         }
                     />
                 ) : (

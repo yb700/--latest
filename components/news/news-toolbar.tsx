@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { NewsCategoryFilters } from '@/components/news/category-filters'
-import { NewsCategorySlug } from '@/lib/news-categories'
+import { NewsCategorySlug, newsCategoryLabel } from '@/lib/news-categories'
 
 interface NewsToolbarProps {
     selected: NewsCategorySlug | null
@@ -44,7 +44,9 @@ export function NewsToolbar({ selected, preview }: NewsToolbarProps) {
                 <div className="flex items-baseline justify-between gap-3">
                     <div className="min-w-0">
                         <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">Legal News</p>
-                        <h1 className="text-2xl font-semibold leading-tight tracking-[-0.5px] text-[#151515]">The latest developments</h1>
+                        <h1 className="text-2xl font-semibold leading-tight tracking-[-0.5px] text-[#151515]">
+                            {selected ? newsCategoryLabel(selected) : 'The latest developments'}
+                        </h1>
                     </div>
                     {preview && (
                         <p className="text-right text-xs text-gray-500">Sample preview. Not live news.</p>

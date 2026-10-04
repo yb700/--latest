@@ -28,7 +28,7 @@ const areas: {
         blogSlug: "competition-and-regulation",
     },
     {
-        title: "Sports Deals and Regulation",
+        title: "Sport Deals and Regulation",
         description: "Club takeovers, ownership rules, broadcasting rights and sports governance.",
         icon: Goal,
         blogSlug: "sports-deals-and-regulation",

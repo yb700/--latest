@@ -10,7 +10,7 @@ Category values:
 
 - `mergers-acquisitions` — Mergers and Acquisitions
 - `banking-finance` — Banking and Finance
-- `sports-deals-regulation` — Sports Deals and Regulation
+- `sports-deals-regulation` — Sport Deals and Regulation
 - `competition-regulation` — Competition and Regulation
 
 Store the headline in normal case. The site shows it in capitals.

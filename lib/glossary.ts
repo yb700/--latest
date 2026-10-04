@@ -111,9 +111,27 @@ function glossaryHref(slug: string): string {
     return `/glossary#${slug}`
 }
 
-/** Link the first mention of each glossary term. Later mentions stay as plain text. */
-export function linkGlossaryTerms(markdown: string): string {
-    const linked = new Set<string>()
+export type GlossaryPart =
+    | { kind: 'text'; value: string }
+    | { kind: 'link'; label: string; href: string }
+
+/** Split glossary markdown into text and links for plain lines such as the summary and deal box. */
+export function glossaryParts(text: string): GlossaryPart[] {
+    return text
+        .split(/(\[[^\]]+\]\([^)]+\))/g)
+        .filter((piece) => piece.length > 0)
+        .map((piece) => {
+            const match = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(piece)
+            if (!match) return { kind: 'text' as const, value: piece }
+            return { kind: 'link' as const, label: match[1], href: match[2] }
+        })
+}
+
+/**
+ * Link the first mention of each glossary term. Later mentions stay as plain text.
+ * Pass the same set across the summary, the deal box and the body so only the first mention links.
+ */
+export function linkGlossaryTerms(markdown: string, linked: Set<string> = new Set()): string {
     const pieces = markdown.split(/(\[[^\]]+\]\([^)]+\))/g)
 
     return pieces

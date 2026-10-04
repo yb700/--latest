@@ -15,7 +15,7 @@ const focusAreas: { label: string; slug: BlogCategorySlug }[] = [
     { label: "Mergers and Acquisitions", slug: "mergers-and-acquisitions" },
     { label: "Banking and Finance", slug: "banking-and-finance" },
     { label: "Competition and Regulation", slug: "competition-and-regulation" },
-    { label: "Sports Deals and Regulation", slug: "sports-deals-and-regulation" },
+    { label: "Sport Deals and Regulation", slug: "sports-deals-and-regulation" },
 ]
 
 const startHerePosts: {
@@ -43,7 +43,7 @@ const startHerePosts: {
         href: "/blog/mastercard-visa-and-revolut-vs-the-psr-what-the-high-court-actually-decided",
     },
     {
-        area: "Sports Deals and Regulation",
+        area: "Sport Deals and Regulation",
         title: "FIFA's Failed World Cup Stake Sale and the Fallout for Infantino",
         summary: "How FIFA's plan to sell part of the World Cup collapsed in four days, and how Infantino could now be removed.",
         href: "/blog/fifas-failed-world-cup-stake-sale-and-the-fallout-for-infantino",

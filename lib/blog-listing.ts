@@ -1,4 +1,4 @@
-import { isBlogCategorySlug, type BlogCategorySlug } from '@/lib/blog-categories'
+import { isBlogCategorySlug, sectionSlugForTitle, type BlogCategorySlug } from '@/lib/blog-categories'
 
 /** One sentence on the blog card. About 80 characters or fewer. */
 export const SHORT_PREVIEW_MAX = 80
@@ -233,7 +233,7 @@ export function toBlogListPost(source: BlogPostSource): BlogListPost {
         heroImageUrl: usablePostImage(source.hero_image_url),
         publishedAt: source.published_at ?? null,
         createdAt: source.created_at,
-        categorySlug: categorySlugFromEmbed(source.post_categories),
+        categorySlug: categorySlugFromEmbed(source.post_categories) ?? sectionSlugForTitle(source.title),
     }
 }
 
