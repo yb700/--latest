@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
@@ -151,31 +152,34 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     const publishedLabel = formatBlogCardDate(publishedIso)
 
     return (
-        <article className="container mx-auto px-4 py-8 max-w-4xl">
+        <article className="container mx-auto max-w-4xl bg-[#FAF9F7] px-4 py-8">
             <header className="mb-8">
-                <div className="mb-4 flex items-start justify-between gap-3">
-                    {sectionLabel ? (
-                        <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8A8780]">
-                            {sectionLabel}
-                        </p>
-                    ) : (
-                        <span />
-                    )}
-                    {publishedLabel ? (
-                        <time dateTime={publishedIso} className="shrink-0 text-sm text-[#5E5E5E]">
-                            {publishedLabel}
-                        </time>
-                    ) : null}
-                </div>
+                <Link href="/blog" className="text-sm font-medium text-[#151515] underline underline-offset-4">
+                    Back to the blog
+                </Link>
+                {sectionLabel ? (
+                    <p className="mb-2 mt-6 text-[11px] font-semibold uppercase tracking-wide text-[#8A8780]">
+                        {sectionLabel}
+                    </p>
+                ) : null}
 
-                <h1 className="text-4xl font-semibold text-brand mb-4">{post.title}</h1>
+                <h1 className="mb-4 text-4xl font-semibold text-[#151515]">{post.title}</h1>
 
                 {excerpt && (
-                    <p className="text-xl text-gray-600 mb-6 leading-relaxed">
+                    <p className="mb-6 text-xl leading-relaxed text-[#5E5E5E]">
                         <GlossaryText text={excerpt} />
                     </p>
                 )}
 
+                <p className="text-sm text-[#5E5E5E]">
+                    Younas Ficel
+                    {publishedLabel ? (
+                        <>
+                            {' · '}
+                            <time dateTime={publishedIso}>{publishedLabel}</time>
+                        </>
+                    ) : null}
+                </p>
             </header>
 
             {deal ? <DealGlanceBox deal={deal} /> : null}
@@ -188,12 +192,10 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <SourceList sources={split.sources} />
             <RelatedPosts posts={relatedPosts} />
 
-            <footer className="mt-12 pt-8 border-t border-gray-200">
-                <div className="text-sm text-gray-500">
-                    <p>
-                        This post is general commentary and not legal advice. ClearCut Law is a commentary site, not a law firm.
-                    </p>
-                </div>
+            <footer className="mt-12 rounded-2xl border border-[#E7E4DF] bg-[#F3F1ED] p-6 text-sm text-[#5E5E5E]">
+                <p>
+                    This post is general commentary and not legal advice. ClearCut Law is a commentary site, not a law firm.
+                </p>
             </footer>
         </article>
     )

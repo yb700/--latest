@@ -44,9 +44,9 @@ export async function LegalNews({ preview = false }: LegalNewsProps) {
                     )}
                 </div>
 
-                <ul className="mb-8 max-w-[720px] list-none divide-y divide-[#E7E4DF] border-y border-[#E7E4DF]">
+                <ul className="mb-8 max-w-[720px] list-none space-y-4">
                     {items.map((item) => (
-                        <li key={item.id} className="py-6">
+                        <li key={item.id}>
                             <NewsCard item={item} headingLevel="h3" />
                         </li>
                     ))}

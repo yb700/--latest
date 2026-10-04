@@ -5,7 +5,7 @@ import { dealGlanceForTitle, dealGlanceTitles } from './deal-glance'
 import { GLOSSARY, linkGlossaryTerms } from './glossary'
 import { interviewNoteForTitle, interviewNoteTitles } from './interview-notes'
 import { splitPostContent } from './post-content'
-import { titleAndExcerptFilter } from './post-search'
+import { headlineAndSummaryFilter, titleAndExcerptFilter } from './post-search'
 import { sourceUrlForTitle } from './source-urls'
 
 const KENT = `On 23 October, the Competition Appeal Tribunal ruled that Apple had abused its dominant position.
@@ -136,5 +136,11 @@ describe('search', () => {
         const filter = titleAndExcerptFilter('easyJet')
         assert.equal(filter, 'title.ilike.%easyJet%,excerpt.ilike.%easyJet%')
         assert.equal(filter?.includes('content'), false)
+    })
+
+    it('searches news headlines and summaries only', () => {
+        const filter = headlineAndSummaryFilter('TalkTalk')
+        assert.equal(filter, 'headline.ilike.%TalkTalk%,summary.ilike.%TalkTalk%')
+        assert.equal(filter?.includes('why_it_matters'), false)
     })
 })

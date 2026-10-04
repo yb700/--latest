@@ -47,9 +47,9 @@ export default async function SearchPage({
     const results = query.trim() ? await searchPosts(query) : []
 
     return (
-        <div className="container mx-auto max-w-3xl px-4 py-8">
+        <div className="container mx-auto max-w-3xl bg-[#FAF9F7] px-4 py-8">
             <h1 className="mb-6 text-4xl font-semibold text-[#151515]">Search</h1>
-            <form action="/search" method="get" className="mb-8 flex gap-2" role="search">
+            <form action="/search" method="get" className="mb-8 flex flex-col gap-3 sm:flex-row" role="search">
                 <label className="sr-only" htmlFor="search-q">
                     Search post titles and summaries
                 </label>
@@ -59,9 +59,9 @@ export default async function SearchPage({
                     type="search"
                     defaultValue={query}
                     placeholder="Search titles and summaries"
-                    className="w-full rounded-xl border border-[#E7E4DF] bg-white px-4 py-2 text-[#151515]"
+                    className="w-full rounded-[12px] border border-[#E1DED8] bg-white px-4 py-2.5 text-sm text-[#151515] placeholder:text-[#8A8780]"
                 />
-                <button type="submit" className="rounded-xl bg-[#151515] px-4 py-2 font-medium text-white">
+                <button type="submit" className="w-full rounded-[12px] bg-[#151515] px-4 py-2.5 text-sm font-medium text-white sm:w-auto">
                     Search
                 </button>
             </form>
@@ -73,7 +73,7 @@ export default async function SearchPage({
             {results.length > 0 ? (
                 <ul className="space-y-3">
                     {results.map((post) => (
-                        <li key={post.slug} className="rounded-xl border border-[#E7E4DF] bg-white px-4 py-3">
+                        <li key={post.slug} className="rounded-2xl border border-[#E7E4DF] bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
                             <Link href={`/blog/${post.slug}`} className="font-semibold text-[#151515] hover:underline">
                                 {post.title}
                             </Link>

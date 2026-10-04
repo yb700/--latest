@@ -1,46 +1,21 @@
-'use client'
-
-import { useEffect, useRef } from 'react'
-import { NewsCategoryFilters } from '@/components/news/category-filters'
-import { NewsCategorySlug, newsCategoryLabel } from '@/lib/news-categories'
+import { CategorySelect } from '@/components/listing/category-select'
+import { SearchField } from '@/components/listing/search-field'
+import { NEWS_CATEGORIES, NewsCategorySlug, newsCategoryLabel } from '@/lib/news-categories'
 
 interface NewsToolbarProps {
     selected: NewsCategorySlug | null
     preview: boolean
+    search: string
 }
 
-export function NewsToolbar({ selected, preview }: NewsToolbarProps) {
-    const ref = useRef<HTMLDivElement>(null)
-
-    useEffect(() => {
-        document.documentElement.classList.add('news-feed-scroll')
-        return () => {
-            document.documentElement.classList.remove('news-feed-scroll')
-            document.documentElement.style.removeProperty('--filters-h')
-        }
-    }, [])
-
-    useEffect(() => {
-        const el = ref.current
-        if (!el) return
-
-        const apply = () => {
-            document.documentElement.style.setProperty('--filters-h', `${el.getBoundingClientRect().height}px`)
-        }
-
-        apply()
-        const observer = new ResizeObserver(apply)
-        observer.observe(el)
-        return () => observer.disconnect()
-    }, [])
+export function NewsToolbar({ selected, preview, search }: NewsToolbarProps) {
+    const hidden: Record<string, string> = {}
+    if (selected) hidden.category = selected
+    if (preview) hidden.preview = 'fixtures'
 
     return (
-        <div
-            ref={ref}
-            className="sticky z-40 border-b border-[#E7E4DF] bg-[#FAF9F7]"
-            style={{ top: 'var(--header-h)' }}
-        >
-            <div className="mx-auto flex max-w-[720px] flex-col gap-1 px-4 py-3">
+        <div className="bg-[#FAF9F7]">
+            <div className="mx-auto flex max-w-[720px] flex-col gap-4 px-4 py-6">
                 <div className="flex items-baseline justify-between gap-3">
                     <div className="min-w-0">
                         <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">Legal News</p>
@@ -49,10 +24,21 @@ export function NewsToolbar({ selected, preview }: NewsToolbarProps) {
                         </h1>
                     </div>
                     {preview && (
-                        <p className="text-right text-xs text-gray-500">Sample preview. Not live news.</p>
+                        <p className="text-right text-xs text-[#8A8780]">Sample preview. Not live news.</p>
                     )}
                 </div>
-                <NewsCategoryFilters selected={selected} preview={preview} />
+                <SearchField action="/news" id="news-search" defaultValue={search} hidden={hidden} />
+                <CategorySelect
+                    id="news-category"
+                    basePath="/news"
+                    selected={selected ?? ''}
+                    search={search}
+                    extraQuery={preview ? { preview: 'fixtures' } : undefined}
+                    options={NEWS_CATEGORIES.map((category) => ({
+                        value: category.slug,
+                        label: category.shortLabel,
+                    }))}
+                />
             </div>
         </div>
     )

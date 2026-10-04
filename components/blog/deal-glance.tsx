@@ -15,7 +15,7 @@ export function DealGlanceBox({ deal }: { deal: DealGlance }) {
     if (rows.length === 0) return null
 
     return (
-        <aside className="mb-8 rounded-xl border border-[#E7E4DF] bg-[#FAF9F7] p-4 sm:p-5">
+        <aside className="mb-8 rounded-2xl border border-[#E7E4DF] bg-white p-6 shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
             <h2 className="mb-3 text-sm font-semibold text-[#151515]">Deal at a glance</h2>
             <dl className="space-y-3">
                 {rows.map((field) => (

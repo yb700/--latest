@@ -48,8 +48,8 @@ export async function LatestPosts() {
                     </div>
                 )}
 
-                <Link href="/blog" className="block max-w-[720px]">
-                    <Button size="lg" className="w-full justify-between">
+                <Link href="/blog" className="block w-full max-w-[720px] sm:w-auto">
+                    <Button size="lg" className="w-full justify-between sm:min-w-[220px]">
                         See all posts
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />
                     </Button>
