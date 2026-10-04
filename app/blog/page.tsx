@@ -105,11 +105,13 @@ export default async function BlogPage({
         <div className="bg-[#FAF9F7]">
             <div className="mx-auto w-full max-w-[760px] px-4 py-6 sm:py-8">
                 <div className="mb-6">
-                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">The blog</p>
-                    <h1 className="mb-2 text-4xl font-semibold tracking-[-0.5px] text-[#151515]">
-                        {category ? BLOG_CATEGORY_PRESENTATION[category].fullName : 'Latest blog posts'}
+                    <h1 className="text-2xl font-bold uppercase leading-tight tracking-[0.04em] text-[#151515]">
+                        The blog
                     </h1>
-                    <p className="text-lg text-[#5E5E5E]">
+                    <p className="mt-1 text-sm font-normal text-[#5E5E5E]">
+                        {category ? BLOG_CATEGORY_PRESENTATION[category].fullName : 'Latest blog posts'}
+                    </p>
+                    <p className="mt-2 text-lg text-[#5E5E5E]">
                         Commentary on the deals, decisions and developments shaping commercial law.
                     </p>
                 </div>
