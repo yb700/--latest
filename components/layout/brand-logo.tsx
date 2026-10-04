@@ -5,12 +5,12 @@ type BrandLogoProps = {
 }
 
 const WORDMARK_SRC = {
-    light: '/brand/clearcut-wordmark.png',
-    onDark: '/brand/clearcut-wordmark-white.png',
+    light: '/brand/clearcut-law-logo-compact.svg',
+    onDark: '/brand/clearcut-law-logo-compact-white.svg',
 } as const
 
 export function BrandWordmark({
-    className = 'h-10 w-auto md:h-12',
+    className = 'h-[34px] w-auto md:h-10',
     tone = 'light',
 }: BrandLogoProps) {
     return (
@@ -18,8 +18,8 @@ export function BrandWordmark({
         <img
             src={WORDMARK_SRC[tone]}
             alt="ClearCut Law"
-            width={1270}
-            height={217}
+            width={379}
+            height={116}
             className={className}
         />
     )

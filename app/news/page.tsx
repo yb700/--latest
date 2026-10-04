@@ -33,34 +33,39 @@ export default async function NewsPage({
 }) {
     const categoryParam = typeof searchParams.category === 'string' ? searchParams.category : ''
     const category = isNewsCategorySlug(categoryParam) ? categoryParam : null
+    const search = typeof searchParams.search === 'string' ? searchParams.search : ''
     const preview = shouldUseNewsFixtures(searchParams.preview === 'fixtures')
     const { items, hasMore } = await getNewsPage({
         category,
         offset: 0,
         limit: NEWS_PAGE_SIZE,
         preview,
+        search,
     })
 
     return (
-        <div>
-            <NewsToolbar selected={category} preview={preview} />
+        <div className="bg-[#FAF9F7]">
+            <NewsToolbar selected={category} preview={preview} search={search} />
 
             {items.length === 0 ? (
                 <EmptyState
-                    title={category ? 'No items in this category' : 'No Legal News yet'}
+                    title={search.trim() ? 'No items found' : category ? 'No items in this category' : 'No Legal News yet'}
                     description={
-                        category
-                            ? `Nothing has been published under ${newsCategoryLabel(category)} yet.`
-                            : 'Published Legal News items will appear here.'
+                        search.trim()
+                            ? 'Nothing matches.'
+                            : category
+                              ? `Nothing has been published under ${newsCategoryLabel(category)} yet.`
+                              : 'Published Legal News items will appear here.'
                     }
                 />
             ) : (
                 <NewsFeed
-                    key={`${category ?? 'all'}-${preview ? 'preview' : 'live'}`}
+                    key={`${category ?? 'all'}-${search}-${preview ? 'preview' : 'live'}`}
                     initialItems={items}
                     initialHasMore={hasMore}
                     category={category}
                     preview={preview}
+                    search={search}
                 />
             )}
         </div>

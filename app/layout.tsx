@@ -43,6 +43,10 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  icons: {
+    icon: [{ url: '/brand/favicon-black-32.png', sizes: '32x32', type: 'image/png' }],
+    apple: [{ url: '/brand/apple-touch-icon-black-180.png', sizes: '180x180', type: 'image/png' }],
+  },
 }
 
 export default async function RootLayout({

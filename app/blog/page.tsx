@@ -2,9 +2,10 @@ import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { PostList } from '@/components/blog/post-list'
-import { CategoryFilter } from '@/components/blog/category-filter'
+import { CategorySelect } from '@/components/listing/category-select'
+import { SearchField } from '@/components/listing/search-field'
 import { EmptyState } from '@/components/empty-state'
-import { BLOG_CATEGORY_PRESENTATION, isBlogCategorySlug, titlesForSection, type BlogCategorySlug } from '@/lib/blog-categories'
+import { BLOG_CATEGORY_PRESENTATION, BLOG_CATEGORY_SLUGS, isBlogCategorySlug, titlesForSection, type BlogCategorySlug } from '@/lib/blog-categories'
 import {
     toBlogListPost,
     type BlogListPost,
@@ -113,8 +114,23 @@ export default async function BlogPage({
                     </p>
                 </div>
 
-                <div className="mb-6">
-                    <CategoryFilter selectedCategory={category} search={search} />
+                <div className="mb-6 max-w-[720px] space-y-3">
+                    <SearchField
+                        action="/blog"
+                        id="blog-search"
+                        defaultValue={search}
+                        hidden={category ? { category } : undefined}
+                    />
+                    <CategorySelect
+                        id="blog-category"
+                        basePath="/blog"
+                        selected={category}
+                        search={search}
+                        options={BLOG_CATEGORY_SLUGS.map((slug) => ({
+                            value: slug,
+                            label: BLOG_CATEGORY_PRESENTATION[slug].label,
+                        }))}
+                    />
                 </div>
 
                 {posts.length === 0 ? (
@@ -142,7 +158,7 @@ export default async function BlogPage({
                                     {page > 1 && (
                                         <a
                                             href={`/blog?page=${page - 1}${search ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`}
-                                            className="rounded-[6px] border border-[#E7E4DF] bg-white px-3 py-2 text-sm font-medium text-[#151515] hover:bg-[#FAF9F7]"
+                                            className="rounded-[12px] border border-[#E7E4DF] bg-white px-3 py-2 text-sm font-medium text-[#151515] hover:bg-[#F3F1ED]"
                                         >
                                             Previous
                                         </a>
@@ -152,10 +168,10 @@ export default async function BlogPage({
                                         <a
                                             key={pageNumber}
                                             href={`/blog?page=${pageNumber}${search ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`}
-                                            className={`rounded-[6px] px-3 py-2 text-sm font-medium ${
+                                            className={`rounded-[12px] px-3 py-2 text-sm font-medium ${
                                                 pageNumber === page
                                                     ? 'bg-[#151515] text-white'
-                                                    : 'border border-[#E7E4DF] bg-white text-[#151515] hover:bg-[#FAF9F7]'
+                                                    : 'border border-[#E7E4DF] bg-white text-[#151515] hover:bg-[#F3F1ED]'
                                             }`}
                                             aria-current={pageNumber === page ? 'page' : undefined}
                                         >
@@ -166,7 +182,7 @@ export default async function BlogPage({
                                     {page < totalPages && (
                                         <a
                                             href={`/blog?page=${page + 1}${search ? `&search=${search}` : ''}${category ? `&category=${category}` : ''}`}
-                                            className="rounded-[6px] border border-[#E7E4DF] bg-white px-3 py-2 text-sm font-medium text-[#151515] hover:bg-[#FAF9F7]"
+                                            className="rounded-[12px] border border-[#E7E4DF] bg-white px-3 py-2 text-sm font-medium text-[#151515] hover:bg-[#F3F1ED]"
                                         >
                                             Next
                                         </a>

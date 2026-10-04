@@ -46,7 +46,7 @@ export function AreasOfInterest() {
                     {areas.map((area) => {
                         const Icon = area.icon
                         return (
-                            <Card key={area.title} className="flex h-full flex-col rounded-xl border border-[#E7E4DF] bg-white shadow-none hover:shadow-none">
+                            <Card key={area.title} className="flex h-full flex-col">
                                 <CardHeader className="p-4 pb-3 sm:p-6">
                                     <div className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#FAF9F7] sm:mb-4 sm:h-14 sm:w-14">
                                         <Icon className="h-6 w-6 text-[#151515] sm:h-7 sm:w-7" />

@@ -13,6 +13,7 @@ export async function GET(request: Request) {
     const offsetRaw = Number(searchParams.get('offset'))
     const offset = Number.isFinite(offsetRaw) && offsetRaw > 0 ? Math.floor(offsetRaw) : 0
     const preview = shouldUseNewsFixtures(searchParams.get('preview') === 'fixtures')
+    const search = searchParams.get('search') ?? ''
 
     try {
         const page = await getNewsPage({
@@ -20,6 +21,7 @@ export async function GET(request: Request) {
             offset,
             limit: NEWS_PAGE_SIZE,
             preview,
+            search,
         })
 
         return NextResponse.json(page)

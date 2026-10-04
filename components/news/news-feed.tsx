@@ -11,9 +11,10 @@ interface NewsFeedProps {
     initialHasMore: boolean
     category: NewsCategorySlug | null
     preview: boolean
+    search: string
 }
 
-export function NewsFeed({ initialItems, initialHasMore, category, preview }: NewsFeedProps) {
+export function NewsFeed({ initialItems, initialHasMore, category, preview, search }: NewsFeedProps) {
     const [items, setItems] = useState(initialItems)
     const [hasMore, setHasMore] = useState(initialHasMore)
     const [loading, setLoading] = useState(false)
@@ -34,6 +35,7 @@ export function NewsFeed({ initialItems, initialHasMore, category, preview }: Ne
             params.set('limit', String(NEWS_PAGE_SIZE))
             if (category) params.set('category', category)
             if (preview) params.set('preview', 'fixtures')
+            if (search.trim()) params.set('search', search.trim())
 
             const response = await fetch(`/api/news?${params.toString()}`, { cache: 'no-store' })
             if (!response.ok) throw new Error('Could not load news')
@@ -58,7 +60,7 @@ export function NewsFeed({ initialItems, initialHasMore, category, preview }: Ne
             loadingRef.current = false
             setLoading(false)
         }
-    }, [category, hasMore, items.length, preview])
+    }, [category, hasMore, items.length, preview, search])
 
     useEffect(() => {
         const node = sentinelRef.current
@@ -78,20 +80,20 @@ export function NewsFeed({ initialItems, initialHasMore, category, preview }: Ne
     }, [hasMore, loadMore])
 
     return (
-        <div>
-            <ul className="news-feed mx-auto w-full max-w-[720px] list-none divide-y divide-[#E7E4DF] border-y border-[#E7E4DF] px-4">
+        <div className="bg-[#FAF9F7] pb-10">
+            <ul className="mx-auto w-full max-w-[720px] list-none space-y-4 px-4">
                 {items.map((item) => (
-                    <li key={item.id} className="py-6">
-                        <NewsCard item={item} layout="feed" />
+                    <li key={item.id}>
+                        <NewsCard item={item} />
                     </li>
                 ))}
             </ul>
 
             {hasMore && (
-                <div className="mx-auto flex max-w-[720px] flex-col items-center gap-2 px-4 pb-8">
+                <div className="mx-auto flex max-w-[720px] flex-col items-center gap-2 px-4 pt-6">
                     <div ref={sentinelRef} aria-hidden="true" className="h-px w-full" />
-                    {failed && <p className="text-sm text-gray-600">Could not load more news.</p>}
-                    <Button type="button" variant="outline" onClick={() => void loadMore()} disabled={loading}>
+                    {failed && <p className="text-sm text-[#5E5E5E]">Could not load more news.</p>}
+                    <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={() => void loadMore()} disabled={loading}>
                         {loading ? 'Loading' : 'Load more'}
                     </Button>
                 </div>

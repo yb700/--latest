@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { NewsCategorySlug } from '@/lib/news-categories'
 import { blogPostPath, NEWS_PAGE_SIZE, type NewsListItem } from '@/lib/news'
 import { previewNewsItems, shouldUseNewsFixtures } from '@/lib/news-preview'
+import { headlineAndSummaryFilter, searchNeedle } from '@/lib/post-search'
 import { NewsItem } from '@/lib/supabase/types'
 
 /** Next throws this while prerendering a page that reads cookies. It must keep propagating. */
@@ -35,15 +36,17 @@ export async function getNewsPage(options?: {
     offset?: number
     limit?: number
     preview?: boolean
+    search?: string
 }): Promise<{ items: NewsListItem[]; hasMore: boolean }> {
     const limit = options?.limit && options.limit > 0 ? Math.floor(options.limit) : NEWS_PAGE_SIZE
     const offset = options?.offset && options.offset > 0 ? Math.floor(options.offset) : 0
     const category = options?.category ?? null
+    const search = options?.search ?? ''
     const useFixtures = Boolean(options?.preview) && shouldUseNewsFixtures(true)
 
     const { rows, hasMore } = useFixtures
-        ? slicePreviewNews(category, offset, limit)
-        : await fetchPublishedNewsRows(category, offset, limit)
+        ? slicePreviewNews(category, offset, limit, search)
+        : await fetchPublishedNewsRows(category, offset, limit, search)
 
     return {
         items: await attachRelatedPostTitles(rows),
@@ -54,9 +57,17 @@ export async function getNewsPage(options?: {
 function slicePreviewNews(
     category: NewsCategorySlug | null,
     offset: number,
-    limit: number
+    limit: number,
+    search: string
 ): { rows: NewsItem[]; hasMore: boolean } {
-    const filtered = previewNewsItems(category)
+    const needle = searchNeedle(search).toLowerCase()
+    const filtered = previewNewsItems(category).filter((item) => {
+        if (!needle) return true
+        return (
+            item.headline.toLowerCase().includes(needle) ||
+            item.summary.toLowerCase().includes(needle)
+        )
+    })
     const rows = filtered.slice(offset, offset + limit + 1)
     return {
         rows: rows.slice(0, limit),
@@ -67,7 +78,8 @@ function slicePreviewNews(
 async function fetchPublishedNewsRows(
     category: NewsCategorySlug | null,
     offset: number,
-    limit: number
+    limit: number,
+    search: string
 ): Promise<{ rows: NewsItem[]; hasMore: boolean }> {
     try {
         const supabase = createClient()
@@ -80,6 +92,11 @@ async function fetchPublishedNewsRows(
 
         if (category) {
             query = query.eq('category', category)
+        }
+
+        const searchFilter = headlineAndSummaryFilter(search)
+        if (searchFilter) {
+            query = query.or(searchFilter)
         }
 
         const { data, error } = await query.range(offset, offset + limit)
