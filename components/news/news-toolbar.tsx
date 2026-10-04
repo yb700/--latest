@@ -1,4 +1,4 @@
-import { CategorySelect } from '@/components/listing/category-select'
+import { CategoryOptions } from '@/components/listing/category-options'
 import { SearchField } from '@/components/listing/search-field'
 import { NEWS_CATEGORIES, NewsCategorySlug, newsCategoryLabel } from '@/lib/news-categories'
 
@@ -18,25 +18,33 @@ export function NewsToolbar({ selected, preview, search }: NewsToolbarProps) {
             <div className="mx-auto flex max-w-[720px] flex-col gap-4 px-4 py-6">
                 <div className="flex items-baseline justify-between gap-3">
                     <div className="min-w-0">
-                        <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">Legal News</p>
-                        <h1 className="text-2xl font-semibold leading-tight tracking-[-0.5px] text-[#151515]">
-                            {selected ? newsCategoryLabel(selected) : 'The latest developments'}
+                        <h1 className="text-2xl font-bold uppercase leading-tight tracking-[0.04em] text-[#151515]">
+                            Legal News
                         </h1>
+                        <p className="mt-1 text-sm font-normal text-[#5E5E5E]">
+                            {selected ? newsCategoryLabel(selected) : 'The latest developments'}
+                        </p>
                     </div>
                     {preview && (
                         <p className="text-right text-xs text-[#8A8780]">Sample preview. Not live news.</p>
                     )}
                 </div>
                 <SearchField action="/news" id="news-search" defaultValue={search} hidden={hidden} />
-                <CategorySelect
-                    id="news-category"
+                <CategoryOptions
                     basePath="/news"
                     selected={selected ?? ''}
                     search={search}
                     extraQuery={preview ? { preview: 'fixtures' } : undefined}
-                    options={NEWS_CATEGORIES.map((category) => ({
-                        value: category.slug,
-                        label: category.shortLabel,
+                    options={(
+                        [
+                            'mergers-acquisitions',
+                            'banking-finance',
+                            'competition-regulation',
+                            'sports-deals-regulation',
+                        ] as const
+                    ).map((slug) => ({
+                        value: slug,
+                        label: NEWS_CATEGORIES.find((item) => item.slug === slug)?.shortLabel ?? slug,
                     }))}
                 />
             </div>

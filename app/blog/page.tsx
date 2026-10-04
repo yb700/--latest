@@ -2,10 +2,10 @@ import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { PostList } from '@/components/blog/post-list'
-import { CategorySelect } from '@/components/listing/category-select'
+import { CategoryOptions } from '@/components/listing/category-options'
 import { SearchField } from '@/components/listing/search-field'
 import { EmptyState } from '@/components/empty-state'
-import { BLOG_CATEGORY_PRESENTATION, BLOG_CATEGORY_SLUGS, isBlogCategorySlug, titlesForSection, type BlogCategorySlug } from '@/lib/blog-categories'
+import { BLOG_CATEGORY_PRESENTATION, isBlogCategorySlug, titlesForSection, type BlogCategorySlug } from '@/lib/blog-categories'
 import {
     toBlogListPost,
     type BlogListPost,
@@ -121,12 +121,18 @@ export default async function BlogPage({
                         defaultValue={search}
                         hidden={category ? { category } : undefined}
                     />
-                    <CategorySelect
-                        id="blog-category"
+                    <CategoryOptions
                         basePath="/blog"
                         selected={category}
                         search={search}
-                        options={BLOG_CATEGORY_SLUGS.map((slug) => ({
+                        options={(
+                            [
+                                'mergers-and-acquisitions',
+                                'banking-and-finance',
+                                'competition-and-regulation',
+                                'sports-deals-and-regulation',
+                            ] as const
+                        ).map((slug) => ({
                             value: slug,
                             label: BLOG_CATEGORY_PRESENTATION[slug].label,
                         }))}
