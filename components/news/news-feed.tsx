@@ -81,7 +81,7 @@ export function NewsFeed({ initialItems, initialHasMore, category, preview, sear
 
     return (
         <div className="bg-[#FAF9F7] pb-10">
-            <ul className="mx-auto w-full max-w-[720px] list-none space-y-4 px-4">
+            <ul className="mx-auto w-full max-w-[760px] list-none space-y-4 px-4">
                 {items.map((item) => (
                     <li key={item.id}>
                         <NewsCard item={item} />
@@ -90,7 +90,7 @@ export function NewsFeed({ initialItems, initialHasMore, category, preview, sear
             </ul>
 
             {hasMore && (
-                <div className="mx-auto flex max-w-[720px] flex-col items-center gap-2 px-4 pt-6">
+                <div className="mx-auto flex max-w-[760px] flex-col items-center gap-2 px-4 pt-6">
                     <div ref={sentinelRef} aria-hidden="true" className="h-px w-full" />
                     {failed && <p className="text-sm text-[#5E5E5E]">Could not load more news.</p>}
                     <Button type="button" variant="outline" className="w-full sm:w-auto" onClick={() => void loadMore()} disabled={loading}>

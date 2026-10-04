@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
 import {
+    blogCardSummary,
     cardPreview,
     comparePostsNewestFirst,
     formatBlogCardDate,
@@ -92,6 +93,17 @@ describe('card text', () => {
             limitToTwoLines: true,
         })
         assert.equal(cardPreview({ shortPreview: null, excerpt: null }), null)
+    })
+
+    it('keeps one sentence for the card summary', () => {
+        assert.equal(blogCardSummary({ shortPreview: 'One sentence.', excerpt: 'Longer excerpt here.' }), 'One sentence.')
+        assert.equal(
+            blogCardSummary({
+                shortPreview: null,
+                excerpt: 'First sentence stays. The rest of the excerpt stays off the card.',
+            }),
+            'First sentence stays.'
+        )
     })
 })
 

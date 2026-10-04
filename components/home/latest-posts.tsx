@@ -26,7 +26,7 @@ export async function LatestPosts() {
     return (
         <section className="bg-[#FAF9F7] py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="mb-8 max-w-[720px]">
+                <div className="mb-8 max-w-[760px]">
                     <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">
                         The blog
                     </p>
@@ -43,12 +43,12 @@ export async function LatestPosts() {
                         No posts are published yet.
                     </p>
                 ) : (
-                    <div className="mb-8 max-w-[720px]">
+                    <div className="mb-8 max-w-[760px]">
                         <PostList posts={posts} />
                     </div>
                 )}
 
-                <Link href="/blog" className="block w-full max-w-[720px] sm:w-auto">
+                <Link href="/blog" className="block w-full max-w-[760px] sm:w-auto">
                     <Button size="lg" className="w-full justify-between sm:min-w-[220px]">
                         See all posts
                         <ArrowRight className="h-4 w-4" aria-hidden="true" />

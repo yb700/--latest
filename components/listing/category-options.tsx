@@ -12,6 +12,7 @@ interface CategoryOptionsProps {
     search: string
     options: CategoryOption[]
     extraQuery?: Record<string, string>
+    className?: string
 }
 
 function optionHref(
@@ -39,9 +40,10 @@ export function CategoryOptions({
     search,
     options,
     extraQuery,
+    className,
 }: CategoryOptionsProps) {
     return (
-        <nav aria-label="Categories" className="flex flex-wrap gap-2">
+        <nav aria-label="Categories" className={cn('flex flex-wrap gap-2', className)}>
             {options.map((option) => {
                 const active = option.value === selected
                 return (

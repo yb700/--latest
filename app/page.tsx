@@ -31,7 +31,7 @@ export default function HomePage({
 
   return (
     <>
-      <HeroSection />
+      <HeroSection preview={preview} />
       <LegalNews preview={preview} />
       <AreasOfInterest />
       <LatestPosts />

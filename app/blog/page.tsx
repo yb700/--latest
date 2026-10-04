@@ -103,8 +103,8 @@ export default async function BlogPage({
 
     return (
         <div className="bg-[#FAF9F7]">
-            <div className="container mx-auto px-4 py-6 sm:py-8">
-                <div className="mb-6 max-w-[720px]">
+            <div className="mx-auto w-full max-w-[760px] px-4 py-6 sm:py-8">
+                <div className="mb-6">
                     <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">The blog</p>
                     <h1 className="mb-2 text-4xl font-semibold tracking-[-0.5px] text-[#151515]">
                         {category ? BLOG_CATEGORY_PRESENTATION[category].fullName : 'Latest blog posts'}
@@ -114,17 +114,19 @@ export default async function BlogPage({
                     </p>
                 </div>
 
-                <div className="mb-6 max-w-[720px] space-y-3">
+                <div className="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center">
                     <SearchField
                         action="/blog"
                         id="blog-search"
                         defaultValue={search}
                         hidden={category ? { category } : undefined}
+                        className="min-w-0 lg:flex-1"
                     />
                     <CategoryOptions
                         basePath="/blog"
                         selected={category}
                         search={search}
+                        className="lg:shrink-0 lg:flex-nowrap"
                         options={(
                             [
                                 'mergers-and-acquisitions',
@@ -153,9 +155,7 @@ export default async function BlogPage({
                 ) : (
                     <>
                         <Suspense fallback={<div>Loading posts...</div>}>
-                            <div className="max-w-[720px]">
-                                <PostList posts={posts} />
-                            </div>
+                            <PostList posts={posts} />
                         </Suspense>
 
                         {totalPages > 1 && (

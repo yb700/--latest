@@ -1,12 +1,22 @@
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { DealOfTheWeekCard, loadDealOfTheWeek } from "@/components/home/deal-of-the-week"
+import { cn } from "@/lib/utils"
 
-export function HeroSection() {
+export async function HeroSection({ preview = false }: { preview?: boolean }) {
+    const deal = await loadDealOfTheWeek(preview)
+
     return (
         <section className="bg-[#F3F1ED] py-12 sm:py-16" aria-labelledby="intro-heading">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-3xl">
+            <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 lg:px-8">
+                <div
+                    className={cn(
+                        'max-w-3xl',
+                        deal && 'lg:grid lg:max-w-none lg:grid-cols-[minmax(0,11fr)_minmax(0,9fr)] lg:items-start lg:gap-10'
+                    )}
+                >
+                    <div>
                     <h1 id="intro-heading" className="text-3xl font-semibold leading-tight tracking-[-0.5px] text-[#151515] sm:text-4xl">
                         UK deals, finance, competition and sport, explained in plain English.
                     </h1>
@@ -33,6 +43,8 @@ export function HeroSection() {
                     >
                         I&apos;m Younas, a law graduate writing about the deals and decisions shaping commercial law.
                     </Link>
+                    </div>
+                    {deal ? <DealOfTheWeekCard deal={deal} /> : null}
                 </div>
             </div>
         </section>
