@@ -84,9 +84,9 @@ export function ContactForm() {
     return (
         <Card className="max-w-2xl mx-auto">
             <CardHeader>
-                <CardTitle className="text-2xl font-semibold text-brand">Get in Touch</CardTitle>
-                <p className="text-gray-600">
-                    The site sends your message to Younas. Your email app does not open. He can reply to the email address you enter.
+                <CardTitle className="text-2xl font-semibold text-[#151515]">Get in touch</CardTitle>
+                <p className="text-[#5E5E5E]">
+                    Questions, feedback or an idea for a post? Send a message and I&apos;ll reply by email.
                 </p>
             </CardHeader>
             <CardContent>
@@ -96,7 +96,7 @@ export function ContactForm() {
                             <Label htmlFor="name">Name</Label>
                             <Input
                                 id="name"
-                                placeholder="Your full name"
+                                placeholder="Your name"
                                 {...register('name')}
                             />
                             {errors.name && (
@@ -134,7 +134,7 @@ export function ContactForm() {
                         <Label htmlFor="message">Message</Label>
                         <Textarea
                             id="message"
-                            placeholder="Tell us more about your inquiry..."
+                            placeholder="Your message"
                             rows={6}
                             {...register('message')}
                         />
