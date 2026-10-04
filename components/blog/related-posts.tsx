@@ -13,15 +13,15 @@ export function RelatedPosts({ posts }: { posts: RelatedPost[] }) {
     return (
         <section className="mt-10" aria-label="Related posts">
             <h2 className="mb-4 text-lg font-semibold text-[#151515]">Related posts</h2>
-            <ul className="space-y-3">
+            <ul className="list-none divide-y divide-[#E7E4DF] border-y border-[#E7E4DF]">
                 {posts.map((post) => {
                     const label = post.categorySlug ? BLOG_CATEGORY_PRESENTATION[post.categorySlug].label : null
                     return (
-                        <li key={post.slug} className="rounded-xl border border-[#E7E4DF] bg-white px-4 py-3">
+                        <li key={post.slug} className="py-4">
                             {label ? (
-                                <p className="text-xs font-medium uppercase tracking-wide text-[#8A8780]">{label}</p>
+                                <p className="text-[11px] font-semibold uppercase tracking-wide text-[#8A8780]">{label}</p>
                             ) : null}
-                            <Link href={`/blog/${post.slug}`} className="font-semibold text-[#151515] hover:underline">
+                            <Link href={`/blog/${post.slug}`} className="mt-1 block font-semibold text-[#151515] hover:underline">
                                 {post.title}
                             </Link>
                         </li>

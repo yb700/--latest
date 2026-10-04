@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
+import { BLOG_CATEGORY_PRESENTATION, sectionSlugForTitle } from './blog-categories'
 import { dealGlanceForTitle, dealGlanceTitles } from './deal-glance'
 import { GLOSSARY, linkGlossaryTerms } from './glossary'
 import { interviewNoteForTitle, interviewNoteTitles } from './interview-notes'
@@ -34,6 +35,16 @@ describe('post sources', () => {
         assert.ok(sourceUrlForTitle('High Court Backs UK Watchdog in £200m Visa and Mastercard Fee Battle'))
         assert.ok(sourceUrlForTitle('Nintendo Company Ltd & Anor v Playables Ltd & Anor [2010] EWHC 1932 (Ch)'))
         assert.equal(sourceUrlForTitle('High Court confirms PSR power to cap card fees'), null)
+        assert.ok(sourceUrlForTitle('Warner Bros shareholders back $110bn merger with Paramount Skydance'))
+    })
+
+    it('drops an access date and keeps the publication date', () => {
+        const split = splitPostContent(
+            "Publisher, 'Some article' (October 2025) (accessed 4 October 2026)\n\nPublisher, 'Another article' (May 2024, accessed 1 June 2024)"
+        )
+        assert.equal(split.sources[0].date, 'October 2025')
+        assert.equal(split.sources[1].date, 'May 2024')
+        assert.equal(split.sources[0].raw.includes('accessed'), true)
     })
 })
 
@@ -83,6 +94,14 @@ describe('glossary links', () => {
         assert.match(linked, /\/glossary#owners-and-directors-test/)
     })
 
+    it('links a term once across the summary and the body', () => {
+        const linked = new Set<string>()
+        const summary = linkGlossaryTerms('The deal uses a scheme of arrangement.', linked)
+        const body = linkGlossaryTerms('A later scheme of arrangement stays plain.', linked)
+        assert.match(summary, /\/glossary#scheme-of-arrangement/)
+        assert.equal(body.includes('/glossary'), false)
+    })
+
     it('starts with the ten planned terms', () => {
         assert.deepEqual(
             GLOSSARY.map((entry) => entry.term),
@@ -99,6 +118,16 @@ describe('glossary links', () => {
                 'owners and directors test',
             ]
         )
+    })
+})
+
+describe('section labels', () => {
+    it('uses Sport and never Sports', () => {
+        assert.equal(BLOG_CATEGORY_PRESENTATION['sports-deals-and-regulation'].label, 'Sport')
+        assert.equal(BLOG_CATEGORY_PRESENTATION['sports-deals-and-regulation'].fullName, 'Sport Deals and Regulation')
+        assert.equal(sectionSlugForTitle('Vodafone and Three Merger'), 'competition-and-regulation')
+        assert.equal(sectionSlugForTitle('AI in Law Firms'), 'competition-and-regulation')
+        assert.equal(sectionSlugForTitle("Apollo's Takeover of easyJet"), null)
     })
 })
 

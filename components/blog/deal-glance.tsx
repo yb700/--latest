@@ -1,3 +1,4 @@
+import { GlossaryText } from '@/components/blog/glossary-text'
 import type { DealGlance } from '@/lib/deal-glance'
 
 const FIELDS: { key: keyof DealGlance; label: string }[] = [
@@ -20,7 +21,9 @@ export function DealGlanceBox({ deal }: { deal: DealGlance }) {
                 {rows.map((field) => (
                     <div key={field.key}>
                         <dt className="text-xs font-medium uppercase tracking-wide text-[#8A8780]">{field.label}</dt>
-                        <dd className="mt-1 text-[#151515]">{deal[field.key]}</dd>
+                        <dd className="mt-1 text-[#151515]">
+                            <GlossaryText text={String(deal[field.key])} />
+                        </dd>
                     </div>
                 ))}
             </dl>

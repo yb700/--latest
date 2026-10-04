@@ -112,6 +112,8 @@ const SOURCE_URLS: Record<string, string> = {
         'https://8newsquare.co.uk/case/nintendo-v-playables-2010-ewhc-1932-ch/',
     'proposed acquisition of warner bros. discovery by paramount skydance':
         'https://en.wikipedia.org/wiki/Proposed_acquisition_of_Warner_Bros._Discovery_by_Paramount_Skydance',
+    'warner bros shareholders back $110bn merger with paramount skydance':
+        'https://www.reuters.com/legal/transactional/warner-bros-shareholders-back-110-billion-merger-with-paramount-skydance-2026-04-23/',
     "natwest acquires uk's evelyn partners in £2.7 billion deal":
         'https://www.wealthbriefing.com/html/article.php/natwest-acquires-uk%27s-evelyn-partners-in-2.7-billion-deal',
     "trio of city firms guide natwest's £2.7bn evelyn partners acquisition":

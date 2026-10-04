@@ -3,12 +3,13 @@ import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { MarkdownRenderer } from '@/components/markdown-renderer'
 import { DealGlanceBox } from '@/components/blog/deal-glance'
+import { GlossaryText } from '@/components/blog/glossary-text'
 import { InterviewNoteBox } from '@/components/blog/interview-note'
 import { RelatedPosts, type RelatedPost } from '@/components/blog/related-posts'
 import { SourceList } from '@/components/blog/source-list'
-import { BLOG_CATEGORY_PRESENTATION } from '@/lib/blog-categories'
+import { BLOG_CATEGORY_PRESENTATION, sectionSlugForTitle } from '@/lib/blog-categories'
 import { blogCardDateIso, categorySlugFromEmbed, comparePostsNewestFirst, formatBlogCardDate } from '@/lib/blog-listing'
-import { dealGlanceForTitle } from '@/lib/deal-glance'
+import { dealGlanceForTitle, type DealGlance } from '@/lib/deal-glance'
 import { linkGlossaryTerms } from '@/lib/glossary'
 import { interviewNoteForTitle } from '@/lib/interview-notes'
 import { splitPostContent } from '@/lib/post-content'
@@ -44,11 +45,23 @@ async function getPost(slug: string) {
     return post
 }
 
+function linkDeal(deal: DealGlance, linked: Set<string>): DealGlance {
+    const link = (value?: string) => (value ? linkGlossaryTerms(value, linked) : value)
+    return {
+        ...deal,
+        parties: link(deal.parties),
+        value: link(deal.value),
+        advisers: link(deal.advisers),
+        keyLaw: link(deal.keyLaw),
+    }
+}
+
 async function getRelatedPosts(post: {
     id: string
+    title: string
     post_categories?: unknown
 }): Promise<RelatedPost[]> {
-    const categorySlug = categorySlugFromEmbed(post.post_categories)
+    const categorySlug = categorySlugFromEmbed(post.post_categories) ?? sectionSlugForTitle(post.title)
     if (!categorySlug) return []
 
     const supabase = createClient()
@@ -123,10 +136,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
     const relatedPosts = await getRelatedPosts(post)
     const split = splitPostContent(post.content_md ?? post.content ?? '')
-    const body = linkGlossaryTerms(split.body)
-    const deal = dealGlanceForTitle(post.title)
+    const linkedTerms = new Set<string>()
+    const excerpt = post.excerpt ? linkGlossaryTerms(post.excerpt, linkedTerms) : null
+    const rawDeal = dealGlanceForTitle(post.title)
+    const deal = rawDeal ? linkDeal(rawDeal, linkedTerms) : null
+    const body = linkGlossaryTerms(split.body, linkedTerms)
     const interview = interviewNoteForTitle(post.title)
-    const categorySlug = categorySlugFromEmbed(post.post_categories)
+    const categorySlug = categorySlugFromEmbed(post.post_categories) ?? sectionSlugForTitle(post.title)
     const sectionLabel = categorySlug ? BLOG_CATEGORY_PRESENTATION[categorySlug].label : null
     const publishedIso = blogCardDateIso({
         publishedAt: post.published_at,
@@ -154,9 +170,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
                 <h1 className="text-4xl font-semibold text-brand mb-4">{post.title}</h1>
 
-                {post.excerpt && (
+                {excerpt && (
                     <p className="text-xl text-gray-600 mb-6 leading-relaxed">
-                        {post.excerpt}
+                        <GlossaryText text={excerpt} />
                     </p>
                 )}
 

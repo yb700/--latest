@@ -12,7 +12,14 @@ export type SplitPost = {
 }
 
 const CITATION =
-    /^([^,\n]+),\s+['\u2018"](.+)['\u2019"](?:\s+\(([^)]+)\))?$/
+    /^([^,\n]+),\s+['\u2018"](.+)['\u2019"](?:\s+\(([^)]+)\))?(?:\s+\((?:accessed[^)]*)\))?$/i
+
+/** Publication date only. An access date is not part of the citation line. */
+function publicationDate(value: string | undefined): string | null {
+    if (!value) return null
+    const cleaned = value.replace(/,?\s*accessed\b.*$/i, '').replace(/[.,]\s*$/, '').trim()
+    return cleaned.length > 0 ? cleaned : null
+}
 
 const DISCLAIMER_PREFIX = 'this post is general information only'
 
@@ -34,11 +41,10 @@ export function parseCitation(block: string): SourceCitation | null {
     const match = CITATION.exec(text)
     if (!match) return null
 
-    const date = match[3]?.trim()
     return {
         publisher: match[1].trim(),
         title: match[2].trim(),
-        date: date ? date : null,
+        date: publicationDate(match[3]),
         raw: text,
     }
 }
