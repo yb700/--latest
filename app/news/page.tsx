@@ -49,6 +49,7 @@ export default async function NewsPage({
 
             {items.length === 0 ? (
                 <EmptyState
+                    className="mx-auto max-w-[760px]"
                     title={search.trim() ? 'No items found' : category ? 'No items in this category' : 'No Legal News yet'}
                     description={
                         search.trim()

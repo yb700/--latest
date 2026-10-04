@@ -6,11 +6,12 @@ interface SearchFieldProps {
     id: string
     defaultValue: string
     hidden?: Record<string, string>
+    className?: string
 }
 
-export function SearchField({ action, id, defaultValue, hidden }: SearchFieldProps) {
+export function SearchField({ action, id, defaultValue, hidden, className }: SearchFieldProps) {
     return (
-        <form action={action} method="get" role="search">
+        <form action={action} method="get" role="search" className={className}>
             {hidden
                 ? Object.entries(hidden).map(([name, value]) =>
                       value ? <input key={name} type="hidden" name={name} value={value} /> : null

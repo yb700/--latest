@@ -30,7 +30,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
 
     return (
         <header className="sticky top-0 z-50 w-full border-b border-[#E7E4DF] bg-[#FAF9F7]">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto w-full max-w-[1100px] px-4 sm:px-6 lg:px-8">
                 <div className="flex h-16 items-center justify-between gap-3">
                     {/* Logo. Footer keeps the smaller default size. */}
                     <div className="flex min-w-0 items-center">

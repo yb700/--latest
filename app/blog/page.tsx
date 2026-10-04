@@ -2,10 +2,10 @@ import { Suspense } from 'react'
 import { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
 import { PostList } from '@/components/blog/post-list'
-import { CategorySelect } from '@/components/listing/category-select'
+import { CategoryOptions } from '@/components/listing/category-options'
 import { SearchField } from '@/components/listing/search-field'
 import { EmptyState } from '@/components/empty-state'
-import { BLOG_CATEGORY_PRESENTATION, BLOG_CATEGORY_SLUGS, isBlogCategorySlug, titlesForSection, type BlogCategorySlug } from '@/lib/blog-categories'
+import { BLOG_CATEGORY_PRESENTATION, isBlogCategorySlug, titlesForSection, type BlogCategorySlug } from '@/lib/blog-categories'
 import {
     toBlogListPost,
     type BlogListPost,
@@ -103,8 +103,8 @@ export default async function BlogPage({
 
     return (
         <div className="bg-[#FAF9F7]">
-            <div className="container mx-auto px-4 py-6 sm:py-8">
-                <div className="mb-6 max-w-[720px]">
+            <div className="mx-auto w-full max-w-[760px] px-4 py-6 sm:py-8">
+                <div className="mb-6">
                     <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">The blog</p>
                     <h1 className="mb-2 text-4xl font-semibold tracking-[-0.5px] text-[#151515]">
                         {category ? BLOG_CATEGORY_PRESENTATION[category].fullName : 'Latest blog posts'}
@@ -114,19 +114,27 @@ export default async function BlogPage({
                     </p>
                 </div>
 
-                <div className="mb-6 max-w-[720px] space-y-3">
+                <div className="mb-6 flex flex-col gap-3 lg:flex-row lg:items-center">
                     <SearchField
                         action="/blog"
                         id="blog-search"
                         defaultValue={search}
                         hidden={category ? { category } : undefined}
+                        className="min-w-0 lg:flex-1"
                     />
-                    <CategorySelect
-                        id="blog-category"
+                    <CategoryOptions
                         basePath="/blog"
                         selected={category}
                         search={search}
-                        options={BLOG_CATEGORY_SLUGS.map((slug) => ({
+                        className="lg:shrink-0 lg:flex-nowrap"
+                        options={(
+                            [
+                                'mergers-and-acquisitions',
+                                'banking-and-finance',
+                                'competition-and-regulation',
+                                'sports-deals-and-regulation',
+                            ] as const
+                        ).map((slug) => ({
                             value: slug,
                             label: BLOG_CATEGORY_PRESENTATION[slug].label,
                         }))}
@@ -147,9 +155,7 @@ export default async function BlogPage({
                 ) : (
                     <>
                         <Suspense fallback={<div>Loading posts...</div>}>
-                            <div className="max-w-[720px]">
-                                <PostList posts={posts} />
-                            </div>
+                            <PostList posts={posts} />
                         </Suspense>
 
                         {totalPages > 1 && (

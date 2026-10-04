@@ -184,6 +184,22 @@ export function cardPreview(post: {
     return null
 }
 
+/** First sentence of existing card copy. Does not rewrite the post. */
+export function oneSentenceSummary(text: string | null | undefined): string | null {
+    if (!text) return null
+    const trimmed = text.trim().replace(/\s+/g, ' ')
+    if (!trimmed) return null
+    const match = trimmed.match(/^.+?[.!?](?=\s|$)/)
+    return match ? match[0] : trimmed
+}
+
+export function blogCardSummary(post: {
+    shortPreview: string | null
+    excerpt: string | null
+}): string | null {
+    return oneSentenceSummary(post.shortPreview) ?? oneSentenceSummary(post.excerpt)
+}
+
 export function usablePostImage(url: string | null | undefined): string | null {
     if (!url) return null
     const trimmed = url.trim()
