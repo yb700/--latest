@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Handshake, Landmark, Goal, Scale } from "lucide-react"
+import { ArrowRight, Handshake, Landmark, Goal, Scale } from "lucide-react"
 import { blogCategoryPath, type BlogCategorySlug } from "@/lib/blog-categories"
 
 const areas: {
@@ -37,11 +37,16 @@ const areas: {
 
 export function AreasOfInterest() {
     return (
-        <section className="bg-[#FAF9F7] py-16" aria-label="Areas">
+        <section className="bg-[#FAF9F7] py-16" aria-labelledby="topics-heading">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <p className="mb-6 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">
-                    What I cover
-                </p>
+                <div className="mb-8 max-w-[720px]">
+                    <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">
+                        Topics
+                    </p>
+                    <h2 id="topics-heading" className="text-3xl font-semibold tracking-[-0.5px] text-[#151515] sm:text-4xl">
+                        Four areas of commercial law
+                    </h2>
+                </div>
                 <div className="grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-4">
                     {areas.map((area) => {
                         const Icon = area.icon
@@ -60,10 +65,11 @@ export function AreasOfInterest() {
                                     <div className="mt-auto">
                                         <Link
                                             href={blogCategoryPath(area.blogSlug)}
-                                            className="text-sm font-semibold text-[#151515] hover:underline"
+                                            className="inline-flex items-center text-sm font-semibold text-[#151515] hover:underline"
                                             aria-label={`Explore ${area.title}`}
                                         >
                                             Explore
+                                            <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
                                         </Link>
                                     </div>
                                 </CardContent>

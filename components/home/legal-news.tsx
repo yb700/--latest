@@ -30,7 +30,7 @@ export async function LegalNews({ preview = false }: LegalNewsProps) {
     }
 
     return (
-        <section className="bg-[#FAF9F7] py-16" aria-labelledby="legal-news-heading">
+        <section className="bg-[#FAF9F7] pt-16" aria-labelledby="legal-news-heading">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="mb-8 max-w-[720px]">
                     <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#8A8780]">
