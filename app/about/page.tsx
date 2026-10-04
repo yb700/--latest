@@ -3,8 +3,9 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, BookOpen, Newspaper, Scale } from "lucide-react"
+import { ArrowRight, BookOpen, FileText, Newspaper, Scale } from "lucide-react"
 import { blogCategoryPath, type BlogCategorySlug } from "@/lib/blog-categories"
+import { createClient } from "@/lib/supabase/server"
 
 export const metadata: Metadata = {
     title: 'About | ClearCut Law',
@@ -50,7 +51,28 @@ const startHerePosts: {
     },
 ]
 
-export default function AboutPage() {
+async function latestAnalysisHref(): Promise<string> {
+    try {
+        const supabase = createClient()
+        const { data } = await supabase
+            .from('posts')
+            .select('slug')
+            .eq('status', 'published')
+            .order('published_at', { ascending: false, nullsFirst: false })
+            .limit(1)
+
+        const slug = data?.[0]?.slug
+        if (slug) return `/blog/${slug}`
+    } catch (error) {
+        console.error('Error fetching the latest post:', error)
+    }
+
+    return '/blog'
+}
+
+export default async function AboutPage() {
+    const latestAnalysisHrefValue = await latestAnalysisHref()
+
     return (
         <div className="min-h-screen bg-[#FAF9F7]">
             <section className="bg-[#F3F1ED] py-20">
@@ -232,9 +254,9 @@ export default function AboutPage() {
                             Start with the blog, or catch up with Legal News.
                         </p>
                         <div className="flex flex-col justify-center gap-4 sm:flex-row sm:flex-wrap">
-                            <Link href="/blog" className="w-full sm:w-auto">
+                            <Link href={latestAnalysisHrefValue} className="w-full sm:w-auto">
                                 <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                                    <BookOpen className="mr-2 h-5 w-5" />
+                                    <FileText className="mr-2 h-5 w-5" />
                                     Read my latest analysis
                                     <ArrowRight className="ml-2 h-5 w-5" />
                                 </Button>
@@ -242,7 +264,7 @@ export default function AboutPage() {
                             <Link href="/blog" className="w-full sm:w-auto">
                                 <Button variant="outline" size="lg" className="w-full sm:w-auto">
                                     <BookOpen className="mr-2 h-5 w-5" />
-                                    Read the Blog
+                                    Read the blog
                                     <ArrowRight className="ml-2 h-5 w-5" />
                                 </Button>
                             </Link>
@@ -250,6 +272,7 @@ export default function AboutPage() {
                                 <Button variant="outline" size="lg" className="w-full sm:w-auto">
                                     <Newspaper className="mr-2 h-5 w-5" />
                                     Legal News
+                                    <ArrowRight className="ml-2 h-5 w-5" />
                                 </Button>
                             </Link>
                         </div>

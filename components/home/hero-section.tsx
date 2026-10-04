@@ -2,6 +2,7 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DealOfTheWeekCard, loadDealOfTheWeek } from "@/components/home/deal-of-the-week"
+import { YounasIntro } from "@/components/home/younas-intro"
 import { cn } from "@/lib/utils"
 
 export async function HeroSection({ preview = false }: { preview?: boolean }) {
@@ -37,12 +38,7 @@ export async function HeroSection({ preview = false }: { preview?: boolean }) {
                             </Button>
                         </Link>
                     </div>
-                    <Link
-                        href="/about"
-                        className="mt-8 block rounded-2xl border border-[#E7E4DF] bg-white p-6 text-base leading-relaxed text-[#5E5E5E] shadow-[0_2px_8px_rgba(0,0,0,0.05)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#151515] focus-visible:ring-offset-2"
-                    >
-                        I&apos;m Younas, a law graduate writing about the deals and decisions shaping commercial law.
-                    </Link>
+                    <YounasIntro />
                     </div>
                     {deal ? <DealOfTheWeekCard deal={deal} /> : null}
                 </div>
