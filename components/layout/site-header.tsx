@@ -31,11 +31,11 @@ export function SiteHeader({ user }: SiteHeaderProps) {
     return (
         <header className="sticky top-0 z-50 w-full border-b border-[#E7E4DF] bg-[#FAF9F7]">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="flex h-16 items-center justify-between">
-                    {/* Logo */}
-                    <div className="flex items-center">
-                        <Link href="/" className="flex items-center">
-                            <BrandWordmark />
+                <div className="flex h-16 items-center justify-between gap-3">
+                    {/* Logo. Footer keeps the smaller default size. */}
+                    <div className="flex min-w-0 items-center">
+                        <Link href="/" className="flex min-w-0 items-center">
+                            <BrandWordmark className="h-[44px] w-auto max-w-full md:h-[52px]" />
                         </Link>
                     </div>
 
@@ -84,7 +84,7 @@ export function SiteHeader({ user }: SiteHeaderProps) {
                         ) : null}
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex shrink-0 items-center gap-3">
                         <Link
                             href="/search"
                             aria-label="Search"

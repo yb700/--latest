@@ -1,6 +1,8 @@
+'use client'
+
+import { useState } from 'react'
 import { newsCategoryLabel, newsCategoryShortLabel } from '@/lib/news-categories'
 import { formatNewsCardDate, safeHttpUrl, type NewsListItem } from '@/lib/news'
-import { ArrowRight } from 'lucide-react'
 import { BrandMark } from '@/components/layout/brand-logo'
 import { cn } from '@/lib/utils'
 
@@ -33,14 +35,27 @@ function cardImageSrc(item: NewsListItem): string | null {
 
 export function NewsCard({ item, headingLevel = 'h2' }: NewsCardProps) {
     const Heading = headingLevel
+    const [expanded, setExpanded] = useState(false)
     const published = formatNewsCardDate(item.published_at)
     const imageSrc = cardImageSrc(item)
     const areaLabel = newsCategoryLabel(item.category)
     const isBtTower = imageSrc === BT_TOWER_SRC
-    const sourceUrl = safeHttpUrl(item.source_url)
+    const summaryId = `news-story-${item.id}`
 
     return (
-        <article className="overflow-hidden rounded-2xl border border-[#E7E4DF] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+        <article className="relative overflow-hidden rounded-2xl border border-[#E7E4DF] bg-white shadow-[0_2px_8px_rgba(0,0,0,0.05)]">
+            <button
+                type="button"
+                aria-expanded={expanded}
+                aria-controls={item.summary ? summaryId : undefined}
+                onClick={() => setExpanded((open) => !open)}
+                className="absolute inset-0 z-10 cursor-pointer bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#151515]"
+            >
+                <span className="sr-only">
+                    {expanded ? 'Show less' : 'Show more'}: {item.headline}
+                </span>
+            </button>
+
             <div className="relative aspect-video w-full overflow-hidden bg-[#E7E4DF]">
                 {imageSrc ? (
                     // The Man City file is a local public asset. Other photos may be publisher URLs.
@@ -77,29 +92,26 @@ export function NewsCard({ item, headingLevel = 'h2' }: NewsCardProps) {
                     ) : null}
                 </div>
 
-                <Heading className="text-lg font-medium leading-snug tracking-[-0.5px] text-[#151515]">
+                <Heading
+                    className={cn(
+                        'text-lg font-medium leading-snug tracking-[-0.5px] text-[#151515]',
+                        !expanded && 'line-clamp-2'
+                    )}
+                >
                     {item.headline}
                 </Heading>
 
                 {item.summary ? (
-                    <p className="line-clamp-3 text-sm leading-5 text-[#5E5E5E]">{item.summary}</p>
-                ) : null}
-
-                {sourceUrl ? (
-                    <a
-                        href={sourceUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="mt-2 flex w-full items-center justify-between text-sm font-semibold text-[#151515]"
+                    <p
+                        id={summaryId}
+                        className={cn(
+                            'text-sm leading-5 text-[#5E5E5E]',
+                            !expanded && 'line-clamp-3'
+                        )}
                     >
-                        Read on {item.source_name}
-                        <ArrowRight className="h-4 w-4" aria-hidden="true" />
-                    </a>
-                ) : (
-                    <p className="mt-2 text-sm font-semibold text-[#151515]">
-                        {item.source_name}
+                        {item.summary}
                     </p>
-                )}
+                ) : null}
             </div>
         </article>
     )
