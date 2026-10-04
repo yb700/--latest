@@ -19,6 +19,8 @@ const topicOrder: BlogCategorySlug[] = [
 const about = [
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },
+    { name: "Privacy", href: "/privacy" },
+    { name: "Terms", href: "/terms" },
 ]
 
 function FooterColumn({ title, links }: { title: string; links: { name: string; href: string }[] }) {

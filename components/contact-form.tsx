@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -148,6 +149,14 @@ export function ContactForm() {
                         <Send className="h-4 w-4 mr-2" />
                         Send Message
                     </Button>
+
+                    <p className="text-sm text-[#5E5E5E]">
+                        Your details are only used to reply to you. See the{' '}
+                        <Link href="/privacy" className="text-[#151515] underline underline-offset-4">
+                            Privacy notice
+                        </Link>
+                        .
+                    </p>
 
                     {statusMessage ? (
                         <p
