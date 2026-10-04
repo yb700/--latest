@@ -7,7 +7,11 @@ export type RelatedPost = {
     categorySlug: BlogCategorySlug | null
 }
 
+/** The list stays in the repo. It is not shown on post pages. */
+export const SHOW_RELATED_POSTS = false
+
 export function RelatedPosts({ posts }: { posts: RelatedPost[] }) {
+    if (!SHOW_RELATED_POSTS) return null
     if (posts.length === 0) return null
 
     return (

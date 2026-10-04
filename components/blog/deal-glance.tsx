@@ -9,7 +9,12 @@ const FIELDS: { key: keyof DealGlance; label: string }[] = [
     { key: 'keyLaw', label: 'Key law' },
 ]
 
+/** The box stays in the repo. It is not shown on post pages. */
+export const SHOW_DEAL_AT_A_GLANCE = false
+
 export function DealGlanceBox({ deal }: { deal: DealGlance }) {
+    if (!SHOW_DEAL_AT_A_GLANCE) return null
+
     const rows = FIELDS.filter((field) => deal[field.key])
 
     if (rows.length === 0) return null
