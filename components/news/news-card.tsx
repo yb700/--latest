@@ -17,12 +17,14 @@ const STORY_IMAGES: Record<string, string> = {
 const BT_TOWER_SRC = '/news/bt-tower-dusk.jpg'
 
 /**
- * The BT crop is 1200×1200. Homepage and /news share this card, and the
- * frame stays 16:9 with the other photos. Cover fills that frame edge to
- * edge. The square is pinned to the top so the mast and the BT sign stay
- * in the frame; the extra height is the only part left outside it.
+ * The BT file is 1200×1200. Homepage and /news share this card, and the
+ * frame stays 16:9. Cover fills that frame. The square used to be pinned
+ * to the top, which kept the mast and cut off the lit floors. The frame
+ * now starts one fifth of the way down the square, so the mast tip and the
+ * BT sign stay in view and the windows under the sign come into the card.
+ * For a 16:9 cover of a square, that fifth is object-position 45.714%.
  */
-const BT_TOWER_FIT = 'object-cover object-top'
+const BT_TOWER_FIT = 'object-cover object-[center_45.714%]'
 
 interface NewsCardProps {
     item: NewsListItem
