@@ -106,7 +106,7 @@ export function NewsCard({ item, headingLevel = 'h2' }: NewsCardProps) {
                         id={summaryId}
                         className={cn(
                             'text-sm leading-5 text-[#5E5E5E]',
-                            !expanded && 'line-clamp-3'
+                            !expanded && 'line-clamp-2'
                         )}
                     >
                         {item.summary}
