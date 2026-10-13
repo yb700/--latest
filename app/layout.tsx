@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import './globals.css'
+import { GoatCounter } from '@/components/analytics/goat-counter'
 import { SiteHeader } from '@/components/layout/site-header'
 import { SiteFooter } from '@/components/layout/site-footer'
 import { Toaster } from '@/components/ui/toaster'
@@ -65,6 +66,7 @@ export default async function RootLayout({
           <SiteFooter />
         </div>
         <Toaster />
+        <GoatCounter />
       </body>
     </html>
   )
