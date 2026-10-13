@@ -1,11 +1,7 @@
 'use client'
 
-import Script from 'next/script'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef } from 'react'
-
-const GOATCOUNTER_SRC = 'https://gc.zgo.at/count.js'
-const GOATCOUNTER_ENDPOINT = 'https://clearcutlaw.goatcounter.com/count'
 
 type GoatCounterApi = {
     count: (vars?: { path?: string }) => void
@@ -37,12 +33,5 @@ export function GoatCounter() {
         return () => window.clearInterval(timer)
     }, [pathname])
 
-    return (
-        <Script
-            src={GOATCOUNTER_SRC}
-            strategy="afterInteractive"
-            data-goatcounter={GOATCOUNTER_ENDPOINT}
-            data-goatcounter-settings='{"no_onload":true}'
-        />
-    )
+    return null
 }
