@@ -11,7 +11,7 @@ export default function PrivacyPage() {
         <div className="bg-[#FAF9F7]">
             <article className="mx-auto w-full max-w-[760px] px-4 py-12">
                 <h1 className="text-4xl font-semibold tracking-[-0.5px] text-[#151515]">Privacy Notice</h1>
-                <p className="mt-3 text-sm text-[#8A8780]">Last updated: 4 October 2026.</p>
+                <p className="mt-3 text-sm text-[#8A8780]">Last updated: 13 October 2026.</p>
 
                 <div className="mt-10 space-y-8 text-base leading-relaxed text-[#5E5E5E]">
                     <section>
@@ -41,6 +41,9 @@ export default function PrivacyPage() {
                         <h2 className="text-xl font-semibold text-[#151515]">Cookies</h2>
                         <p className="mt-3">
                             The site does not use advertising or tracking cookies. It only uses cookies that are strictly necessary for the site to work, so there is no cookie banner.
+                        </p>
+                        <p className="mt-3">
+                            Visits are counted with GoatCounter, which uses no cookies and does not collect personal information, to show how many people visit and which pages they read.
                         </p>
                     </section>
 
