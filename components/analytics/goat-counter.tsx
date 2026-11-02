@@ -13,24 +13,43 @@ declare global {
     }
 }
 
-/** Count the first view and later client-side navigations. The script does not count on load. */
+function currentPath() {
+    return `${window.location.pathname}${window.location.search}`
+}
+
+/**
+ * count.js records the first page view on its own.
+ * This only sends later views, after a client-side navigation.
+ */
 export function GoatCounter() {
     const pathname = usePathname()
-    const countedPath = useRef<string | null>(null)
+    const skipFirst = useRef(true)
 
     useEffect(() => {
-        const path = `${window.location.pathname}${window.location.search}`
-        if (countedPath.current === path) return
+        if (skipFirst.current) {
+            skipFirst.current = false
+            return
+        }
+
+        const path = currentPath()
+        let stopped = false
+
+        const send = () => {
+            if (stopped || typeof window.goatcounter?.count !== 'function') return false
+            window.goatcounter.count({ path })
+            return true
+        }
+
+        if (send()) return
 
         const timer = window.setInterval(() => {
-            if (typeof window.goatcounter?.count !== 'function') return
-            window.clearInterval(timer)
-            if (countedPath.current === path) return
-            countedPath.current = path
-            window.goatcounter.count({ path })
-        }, 100)
+            if (send()) window.clearInterval(timer)
+        }, 200)
 
-        return () => window.clearInterval(timer)
+        return () => {
+            stopped = true
+            window.clearInterval(timer)
+        }
     }, [pathname])
 
     return null
