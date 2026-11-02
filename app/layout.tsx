@@ -68,7 +68,6 @@ export default async function RootLayout({
         <Toaster />
         <script
           data-goatcounter="https://clearcutlaw.goatcounter.com/count"
-          data-goatcounter-settings='{"no_onload":true}'
           async
           src="https://gc.zgo.at/count.js"
         />
